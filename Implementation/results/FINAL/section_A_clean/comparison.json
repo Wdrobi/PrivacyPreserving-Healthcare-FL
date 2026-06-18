@@ -1,0 +1,350 @@
+[
+  {
+    "name": "Only Blockchain",
+    "accuracy": 0.8333333333333334,
+    "precision": 0.8461538461538461,
+    "recall": 0.7857142857142857,
+    "f1": 0.8148148148148148,
+    "auc": 0.9508928571428572,
+    "train_time_s": 0.01235869999800343,
+    "comm_kib": 25.921875,
+    "data_in_clear": true,
+    "updates_in_clear": true,
+    "tamper_evident": true,
+    "poisoning_defense": true,
+    "notes": "chain_blocks=3, accepted=4",
+    "history": []
+  },
+  {
+    "name": "Only FL",
+    "accuracy": 0.85,
+    "precision": 0.88,
+    "recall": 0.7857142857142857,
+    "f1": 0.8301886792452831,
+    "auc": 0.9497767857142857,
+    "train_time_s": 0.060571499998332,
+    "comm_kib": 26.25,
+    "data_in_clear": false,
+    "updates_in_clear": true,
+    "tamper_evident": false,
+    "poisoning_defense": false,
+    "notes": "rounds=30, local_epochs=5",
+    "history": [
+      {
+        "round": 1,
+        "accuracy": 0.9,
+        "precision": 0.9230769230769231,
+        "recall": 0.8571428571428571,
+        "f1": 0.8888888888888888,
+        "auc": 0.9553571428571428
+      },
+      {
+        "round": 5,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8846153846153846,
+        "recall": 0.8214285714285714,
+        "f1": 0.8518518518518519,
+        "auc": 0.9508928571428572
+      },
+      {
+        "round": 10,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8846153846153846,
+        "recall": 0.8214285714285714,
+        "f1": 0.8518518518518519,
+        "auc": 0.953125
+      },
+      {
+        "round": 15,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8846153846153846,
+        "recall": 0.8214285714285714,
+        "f1": 0.8518518518518519,
+        "auc": 0.9486607142857143
+      },
+      {
+        "round": 20,
+        "accuracy": 0.85,
+        "precision": 0.88,
+        "recall": 0.7857142857142857,
+        "f1": 0.8301886792452831,
+        "auc": 0.9475446428571428
+      },
+      {
+        "round": 25,
+        "accuracy": 0.85,
+        "precision": 0.88,
+        "recall": 0.7857142857142857,
+        "f1": 0.8301886792452831,
+        "auc": 0.9497767857142857
+      },
+      {
+        "round": 30,
+        "accuracy": 0.85,
+        "precision": 0.88,
+        "recall": 0.7857142857142857,
+        "f1": 0.8301886792452831,
+        "auc": 0.9497767857142857
+      }
+    ]
+  },
+  {
+    "name": "Only HE",
+    "accuracy": 0.8333333333333334,
+    "precision": 0.8461538461538461,
+    "recall": 0.7857142857142857,
+    "f1": 0.8148148148148148,
+    "auc": 0.9508928571428572,
+    "train_time_s": 1.0085973000022932,
+    "comm_kib": 39181.875,
+    "data_in_clear": true,
+    "updates_in_clear": true,
+    "tamper_evident": false,
+    "poisoning_defense": false,
+    "notes": "train=0.01s, enc_infer=1.00s, ct_size=326.5 KiB",
+    "history": []
+  },
+  {
+    "name": "Naresh HELR (Review)",
+    "accuracy": 0.8666666666666667,
+    "precision": 0.8846153846153846,
+    "recall": 0.8214285714285714,
+    "f1": 0.8518518518518519,
+    "auc": 0.9508928571428572,
+    "train_time_s": 278.93500199999835,
+    "comm_kib": 2694199.046875,
+    "data_in_clear": false,
+    "updates_in_clear": false,
+    "tamper_evident": false,
+    "poisoning_defense": false,
+    "notes": "epochs=8, train=271.5s, enc_infer=7.42s, forward=194.8s, poly_sig=71.1s, decrypt=5.5s",
+    "history": []
+  },
+  {
+    "name": "Firdaus BC-FL-HE (Review)",
+    "accuracy": 0.8666666666666667,
+    "precision": 0.9166666666666666,
+    "recall": 0.7857142857142857,
+    "f1": 0.8461538461538461,
+    "auc": 0.9475446428571429,
+    "train_time_s": 1.8231568999981391,
+    "comm_kib": 39177.32421875,
+    "data_in_clear": false,
+    "updates_in_clear": false,
+    "tamper_evident": true,
+    "poisoning_defense": false,
+    "notes": "clusters=2, blocks=62, accepted=120, rejected=0, top_rewards={'H2': 24.02127659574468, 'H0': 23.787234042553187, 'H3': 18.617021276595743}",
+    "history": [
+      {
+        "round": 1,
+        "accuracy": 0.9,
+        "precision": 0.9230769230769231,
+        "recall": 0.8571428571428571,
+        "f1": 0.8888888888888888,
+        "auc": 0.9553571428571428
+      },
+      {
+        "round": 5,
+        "accuracy": 0.8833333333333333,
+        "precision": 0.92,
+        "recall": 0.8214285714285714,
+        "f1": 0.8679245283018868,
+        "auc": 0.9508928571428572
+      },
+      {
+        "round": 10,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8846153846153846,
+        "recall": 0.8214285714285714,
+        "f1": 0.8518518518518519,
+        "auc": 0.9508928571428572
+      },
+      {
+        "round": 15,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8846153846153846,
+        "recall": 0.8214285714285714,
+        "f1": 0.8518518518518519,
+        "auc": 0.9464285714285714
+      },
+      {
+        "round": 20,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.9166666666666666,
+        "recall": 0.7857142857142857,
+        "f1": 0.8461538461538461,
+        "auc": 0.9475446428571428
+      },
+      {
+        "round": 25,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.9166666666666666,
+        "recall": 0.7857142857142857,
+        "f1": 0.8461538461538461,
+        "auc": 0.9486607142857143
+      },
+      {
+        "round": 30,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.9166666666666666,
+        "recall": 0.7857142857142857,
+        "f1": 0.8461538461538461,
+        "auc": 0.9475446428571429
+      }
+    ]
+  },
+  {
+    "name": "Hybrid (Lite)",
+    "accuracy": 0.8666666666666667,
+    "precision": 0.9166666666666666,
+    "recall": 0.7857142857142857,
+    "f1": 0.8461538461538461,
+    "auc": 0.9475446428571429,
+    "train_time_s": 3.7934399000005214,
+    "comm_kib": 66753.595703125,
+    "data_in_clear": false,
+    "updates_in_clear": false,
+    "tamper_evident": true,
+    "poisoning_defense": true,
+    "notes": "clusters=2, blocks=62, accepted=120, rej_norm=0, rej_acc=0, rej_rep=0, dp_sigma=0.001, norm_bound=10.0, enc_infer=1.97s",
+    "history": [
+      {
+        "round": 1,
+        "accuracy": 0.9,
+        "precision": 0.9230769230769231,
+        "recall": 0.8571428571428571,
+        "f1": 0.8888888888888888,
+        "auc": 0.9553571428571428
+      },
+      {
+        "round": 5,
+        "accuracy": 0.8833333333333333,
+        "precision": 0.92,
+        "recall": 0.8214285714285714,
+        "f1": 0.8679245283018868,
+        "auc": 0.9508928571428572
+      },
+      {
+        "round": 10,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8846153846153846,
+        "recall": 0.8214285714285714,
+        "f1": 0.8518518518518519,
+        "auc": 0.9497767857142858
+      },
+      {
+        "round": 15,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8846153846153846,
+        "recall": 0.8214285714285714,
+        "f1": 0.8518518518518519,
+        "auc": 0.9464285714285714
+      },
+      {
+        "round": 20,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.9166666666666666,
+        "recall": 0.7857142857142857,
+        "f1": 0.8461538461538461,
+        "auc": 0.9475446428571428
+      },
+      {
+        "round": 25,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.9166666666666666,
+        "recall": 0.7857142857142857,
+        "f1": 0.8461538461538461,
+        "auc": 0.9486607142857143
+      },
+      {
+        "round": 30,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.9166666666666666,
+        "recall": 0.7857142857142857,
+        "f1": 0.8461538461538461,
+        "auc": 0.9475446428571429
+      }
+    ]
+  },
+  {
+    "name": "Hybrid (Full Proposal)",
+    "accuracy": 0.85,
+    "precision": 0.8518518518518519,
+    "recall": 0.8214285714285714,
+    "f1": 0.8363636363636363,
+    "auc": 0.9375,
+    "train_time_s": 189.25783880000017,
+    "comm_kib": 84400.0400390625,
+    "data_in_clear": false,
+    "updates_in_clear": false,
+    "tamper_evident": true,
+    "poisoning_defense": true,
+    "notes": "rounds=8, n_clients=4, n_edges=4, f=1, byzantine=None, accepted=32, rej_sig=0, rej_norm=0, rej_acc=0, rej_rep=0, consensus_fail=0, chain_blocks=17, enc_infer=14.74s",
+    "history": [
+      {
+        "round": 1,
+        "accuracy": 0.8833333333333333,
+        "precision": 0.8888888888888888,
+        "recall": 0.8571428571428571,
+        "f1": 0.8727272727272727,
+        "auc": 0.9508928571428572
+      },
+      {
+        "round": 2,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8571428571428571,
+        "recall": 0.8571428571428571,
+        "f1": 0.8571428571428571,
+        "auc": 0.9486607142857143
+      },
+      {
+        "round": 3,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8571428571428571,
+        "recall": 0.8571428571428571,
+        "f1": 0.8571428571428571,
+        "auc": 0.9508928571428572
+      },
+      {
+        "round": 4,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8571428571428571,
+        "recall": 0.8571428571428571,
+        "f1": 0.8571428571428571,
+        "auc": 0.9475446428571429
+      },
+      {
+        "round": 5,
+        "accuracy": 0.85,
+        "precision": 0.8518518518518519,
+        "recall": 0.8214285714285714,
+        "f1": 0.8363636363636363,
+        "auc": 0.9486607142857143
+      },
+      {
+        "round": 6,
+        "accuracy": 0.85,
+        "precision": 0.8518518518518519,
+        "recall": 0.8214285714285714,
+        "f1": 0.8363636363636363,
+        "auc": 0.9453125
+      },
+      {
+        "round": 7,
+        "accuracy": 0.85,
+        "precision": 0.8518518518518519,
+        "recall": 0.8214285714285714,
+        "f1": 0.8363636363636363,
+        "auc": 0.9441964285714286
+      },
+      {
+        "round": 8,
+        "accuracy": 0.85,
+        "precision": 0.8518518518518519,
+        "recall": 0.8214285714285714,
+        "f1": 0.8363636363636363,
+        "auc": 0.9375
+      }
+    ]
+  }
+]

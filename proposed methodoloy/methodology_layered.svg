@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1320" width="1920" height="1320" font-family="Inter, Segoe UI, Arial, sans-serif">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+          markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 Z" fill="#222"/>
+  </marker>
+  <marker id="arrowDashed" viewBox="0 0 10 10" refX="9" refY="5"
+          markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 Z" fill="#666"/>
+  </marker>
+  <marker id="arrowKey" viewBox="0 0 10 10" refX="9" refY="5"
+          markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 Z" fill="#B8860B"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="1920" height="1320" fill="#ffffff"/>
+<text x="960.0" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#111">Hybrid Privacy-Preserving Federated Learning Framework — Layered Architecture</text>
+<rect x="130" y="60" width="1320" height="175" rx="14" ry="14" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.2"/>
+<text x="148" y="84" font-size="15" font-weight="700" fill="#1565C0">L1 — Data &amp; Client Layer</text>
+<text x="148" y="104" font-size="12" font-style="italic" fill="#444">Owns and prepares private patient data</text>
+<rect x="156.0" y="138.5" width="198.0" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="255.0" y="171.5" text-anchor="middle" font-size="12.5" fill="#111">Healthcare Institution</text>
+<rect x="370.0" y="138.5" width="198.0" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="469.0" y="162.5" text-anchor="middle" font-size="12" fill="#111">Private</text>
+<text x="469.0" y="180.5" text-anchor="middle" font-size="12" fill="#111">Patient Dataset</text>
+<rect x="584.0" y="138.5" width="198.0" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="683.0" y="171.5" text-anchor="middle" font-size="12.5" fill="#111">Consent Verification</text>
+<rect x="798.0" y="138.5" width="198.0" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="897.0" y="171.5" text-anchor="middle" font-size="12.5" fill="#111">Preprocessing</text>
+<rect x="1012.0" y="138.5" width="198.0" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="1111.0" y="171.5" text-anchor="middle" font-size="12.5" fill="#111">Feature Normalization</text>
+<rect x="1226.0" y="138.5" width="198.0" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="1325.0" y="171.5" text-anchor="middle" font-size="12.5" fill="#111">Encoding for HE</text>
+<line x1="356.0" y1="166.5" x2="366.0" y2="166.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="570.0" y1="166.5" x2="580.0" y2="166.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="784.0" y1="166.5" x2="794.0" y2="166.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="998.0" y1="166.5" x2="1008.0" y2="166.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="1212.0" y1="166.5" x2="1222.0" y2="166.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="130" y="253" width="1320" height="175" rx="14" ry="14" fill="#F3E5F5" stroke="#6A1B9A" stroke-width="2.2"/>
+<text x="148" y="277" font-size="15" font-weight="700" fill="#6A1B9A">L2 — Privacy &amp; Cryptography Layer</text>
+<text x="148" y="297" font-size="12" font-style="italic" fill="#444">Provides cryptographic guarantees (HE)</text>
+<rect x="359.0" y="331.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#6A1B9A" stroke-width="1.6"/>
+<text x="469.0" y="364.5" text-anchor="middle" font-size="12.5" fill="#111">Homomorphic Encryption</text>
+<rect x="1001.0" y="331.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#6A1B9A" stroke-width="1.6"/>
+<text x="1111.0" y="364.5" text-anchor="middle" font-size="12.5" fill="#111">Ciphertext Packing</text>
+<line x1="581.0" y1="359.5" x2="997.0" y2="359.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="130" y="446" width="1320" height="175" rx="14" ry="14" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.2"/>
+<text x="148" y="470" font-size="15" font-weight="700" fill="#2E7D32">L3 — Federated Local Training Layer</text>
+<text x="148" y="490" font-size="12" font-style="italic" fill="#444">Trains models locally on encrypted data with DP</text>
+<rect x="166.39999999999998" y="524.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#2E7D32" stroke-width="1.6"/>
+<text x="276.4" y="548.5" text-anchor="middle" font-size="12" fill="#111">Encrypted</text>
+<text x="276.4" y="566.5" text-anchor="middle" font-size="12" fill="#111">Model Training</text>
+<rect x="423.20000000000005" y="524.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#2E7D32" stroke-width="1.6"/>
+<text x="533.2" y="548.5" text-anchor="middle" font-size="12" fill="#111">Privacy Engine</text>
+<text x="533.2" y="566.5" text-anchor="middle" font-size="12" fill="#111">(DP / Noise)</text>
+<rect x="680.0" y="524.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#2E7D32" stroke-width="1.6"/>
+<text x="790.0" y="548.5" text-anchor="middle" font-size="12" fill="#111">Model Update</text>
+<text x="790.0" y="566.5" text-anchor="middle" font-size="12" fill="#111">Computation</text>
+<rect x="936.8000000000002" y="524.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#2E7D32" stroke-width="1.6"/>
+<text x="1046.8000000000002" y="557.5" text-anchor="middle" font-size="12.5" fill="#111">Batching Updates</text>
+<rect x="1193.6000000000001" y="524.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#2E7D32" stroke-width="1.6"/>
+<text x="1303.6000000000001" y="548.5" text-anchor="middle" font-size="12" fill="#111">Submit</text>
+<text x="1303.6000000000001" y="566.5" text-anchor="middle" font-size="12" fill="#111">Encrypted Update</text>
+<line x1="388.4" y1="552.5" x2="419.20000000000005" y2="552.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="645.2" y1="552.5" x2="676.0" y2="552.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="902.0" y1="552.5" x2="932.8000000000002" y2="552.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="1158.8000000000002" y1="552.5" x2="1189.6000000000001" y2="552.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="130" y="639" width="1320" height="175" rx="14" ry="14" fill="#FFEBEE" stroke="#C62828" stroke-width="2.2"/>
+<text x="148" y="663" font-size="15" font-weight="700" fill="#C62828">L4 — Blockchain Consensus &amp; Aggregation Layer</text>
+<text x="148" y="683" font-size="12" font-style="italic" fill="#444">Aggregates updates trustlessly via blockchain</text>
+<rect x="166.39999999999998" y="717.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#C62828" stroke-width="1.6"/>
+<text x="276.4" y="750.5" text-anchor="middle" font-size="12.5" fill="#111">Edge Server</text>
+<rect x="423.20000000000005" y="717.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#C62828" stroke-width="1.6"/>
+<text x="533.2" y="741.5" text-anchor="middle" font-size="12" fill="#111">Smart Contract</text>
+<text x="533.2" y="759.5" text-anchor="middle" font-size="12" fill="#111">Verification</text>
+<rect x="680.0" y="717.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#C62828" stroke-width="1.6"/>
+<text x="790.0" y="750.5" text-anchor="middle" font-size="12.5" fill="#111">Reputation Check</text>
+<rect x="936.8000000000002" y="717.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#C62828" stroke-width="1.6"/>
+<text x="1046.8000000000002" y="750.5" text-anchor="middle" font-size="12.5" fill="#111">Consensus Aggregation</text>
+<rect x="1193.6000000000001" y="717.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#C62828" stroke-width="1.6"/>
+<text x="1303.6000000000001" y="741.5" text-anchor="middle" font-size="12" fill="#111">Homomorphic</text>
+<text x="1303.6000000000001" y="759.5" text-anchor="middle" font-size="12" fill="#111">Aggregation</text>
+<line x1="388.4" y1="745.5" x2="419.20000000000005" y2="745.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="645.2" y1="745.5" x2="676.0" y2="745.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="902.0" y1="745.5" x2="932.8000000000002" y2="745.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="1158.8000000000002" y1="745.5" x2="1189.6000000000001" y2="745.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="130" y="832" width="1320" height="175" rx="14" ry="14" fill="#FFF3E0" stroke="#E65100" stroke-width="2.2"/>
+<text x="148" y="856" font-size="15" font-weight="700" fill="#E65100">L5 — Global Model Layer</text>
+<text x="148" y="876" font-size="12" font-style="italic" fill="#444">Distributes the aggregated global model</text>
+<rect x="359.0" y="910.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#E65100" stroke-width="1.6"/>
+<text x="469.0" y="943.5" text-anchor="middle" font-size="12.5" fill="#111">Global Model Update</text>
+<rect x="1001.0" y="910.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#E65100" stroke-width="1.6"/>
+<text x="1111.0" y="943.5" text-anchor="middle" font-size="12.5" fill="#111">Broadcast Global Model</text>
+<line x1="581.0" y1="938.5" x2="997.0" y2="938.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="130" y="1025" width="1320" height="175" rx="14" ry="14" fill="#E0F2F1" stroke="#00695C" stroke-width="2.2"/>
+<text x="148" y="1049" font-size="15" font-weight="700" fill="#00695C">L6 — Application / Inference Layer</text>
+<text x="148" y="1069" font-size="12" font-style="italic" fill="#444">Serves encrypted inference and decrypted predictions</text>
+<rect x="252.0" y="1103.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#00695C" stroke-width="1.6"/>
+<text x="362.0" y="1136.5" text-anchor="middle" font-size="12.5" fill="#111">Encrypted Inference</text>
+<rect x="680.0" y="1103.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#00695C" stroke-width="1.6"/>
+<text x="790.0" y="1136.5" text-anchor="middle" font-size="12.5" fill="#111">Trusted Decryption</text>
+<rect x="1108.0" y="1103.5" width="220" height="56" rx="9" ry="9" fill="#FFFFFF" stroke="#00695C" stroke-width="1.6"/>
+<text x="1218.0" y="1136.5" text-anchor="middle" font-size="12.5" fill="#111">Prediction Output</text>
+<line x1="474.0" y1="1131.5" x2="676.0" y2="1131.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="902.0" y1="1131.5" x2="1104.0" y2="1131.5" stroke="#333" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="790.0" y1="235" x2="790.0" y2="253" stroke="#222" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="790.0" y1="428" x2="790.0" y2="446" stroke="#222" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="790.0" y1="621" x2="790.0" y2="639" stroke="#222" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="790.0" y1="814" x2="790.0" y2="832" stroke="#222" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="790.0" y1="1007" x2="790.0" y2="1025" stroke="#222" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M 130 1112.5 C 50 1112.5, 50 533.5, 130 533.5" fill="none" stroke="#666" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrowDashed)"/>
+<text x="40" y="823.0" text-anchor="end" font-size="12" font-style="italic" fill="#555" transform="rotate(-90 40 823.0)">Next federated round (feedback)</text>
+<rect x="1510" y="253" width="290" height="947" rx="14" ry="14" fill="#FFFDE7" stroke="#F9A825" stroke-width="2.4"/>
+<text x="1655.0" y="281" text-anchor="middle" font-size="15" font-weight="700" fill="#7A5A00">🔑 Key Generation</text>
+<text x="1655.0" y="301" text-anchor="middle" font-size="12" font-style="italic" fill="#7A5A00">Cross-cutting (spans L2–L6)</text>
+<text x="1532" y="331" font-size="12.5" font-weight="700" fill="#7A5A00">L2</text>
+<text x="1560" y="331" font-size="12" fill="#5C4500">HE encryption keys</text>
+<text x="1532" y="353" font-size="12.5" font-weight="700" fill="#7A5A00">L3</text>
+<text x="1560" y="353" font-size="12" fill="#5C4500">Local training under HE</text>
+<text x="1532" y="375" font-size="12.5" font-weight="700" fill="#7A5A00">L4</text>
+<text x="1560" y="375" font-size="12" fill="#5C4500">Aggregation under HE</text>
+<text x="1532" y="397" font-size="12.5" font-weight="700" fill="#7A5A00">L5</text>
+<text x="1560" y="397" font-size="12" fill="#5C4500">Global model encryption</text>
+<text x="1532" y="419" font-size="12.5" font-weight="700" fill="#7A5A00">L6</text>
+<text x="1560" y="419" font-size="12" fill="#5C4500">Trusted decryption keys</text>
+<line x1="1510" y1="340.5" x2="1452" y2="340.5" stroke="#B8860B" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowKey)"/>
+<line x1="1510" y1="533.5" x2="1452" y2="533.5" stroke="#B8860B" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowKey)"/>
+<line x1="1510" y1="726.5" x2="1452" y2="726.5" stroke="#B8860B" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowKey)"/>
+<line x1="1510" y1="919.5" x2="1452" y2="919.5" stroke="#B8860B" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowKey)"/>
+<line x1="1510" y1="1112.5" x2="1452" y2="1112.5" stroke="#B8860B" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowKey)"/>
+<text x="40" y="1292" font-size="11.5" fill="#444">Solid black = inter/intra-layer data flow.  Dashed gold = key material distributed by Key Generation.  Dashed grey = feedback to next federated round.</text>
+</svg>

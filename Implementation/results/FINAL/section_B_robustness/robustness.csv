@@ -1,0 +1,7 @@
+name,accuracy,precision,recall,f1,auc,train_time_s,comm_kib,data_in_clear,updates_in_clear,tamper_evident,poisoning_defense,notes
+Only FL (naive 50x),0.7666666666666667,0.9375,0.5357142857142857,0.6818181818181818,0.9140625,0.0556311000000278,0.0,False,True,False,False,"attacker=H0, scale=50.0x"
+Firdaus BC-FL-HE (naive 50x),0.8333333333333334,0.95,0.6785714285714286,0.7916666666666666,0.9609375,1.2809513000029256,0.0,False,False,True,False,"attacker=H0, scale=50.0x, accepted=57, rej_acc=63 (of which attacker=15)"
+Hybrid (Proposed) (naive 50x),0.85,1.0,0.6785714285714286,0.8085106382978723,0.9598214285714286,1.242217699997127,0.0,False,False,True,True,"attacker=H0, scale=50.0x, accepted=42, rej_norm=3, rej_acc=48, rej_rep=27, rej_attacker_total=30, final_rep_H0=0.40"
+Only FL (stealth dir 15x),0.65,0.5945945945945946,0.7857142857142857,0.676923076923077,0.7823660714285714,0.061153300001024036,0.0,False,True,False,False,"attacker=H0, scale=15.0x"
+Firdaus BC-FL-HE (stealth dir 15x),0.85,0.88,0.7857142857142857,0.8301886792452831,0.9229910714285714,1.2915733000008913,0.0,False,False,True,False,"attacker=H0, scale=15.0x, accepted=67, rej_acc=53 (of which attacker=5)"
+Hybrid (Proposed) (stealth dir 15x),0.85,0.9523809523809523,0.7142857142857143,0.8163265306122449,0.9598214285714286,1.256043099998351,0.0,False,False,True,True,"attacker=H0, scale=15.0x, accepted=43, rej_norm=3, rej_acc=48, rej_rep=26, rej_attacker_total=29, final_rep_H0=0.45"

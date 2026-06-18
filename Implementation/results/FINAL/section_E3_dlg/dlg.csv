@@ -1,0 +1,9 @@
+framework,dp_sigma,cosine_similarity,feature_mse,label_recovered,iters,notes
+Plaintext FL (no defense),0.0,0.38745767229172556,0.8479271944318381,True,600,"cosine_std=0.704, mse_std=0.938, label_recovery_rate=0.70 (n=10)"
+Firdaus BC-FL-HE (HE only),0.0,0.38745767229172556,0.8479271944318381,True,600,"cosine_std=0.704, mse_std=0.938, label_recovery_rate=0.70 (n=10)"
+Hybrid (HE + DP sigma=0.001),0.001,0.387490086852876,0.8483099669630839,True,600,"cosine_std=0.704, mse_std=0.939, label_recovery_rate=0.70 (n=10)"
+Hybrid (HE + DP sigma=0.01),0.01,0.3871482871898433,0.8529939744323751,True,600,"cosine_std=0.705, mse_std=0.946, label_recovery_rate=0.70 (n=10)"
+Hybrid (HE + DP sigma=0.1),0.1,0.3752454039539646,0.9741445860074445,True,600,"cosine_std=0.663, mse_std=1.071, label_recovery_rate=0.70 (n=10)"
+Hybrid (HE + DP sigma=0.5),0.5,0.0903137524987779,2.956605518644781,True,600,"cosine_std=0.516, mse_std=2.292, label_recovery_rate=0.50 (n=10)"
+Hybrid (HE + DP sigma=1.0),1.0,-0.03589322166933991,5.626139876541204,False,600,"cosine_std=0.416, mse_std=3.200, label_recovery_rate=0.40 (n=10)"
+Hybrid (HE + DP sigma=5.0),5.0,-0.02236598837988787,28.259611193230114,True,600,"cosine_std=0.269, mse_std=11.073, label_recovery_rate=0.50 (n=10)"

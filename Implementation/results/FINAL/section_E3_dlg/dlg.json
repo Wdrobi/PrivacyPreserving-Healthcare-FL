@@ -1,0 +1,74 @@
+[
+  {
+    "framework": "Plaintext FL (no defense)",
+    "dp_sigma": 0.0,
+    "cosine_similarity": 0.38745767229172556,
+    "feature_mse": 0.8479271944318381,
+    "label_recovered": true,
+    "iters": 600,
+    "notes": "cosine_std=0.704, mse_std=0.938, label_recovery_rate=0.70 (n=10)"
+  },
+  {
+    "framework": "Firdaus BC-FL-HE (HE only)",
+    "dp_sigma": 0.0,
+    "cosine_similarity": 0.38745767229172556,
+    "feature_mse": 0.8479271944318381,
+    "label_recovered": true,
+    "iters": 600,
+    "notes": "cosine_std=0.704, mse_std=0.938, label_recovery_rate=0.70 (n=10)"
+  },
+  {
+    "framework": "Hybrid (HE + DP sigma=0.001)",
+    "dp_sigma": 0.001,
+    "cosine_similarity": 0.387490086852876,
+    "feature_mse": 0.8483099669630839,
+    "label_recovered": true,
+    "iters": 600,
+    "notes": "cosine_std=0.704, mse_std=0.939, label_recovery_rate=0.70 (n=10)"
+  },
+  {
+    "framework": "Hybrid (HE + DP sigma=0.01)",
+    "dp_sigma": 0.01,
+    "cosine_similarity": 0.3871482871898433,
+    "feature_mse": 0.8529939744323751,
+    "label_recovered": true,
+    "iters": 600,
+    "notes": "cosine_std=0.705, mse_std=0.946, label_recovery_rate=0.70 (n=10)"
+  },
+  {
+    "framework": "Hybrid (HE + DP sigma=0.1)",
+    "dp_sigma": 0.1,
+    "cosine_similarity": 0.3752454039539646,
+    "feature_mse": 0.9741445860074445,
+    "label_recovered": true,
+    "iters": 600,
+    "notes": "cosine_std=0.663, mse_std=1.071, label_recovery_rate=0.70 (n=10)"
+  },
+  {
+    "framework": "Hybrid (HE + DP sigma=0.5)",
+    "dp_sigma": 0.5,
+    "cosine_similarity": 0.0903137524987779,
+    "feature_mse": 2.956605518644781,
+    "label_recovered": true,
+    "iters": 600,
+    "notes": "cosine_std=0.516, mse_std=2.292, label_recovery_rate=0.50 (n=10)"
+  },
+  {
+    "framework": "Hybrid (HE + DP sigma=1.0)",
+    "dp_sigma": 1.0,
+    "cosine_similarity": -0.03589322166933991,
+    "feature_mse": 5.626139876541204,
+    "label_recovered": false,
+    "iters": 600,
+    "notes": "cosine_std=0.416, mse_std=3.200, label_recovery_rate=0.40 (n=10)"
+  },
+  {
+    "framework": "Hybrid (HE + DP sigma=5.0)",
+    "dp_sigma": 5.0,
+    "cosine_similarity": -0.02236598837988787,
+    "feature_mse": 28.259611193230114,
+    "label_recovered": true,
+    "iters": 600,
+    "notes": "cosine_std=0.269, mse_std=11.073, label_recovery_rate=0.50 (n=10)"
+  }
+]

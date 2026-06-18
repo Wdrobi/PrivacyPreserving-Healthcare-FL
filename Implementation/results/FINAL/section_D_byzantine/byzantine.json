@@ -1,0 +1,230 @@
+[
+  {
+    "name": "Hybrid-Full (0 Byzantine (clean))",
+    "accuracy": 0.85,
+    "precision": 0.8518518518518519,
+    "recall": 0.8214285714285714,
+    "f1": 0.8363636363636363,
+    "auc": 0.9397321428571428,
+    "train_time_s": 92.47722569999678,
+    "comm_kib": 52746.228515625,
+    "data_in_clear": false,
+    "updates_in_clear": false,
+    "tamper_evident": true,
+    "poisoning_defense": true,
+    "notes": "rounds=5, n_clients=4, n_edges=4, f=1, byzantine=None, accepted=20, rej_sig=0, rej_norm=0, rej_acc=0, rej_rep=0, consensus_fail=0, chain_blocks=11, enc_infer=0.00s",
+    "history": [
+      {
+        "round": 1,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9464285714285714
+      },
+      {
+        "round": 2,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9453125
+      },
+      {
+        "round": 3,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9419642857142857
+      },
+      {
+        "round": 4,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8571428571428571,
+        "recall": 0.8571428571428571,
+        "f1": 0.8571428571428571,
+        "auc": 0.9441964285714286
+      },
+      {
+        "round": 5,
+        "accuracy": 0.85,
+        "precision": 0.8518518518518519,
+        "recall": 0.8214285714285714,
+        "f1": 0.8363636363636363,
+        "auc": 0.9397321428571428
+      }
+    ]
+  },
+  {
+    "name": "Hybrid-Full (1/4 silent (crash, within f=1))",
+    "accuracy": 0.85,
+    "precision": 0.8518518518518519,
+    "recall": 0.8214285714285714,
+    "f1": 0.8363636363636363,
+    "auc": 0.9397321428571428,
+    "train_time_s": 93.78976390000025,
+    "comm_kib": 52755.8115234375,
+    "data_in_clear": false,
+    "updates_in_clear": false,
+    "tamper_evident": true,
+    "poisoning_defense": true,
+    "notes": "rounds=5, n_clients=4, n_edges=4, f=1, byzantine={3: 'silent'}, accepted=20, rej_sig=0, rej_norm=0, rej_acc=0, rej_rep=0, consensus_fail=0, chain_blocks=11, enc_infer=0.00s",
+    "history": [
+      {
+        "round": 1,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9464285714285714
+      },
+      {
+        "round": 2,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9453125
+      },
+      {
+        "round": 3,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9419642857142857
+      },
+      {
+        "round": 4,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8571428571428571,
+        "recall": 0.8571428571428571,
+        "f1": 0.8571428571428571,
+        "auc": 0.9441964285714286
+      },
+      {
+        "round": 5,
+        "accuracy": 0.85,
+        "precision": 0.8518518518518519,
+        "recall": 0.8214285714285714,
+        "f1": 0.8363636363636363,
+        "auc": 0.9397321428571428
+      }
+    ]
+  },
+  {
+    "name": "Hybrid-Full (1/4 lying-prepare (within f=1))",
+    "accuracy": 0.85,
+    "precision": 0.8518518518518519,
+    "recall": 0.8214285714285714,
+    "f1": 0.8363636363636363,
+    "auc": 0.9397321428571428,
+    "train_time_s": 92.33138809999946,
+    "comm_kib": 52745.80078125,
+    "data_in_clear": false,
+    "updates_in_clear": false,
+    "tamper_evident": true,
+    "poisoning_defense": true,
+    "notes": "rounds=5, n_clients=4, n_edges=4, f=1, byzantine={2: 'lying_prepare'}, accepted=20, rej_sig=0, rej_norm=0, rej_acc=0, rej_rep=0, consensus_fail=0, chain_blocks=11, enc_infer=0.00s",
+    "history": [
+      {
+        "round": 1,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9464285714285714
+      },
+      {
+        "round": 2,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9453125
+      },
+      {
+        "round": 3,
+        "accuracy": 0.85,
+        "precision": 0.8275862068965517,
+        "recall": 0.8571428571428571,
+        "f1": 0.8421052631578947,
+        "auc": 0.9419642857142857
+      },
+      {
+        "round": 4,
+        "accuracy": 0.8666666666666667,
+        "precision": 0.8571428571428571,
+        "recall": 0.8571428571428571,
+        "f1": 0.8571428571428571,
+        "auc": 0.9441964285714286
+      },
+      {
+        "round": 5,
+        "accuracy": 0.85,
+        "precision": 0.8518518518518519,
+        "recall": 0.8214285714285714,
+        "f1": 0.8363636363636363,
+        "auc": 0.9397321428571428
+      }
+    ]
+  },
+  {
+    "name": "Hybrid-Full (2/4 silent (exceeds f=1, must fail))",
+    "accuracy": 0.4666666666666667,
+    "precision": 0.4666666666666667,
+    "recall": 1.0,
+    "f1": 0.6363636363636364,
+    "auc": 0.5,
+    "train_time_s": 119.6535229000001,
+    "comm_kib": 28308.064453125,
+    "data_in_clear": false,
+    "updates_in_clear": false,
+    "tamper_evident": true,
+    "poisoning_defense": true,
+    "notes": "rounds=5, n_clients=4, n_edges=4, f=1, byzantine={2: 'silent', 3: 'silent'}, accepted=20, rej_sig=0, rej_norm=0, rej_acc=0, rej_rep=0, consensus_fail=10, chain_blocks=1, enc_infer=0.00s",
+    "history": [
+      {
+        "round": 1,
+        "accuracy": 0.4666666666666667,
+        "precision": 0.4666666666666667,
+        "recall": 1.0,
+        "f1": 0.6363636363636364,
+        "auc": 0.5
+      },
+      {
+        "round": 2,
+        "accuracy": 0.4666666666666667,
+        "precision": 0.4666666666666667,
+        "recall": 1.0,
+        "f1": 0.6363636363636364,
+        "auc": 0.5
+      },
+      {
+        "round": 3,
+        "accuracy": 0.4666666666666667,
+        "precision": 0.4666666666666667,
+        "recall": 1.0,
+        "f1": 0.6363636363636364,
+        "auc": 0.5
+      },
+      {
+        "round": 4,
+        "accuracy": 0.4666666666666667,
+        "precision": 0.4666666666666667,
+        "recall": 1.0,
+        "f1": 0.6363636363636364,
+        "auc": 0.5
+      },
+      {
+        "round": 5,
+        "accuracy": 0.4666666666666667,
+        "precision": 0.4666666666666667,
+        "recall": 1.0,
+        "f1": 0.6363636363636364,
+        "auc": 0.5
+      }
+    ]
+  }
+]
