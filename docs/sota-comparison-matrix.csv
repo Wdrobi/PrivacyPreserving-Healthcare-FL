@@ -1,0 +1,14 @@
+work,venue_year,primary_problem,privacy,compression,robustness,cryptography,code_or_source,required_comparison
+FedAvg,AISTATS 2017,federated optimization,none,none,none,none,https://proceedings.mlr.press/v54/mcmahan17a.html,core utility baseline
+FedProx,MLSys 2020,non-IID heterogeneity,none,none,none,none,https://proceedings.mlsys.org/paper_files/paper/2020/hash/1f5fe83998a09396ebe6477d9475ba0c-Abstract.html,non-IID baseline
+SCAFFOLD,ICML 2020,client drift,none,none,none,none,https://proceedings.mlr.press/v119/karimireddy20a.html,non-IID baseline
+FedNova,NeurIPS 2020,objective inconsistency,none,none,none,none,https://proceedings.neurips.cc/paper/2020/hash/564127c03caab942e503ee6f810f54fd-Abstract.html,non-IID baseline
+Adaptive clipping,NeurIPS 2021,private clipping calibration,DP,none,none,secure-aggregation compatible,https://proceedings.neurips.cc/paper_files/paper/2021/hash/91cff01af640a24e7f9f7a5ab407889f-Abstract.html,privacy baseline
+SoteriaFL,NeurIPS 2022,privacy communication tradeoff,local DP,general shifted compression,none,none,https://proceedings.neurips.cc/paper_files/paper/2022/hash/1b645a77cf48821afc3ee7e5b5d42617-Abstract-Conference.html,private compression baseline
+FLDP,USENIX Security 2022,malicious-secure private aggregation,DP,none,malicious clients/server,LWE secure aggregation,https://www.usenix.org/system/files/sec22-stevens.pdf,privacy/security assumption baseline
+Fed-EF,ICML 2023,error feedback under heterogeneity,none,biased compression,none,none,https://proceedings.mlr.press/v202/li23o.html,error-feedback compression baseline
+Privacy Amplification via Compression,NeurIPS 2023,optimal privacy communication accuracy,central/shuffle DP,random partial communication,none,secure shuffler option,https://proceedings.neurips.cc/paper_files/paper/2023/hash/da8860a2fe8ddb7589136853bcc313fc-Abstract-Conference.html,tradeoff theory reference
+DDFed,NeurIPS 2024,privacy plus poisoning,FHE perturbation,none,two-phase anomaly detection,FHE,https://github.com/irxyzzz/DualDefense,encrypted robustness SOTA
+DP-BREM,USENIX Security 2025,DP plus Byzantine robustness,DP,none,history/client momentum,secure aggregation in DP-BREM+,https://github.com/xiaolangu/DP-BREM,robust private FL SOTA
+PREAMBLE,NeurIPS 2025,private block-sparse aggregation,DP amplification,block sparse,none,two-server Prio/DPF,https://proceedings.neurips.cc/paper_files/paper/2025/hash/1d3c1c0bade7b2b1974d3120ab6232b0-Abstract-Conference.html,closest block-sparse systems comparison
+CAABC-FL,This work,ciphertext-aligned private compression and cross-silo evaluation,record-level DP,adaptive common blocks plus error feedback,history and validation layer,real CKKS packed values,local repository,proposed method

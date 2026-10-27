@@ -1,0 +1,127 @@
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+\section{Summary of the Study}
+\label{sec:conclusion-summary}
+
+The study investigated whether several healthcare institutions could contribute to one learning process while preserving institutional custody of source records and retaining verifiable control over model updates and releases. To answer that question, it treated patient-level privacy, update confidentiality, ciphertext communication cost, and accountable response to invalid or malicious actions as coupled engineering requirements rather than independent additions.
+
+Chapter 1 introduced the problem of multi-institutional healthcare learning and explained why retaining data locally is not sufficient by itself. Model updates may disclose information, encrypted aggregation may restrict poisoning defences, and cryptographic protection may introduce substantial communication overhead. The chapter consequently defined three objectives: constructing an integrated secure-learning architecture, developing a communication-efficient encrypted training mechanism, and evaluating the framework across utility, privacy, security, and systems outcomes.
+
+Chapter~\ref{chap:literature-review} reviewed federated optimization, differential privacy, homomorphic encryption, secure aggregation, compression, privacy attacks, Byzantine robustness, and permissioned governance. It identified a recurring integration gap: mechanisms that perform well independently may rely on conflicting assumptions when combined. In particular, logical sparsity does not necessarily reduce ciphertext traffic, and robust aggregation methods that require individual plaintext updates cannot be applied directly to a sum-only encrypted coordinator.
+
+Chapter~\ref{chap:proposed-methodology} translated these gaps into a layered cross-silo framework. The implementation combined local record-level DP training, CKKS encryption, Ciphertext-Aligned Adaptive Block Compression for Federated Learning (CAABC-FL), signed submissions, independent aggregation recomputation, validation and rollback, a versioned model registry, and externally witnessed audit checkpoints. The methodology used the complete 40,336-patient PhysioNet 2019 cohort, natural hospital partitions, frozen experimental protocols, and paired model seeds.
+
+Chapter~\ref{chap:results-discussion} showed that CAABC-FL reduced serialized encrypted upload by approximately 56\% while passing the registered AUROC non-inferiority gate against dense DP-FedAvg-CKKS. Privacy and poisoning experiments also exposed meaningful boundaries: DP reduced the effectiveness of the registered inference and reconstruction attacks, but ordinary encrypted averaging remained vulnerable to strong poisoning. Overall, the study demonstrates that privacy-preserving healthcare collaboration should be evaluated as a joint utility--privacy--communication--governance problem rather than as a collection of isolated technical components.
+
+\section{Key Findings and Contributions}
+\label{sec:key-findings-contributions}
+
+\subsection{Key Findings}
+
+Across the frozen clinical, adversarial, cryptographic, and service experiments, the principal findings were as follows.
+
+\begin{enumerate}
+    \item \textbf{CAABC-FL produced a measurable encrypted-communication benefit.} Dense DP-FedAvg-CKKS required approximately 3.314 MB of encrypted upload per round, whereas CAABC-FL required approximately 1.458 MB. The resulting mean encrypted-wire reduction was 55.998\%, with a 95\% confidence interval from 55.994\% to 56.002\%. Because the measurement used serialized CKKS ciphertexts, the result represents a network-level reduction rather than an estimate derived only from retained coordinates.
+
+    \item \textbf{The registered utility and communication gates were satisfied jointly.} Relative to dense DP-FedAvg-CKKS, the mean CAABC-FL AUROC difference was $+0.00017$, with a 95\% confidence interval of [$-0.00212$, $+0.00247$]. Its lower confidence limit remained above the pre-specified non-inferiority margin of $-0.015$. The encrypted-wire reduction also exceeded the required 40\% target. These two results support the primary claim that CAABC-FL offers an AUROC-preserving communication trade-off under the evaluated protocol.
+
+    \item \textbf{No blanket predictive-superiority claim is supported.} The paired AUPRC difference between CAABC-FL and the dense encrypted reference was $-0.00926$ [$-0.01160$, $-0.00691$]. Its precision, specificity, F1 score, and Brier score also showed adverse changes, although sensitivity increased. The results therefore require a multi-metric interpretation and show that AUROC preservation alone does not establish clinical superiority.
+
+    \item \textbf{CKKS approximation contributed little additional predictive loss.} Plaintext DP-FedAvg and dense DP-FedAvg-CKKS produced closely aligned AUROC and AUPRC values. The larger difference occurred between non-private and DP methods, indicating that clipping and privacy noise, rather than the selected CKKS arithmetic, accounted for most of the observed utility reduction.
+
+    \item \textbf{Logical compression and encrypted-wire reduction were not equivalent.} Client-specific Top-$k$, error-feedback Top-$k$, and quantization reduced their logical representations but produced almost no reduction after dense CKKS re-encoding. Common aligned supports, as used by CAABC-FL, Random-$k$-CKKS, and fixed-block CKKS, were necessary for logical sparsity to translate into fewer transmitted ciphertext bytes.
+
+    \item \textbf{The registered privacy attacks became less effective after DP.} In the powered membership-inference experiment, CAABC-FL had an attack AUROC of 0.5035 [0.4929, 0.5142], compared with 0.5239 [0.5085, 0.5393] for non-private FedAvg. Advanced LiRA and RMIA diagnostics also remained near chance for the DP methods. In the 300-step reconstruction experiment, the mean feature RMSE increased from 0.684 in the plaintext-exact condition to 2.763 under worst-case DP plus CAABC exposure. These are attack-specific observations; the formal privacy statement continues to come from the $(\epsilon,\delta)$ accountant.
+
+    \item \textbf{Encryption did not solve poisoning.} At 40\% malicious clients, model replacement against CKKS-compatible weighted mean reduced AUROC by 0.393 and increased backdoor ASR by approximately 0.888. Plaintext geometry-based defences were more effective in the registered one-round comparison, but they required individual-update visibility or a trusted labelled root and were therefore not direct replacements for sum-only encrypted aggregation.
+
+    \item \textbf{Post-aggregation governance controlled some longitudinal attacks at a cost.} For the registered five-round backdoor at 40\% malicious participation, validation and reputation produced a final ASR change of only $+0.0046$, quarantined all malicious participants in the evaluated condition, and rolled back 60\% of candidate rounds. However, clean-task AUROC decreased by 0.0293. Integrity protection and system availability must therefore be evaluated together.
+
+    \item \textbf{Accountability controls behaved according to their implemented contracts.} The authority independently reverified hospital envelopes and rejected a forged aggregate. The two-of-three witness policy tolerated one witness outage and reconciled a lagging witness after restart. The isolated OpenFHE experiment completed native 3-of-3 multiparty CKKS and failed safely when a share was missing. The main service nevertheless remained centrally keyed and must not be described as a fully decentralized threshold system.
+\end{enumerate}
+
+\subsection{Research Contributions}
+
+\paragraph{Theoretical contribution.}
+The study formulates privacy-preserving institutional collaboration as an interaction among four properties: released-model privacy, update confidentiality, encrypted communication efficiency, and accountable integrity control. This formulation makes assumption conflicts visible. For example, encryption can prevent plaintext anomaly inspection, and a compression rule can lose its claimed network benefit when encoded into a dense ciphertext. The resulting framework offers a structured way to reason about these conflicts rather than treating every protection mechanism as independently additive.
+
+\paragraph{Algorithmic contribution.}
+CAABC-FL is the central algorithmic contribution. It uses encrypted aggregate block scoring, common ciphertext-aligned support, periodic support refresh, and error feedback to connect adaptive sparsification with packed CKKS transport. Its novelty lies in aligning the compression decision with the cryptographic representation so that retained structure can be measured as an actual encrypted-wire reduction.
+
+\paragraph{Practical contribution.}
+The research delivers an executable multi-service system rather than an architecture diagram alone. It contains hospital agents, a public-key-only coordinator, a separately governed authority, persistent state, signed model artifacts, independent aggregate recomputation, governed inference, validation and rollback, and three external audit witnesses. A separate native multiparty experiment and a confidential-computing deployment profile document how key governance could be strengthened further, while their unimplemented boundaries remain explicit.
+
+\paragraph{Methodological contribution.}
+The evaluation combines a full naturally partitioned healthcare cohort with frozen protocols, paired seeds, confidence intervals, multiplicity-aware tests, serialized-ciphertext accounting, one-round and longitudinal poisoning, powered membership inference, advanced likelihood-ratio attacks, and 300-step reconstruction. It also separates direct same-protocol comparisons from contextual literature comparisons. This prevents results from unrelated datasets or privacy settings from being used as evidence of superiority.
+
+\paragraph{Empirical contribution.}
+The study provides a reproducible same-protocol comparison among CAABC-FL, dense DP-FedAvg-CKKS, Fed-EF-SGD, Fed-EF-AMS, and an adapted SoteriaFL-SGD configuration. CAABC-FL was the only method in this aligned comparison to combine an overlapping AUROC interval with a substantial measured reduction in encrypted upload. The result supports a specific utility--communication contribution while leaving adverse AUPRC and operating-point outcomes visible.
+
+\section{Limitations}
+\label{sec:conclusion-limitations}
+
+The findings should be interpreted within the following limitations.
+
+\begin{enumerate}
+    \item \textbf{Dataset and clinical scope.} Confirmatory evaluation used one released sepsis cohort, two natural hospital partitions, one matched-landmark prediction task, and one compact multilayer perceptron. The full cohort is substantially stronger than a small synthetic partition, but it does not establish generalization to imaging, genomics, other diseases, more hospitals, different prevalence levels, or prospective clinical practice.
+
+    \item \textbf{No external or prospective clinical validation.} Test results were obtained retrospectively from frozen partitions. The model was not evaluated prospectively, compared with clinician decisions, integrated into a hospital workflow, or assessed as a medical device. The reported metrics therefore describe research performance and should not be interpreted as clinical effectiveness.
+
+    \item \textbf{Complementary rather than fully unified execution profiles.} The scientific profile ran the complete 40,336-patient training and attack matrices, whereas the hardened service profile exercised network roles, mTLS, signatures, verification, persistence, and witness policies on controlled update vectors. The complete scientific matrix was not transmitted through one physical production cluster.
+
+    \item \textbf{Single-host systems measurement.} The Docker scalability evaluation used one physical workstation and sequential client submissions. It did not measure independent institutional networks, WAN delay, packet loss, concurrent traffic, sustained throughput, peak resource consumption, or multi-host failure recovery. The observed near-linear latency should therefore remain descriptive.
+
+    \item \textbf{Centralized decryption in the main service.} The deployed TenSEAL path uses a centralized research key authority. The native OpenFHE experiment demonstrated 3-of-3 multiparty decryption separately, but it was not integrated into the network service and was not arbitrary $t$-of-$n$ or dropout tolerant. The framework consequently reduces coordinator privilege without eliminating the trusted-authority assumption.
+
+    \item \textbf{No real confidential-computing experiment.} Kubernetes resources and the confidential deployment profile were schema-validated, but the system was not executed on real Intel TDX or AMD SEV-SNP hardware. Hardware attestation, measured boot, enclave side channels, and attestation-bound key release remain unevaluated.
+
+    \item \textbf{Bounded adversarial evaluation.} Poisoning, membership-inference, and reconstruction results apply to the registered attacks, attacker visibility, model, and seeds. They do not prove Byzantine robustness, eliminate all membership leakage, or cover arbitrary adaptive adversaries. Five seeds provide paired uncertainty for costly security experiments but cannot characterize every deployment distribution.
+
+    \item \textbf{Privacy implementation assurance.} The custom OS-seeded AES-256-CTR randomness path was recorded and exercised, but it has not undergone an independent cryptographic audit. The DP accountant provides a formal bound under its stated sampling and adjacency assumptions; implementation assurance would require external review and additional conformance testing.
+
+    \item \textbf{Governance and human-factors scope.} The witness plane provides signed, tamper-evident checkpoints but is not a blockchain or Byzantine consensus system. No clinician, patient, data-protection officer, or hospital administrator participated in a user study. Usability, fairness across demographic groups, institutional acceptance, legal compliance, and governance incentives therefore remain open questions.
+\end{enumerate}
+
+These limitations do not invalidate the experiments; they define the population of systems and claims to which the evidence can reasonably be applied. They also identify the areas where additional engineering or clinical research would provide the greatest increase in confidence.
+
+\section{Future Works}
+\label{sec:future-work}
+
+Future work should prioritize extensions that directly address the observed limitations.
+
+\begin{enumerate}
+    \item \textbf{External, multi-cohort clinical validation.} The framework should be evaluated on additional naturally partitioned healthcare datasets, including more than two institutions and different modalities. Future studies should measure external calibration, subgroup performance, fairness, temporal drift, and institution-specific benefit. Prospective silent deployment would provide evidence about data quality and workflow behaviour before any decision-support trial.
+
+    \item \textbf{Networked threshold key custody and attestation.} The isolated multiparty CKKS experiment should be integrated into independently operated key-custodian services. A dropout-tolerant $t$-of-$n$ protocol should authenticate decryption shares, bind them to verified aggregates, and reject stale or replayed requests. Running the authority and custodians on real TDX or SEV-SNP hardware would allow remote attestation to be connected to key release and measured experimentally.
+
+    \item \textbf{Encrypted or verifiable robust aggregation.} Future research should investigate secure computation of robust sufficient statistics, threshold-certified trust scores, multiparty computation, homomorphic anomaly detection, and zero-knowledge evidence of correct aggregation. These methods should be compared with validation and rollback under identical poisoning conditions while accounting for leakage, computation, communication, and availability.
+
+    \item \textbf{Improved adaptive compression.} CAABC-FL could be extended with multi-objective support selection that considers AUROC, AUPRC, calibration, site imbalance, and encrypted traffic simultaneously. Support-refresh policies could react to convergence and drift rather than follow a fixed interval. Further work should also analyse information revealed by the common support, residual stability during partial participation, and compression behaviour in larger neural networks.
+
+    \item \textbf{Physical multi-host and long-duration evaluation.} Hospital, coordinator, authority, and witness services should be placed on independent hosts and networks. Experiments should measure concurrent submissions, WAN latency, disconnections, certificate rotation, custodian failure, witness divergence, disaster recovery, and sustained multi-round operation. Independent penetration testing and cryptographic code review should precede any production-oriented claim.
+
+    \item \textbf{Human-centred governance and deployment research.} Future studies should involve clinicians, privacy officers, security engineers, and patient representatives in evaluating consent, explanation, alert handling, audit review, and institutional responsibility. These studies should be conducted only after the technical system reaches an appropriate safety and governance maturity.
+\end{enumerate}
+
+\section{Recommendations}
+\label{sec:conclusion-recommendations}
+
+\paragraph{Technical recommendations.}
+Healthcare FL developers should report serialized encrypted traffic in addition to logical sparsity or plaintext payload size. Privacy accounting, transport confidentiality, poisoning controls, and key governance should be documented as separate properties because none substitutes for the others. Threshold-dependent clinical metrics should use validation-selected operating points, and AUROC should be accompanied by AUPRC, sensitivity, specificity, precision, F1, and calibration measures. Robustness comparisons should state whether each defence requires individual plaintext updates, a trusted root dataset, or an additional secure-computation service.
+
+\paragraph{Institutional recommendations.}
+A participating consortium should define institutional identities, permitted purposes, model-release conditions, decryption authority, incident response, revocation procedures, and audit retention before training begins. The coordinator should not hold the aggregation secret key when roles can be separated. Model releases should be bound to signed participant evidence and independently checkable aggregation records. A rollback policy should include availability safeguards because an overly sensitive gate can allow an attacker to halt learning without causing an invalid model to be released.
+
+\paragraph{Policy and governance recommendations.}
+Regulators and institutional review bodies should distinguish local data retention from a complete privacy claim. Review should cover the released model, intermediate updates, cryptographic keys, audit metadata, and inference outputs. Tamper-evident records should be treated as evidence of sequence and authorization, not as proof of model correctness. Any clinical deployment should require external validation, security assessment, privacy review, and clearly assigned human responsibility for the final decision.
+
+\paragraph{Research and educational recommendations.}
+Researchers should publish frozen protocols, dataset hashes, model seeds, assumption registries, negative results, and confidence intervals where data licences permit. Academic projects in federated healthcare should teach utility, privacy, cryptography, robustness, and governance as connected concerns. Comparisons with published work should use aligned datasets and threat models whenever possible; headline metrics from unrelated experiments should remain contextual evidence rather than direct rankings.
+
+\section{Concluding Remarks}
+\label{sec:concluding-remarks}
+
+Multi-institutional learning can create value from distributed healthcare data without requiring every participating organization to surrender its raw records. Achieving this responsibly, however, requires more than placing a federated-learning label on conventional training. Privacy loss must be accounted for, model updates must remain confidential, encrypted communication must be measured honestly, malicious behaviour must be anticipated, and every sensitive release must be governed by evidence that institutions can verify.
+
+This thesis contributes one concrete step toward that goal. It demonstrates that ciphertext-aligned adaptive compression can reduce real encrypted traffic while retaining dense-reference AUROC within a pre-defined margin, and it shows why this benefit must be discussed together with AUPRC, poisoning exposure, rollback cost, key custody, and deployment limitations. The resulting framework is not the final form of a clinical collaboration platform; it is an evidence-backed foundation on which stronger threshold governance, secure robustness, external validation, and human-centred deployment can be built. The study therefore ends with a broader lesson: trustworthy collaborative intelligence emerges not from a single protective technique, but from aligning algorithms, cryptography, systems engineering, and institutional responsibility around claims that the available evidence can genuinely support.

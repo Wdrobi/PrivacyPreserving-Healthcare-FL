@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "identities": {
+    "hospital-01": "aGCU/8KPLRPnAcpTwSsogHRerhIeQ5y2kMCm7MFkCbc=",
+    "hospital-02": "KeqBmFdoZYEXDqs0rGnjzZlL96333Bbuc2aNefrhDCA=",
+    "hospital-03": "ZB+bai5S30qz2872aM7kYVCzdNbENSaSudz+aY4l+AE=",
+    "hospital-04": "oZIMA+zPEslcZx3SQNyRDzLGjUYQNHXmEwEYrCLjGBE=",
+    "hospital-05": "2HgwllAcGptnR9DKMKJ8HEoksD8719ZqVN9bZi2RQuY=",
+    "hospital-06": "ezxesLQ7w7fi2RUxl80+wGMjhbv/gYrwWNOJHGlFUAQ=",
+    "hospital-07": "IH0ByAtVxFVPdJxiQ/kM5jeN/PAT2HPYWNNoJYk7SqE=",
+    "hospital-08": "aFzMbxpTqWSPnJNYMPRme3bzpJIJ2DwdByF6dlloSyA=",
+    "hospital-09": "h7PkVHZwFmoPbAMuAdK++zkAl53RtOzMybPpha8mMMo=",
+    "hospital-10": "w8sfth3TbRhjq/YBAfoQeIvK1SZNZs7mZo7Bm2OKLmc=",
+    "hospital-11": "iiC1bwXB78GlPKjkDSYEBMB/tEDeeMpMv1t+m/mI5HY=",
+    "hospital-12": "IE+KEKw4mwm5cGPu+I2VYkunzYrDGS1p0wnJT1fE2Pk=",
+    "hospital-13": "3N1+WlKHAb8ZD/za1yvWo+DV//rCPxrwlQsduAgwmRA=",
+    "hospital-14": "gA3X1IpCK+Ok240tzz2kgSZHVCOc5C/ezyAeCs18OsE=",
+    "hospital-15": "9/Dju0gOrxgDS1uT8RqWT/9xonNwg0Xy7TKck6q8QCs=",
+    "hospital-16": "uloYCaW6S7Z+s7ZxT95o1G5D4/Nt1zXuTg6vJMmgr1s="
+  },
+  "fingerprints": {
+    "hospital-01": "a919a732e0444a3d3ef94efdd382b657959f779a12265b3337f37e6db7a78c5d",
+    "hospital-02": "c82f44e20d612cbb25fde6d1689bdce7bf98b5cb03724851774df9922d06a712",
+    "hospital-03": "fbd7bfa640eb345aeee12a04af0c58d4a4dac7e029b74ed26b4ba07f00e56109",
+    "hospital-04": "4e5dd8eb8de7e7cd0047608f0e103d7f214a9ef6a1ef845f65e3e170f540465c",
+    "hospital-05": "8ce4bfb29c32191852169c16fef10ce46cfa76ef2591daf3f316bdf8f78b4f9e",
+    "hospital-06": "faa7df856ebb62ca1a02e897ee22d7b4e931fb1a2f68d0c6c54d270bac67d9d1",
+    "hospital-07": "37be6e82c6db058410313a703db521f429ab135a4946a35991a8d617d09000c4",
+    "hospital-08": "bb73514bb8d4ab442ed8d540c0b46f55d35df3f8446cd77eee96192d5556676d",
+    "hospital-09": "ad321ef96c0e7d19a7ec9c7c0da9ce6742fb3ba7c4448be47abfe631cfd7df7f",
+    "hospital-10": "d5346202d2b80c0bcba04443454aea5413494cfff75eb4c8c2952677c5bcee0f",
+    "hospital-11": "0557c7565cbeff41e09029cb2993aa05e71fe208284c84ab2ed99e8f087f1264",
+    "hospital-12": "050ba2da39ab6b9c8fb754fc1bbc8afdb759691f19ab954901fd0b2aaeab66c8",
+    "hospital-13": "dd810d3a482cd61342e57d5fb1f92da22b44ad7b45c51e6abf0cabb1d11d2bda",
+    "hospital-14": "2a2005f82f39be341c4aa73a31a46fe1c1713d22d53c9ed4f5e39a4d92784235",
+    "hospital-15": "77d6dbb7e7d8412ee5123e3011a18884a00faa1e3d698c166b3322ae9ab9a7d0",
+    "hospital-16": "a60dd177f9bbc7e9253400b23d6c1389e492e0b898686c9840fce018aaf40616"
+  },
+  "manifest_digest": "427ae4f5d6f5bc768da04760de5ac8d52ece05b2e40b830370c07a02dfa49a1d"
+}

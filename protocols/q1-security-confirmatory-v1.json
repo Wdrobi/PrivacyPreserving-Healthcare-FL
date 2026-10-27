@@ -1,0 +1,99 @@
+{
+  "protocol_id": "q1-security-confirmatory-v1",
+  "title": "Confirmatory poisoning and empirical privacy-attack evaluation",
+  "status": "frozen-before-security-confirmatory-execution",
+  "parent_utility_protocol": {
+    "path": "protocols/q1-confirmatory-v1.json",
+    "sha256": "0b82c33986b6b6bf9393872eb2999cce518808d16fc7de475d15e67f9632e199"
+  },
+  "dataset": {
+    "name": "PhysioNet/Computing in Cardiology Challenge 2019",
+    "processed_root": "data/processed/physionet-2019-confirmatory-20260829",
+    "dataset_lock": "results/q1-confirmatory-v1/dataset.lock.json",
+    "dataset_lock_sha256": "864d2b3c100dd27d59adffd4bc0bf6a729caf22d8f88c71619ba52effa13aa07",
+    "processed_manifest_sha256": "d8517464a5792fcf7c1e858c7ff8441fea86085df05360a5a2007d064fb16d8c",
+    "test_partition_access": "prohibited; poisoning uses disjoint validation/outcome partitions and privacy attacks use train/validation only"
+  },
+  "paired_seeds": [1201, 1213, 1231, 1249, 1277],
+  "one_round_poisoning": {
+    "virtual_clients": 20,
+    "clients_per_hospital": 10,
+    "root_fraction": 0.02,
+    "malicious_fractions": [0.1, 0.2, 0.3, 0.4],
+    "attacks": [
+      "sign-flip",
+      "model-replacement",
+      "gaussian",
+      "adaptive-norm",
+      "alie",
+      "label-flip",
+      "backdoor"
+    ],
+    "defenses": [
+      "mean",
+      "coordinate-median",
+      "trimmed-mean",
+      "multi-krum",
+      "geometric-median",
+      "fltrust"
+    ],
+    "primary_endpoints": [
+      "auroc_delta_from_clean_defense",
+      "backdoor_asr_delta_from_clean_defense"
+    ],
+    "compatibility_boundary": "Only weighted mean is CKKS sum-only compatible; all geometry-based defenses are assumption-mismatched comparators."
+  },
+  "longitudinal_poisoning": {
+    "rounds": 5,
+    "virtual_clients": 20,
+    "clients_per_hospital": 10,
+    "malicious_fractions": [0.2, 0.4],
+    "attacks": ["sign-flip", "model-replacement", "backdoor"],
+    "defenses": ["mean", "mean-validation-reputation", "multi-krum", "fltrust"],
+    "validation_loss_tolerance": 0.02,
+    "vote_fraction": 0.6666666666666666,
+    "primary_endpoints": [
+      "final_evaluation_auroc",
+      "final_evaluation_auprc",
+      "auroc_delta_from_clean_defense",
+      "backdoor_asr_delta_from_clean_defense",
+      "rolled_back_rounds",
+      "final_malicious_quarantined_clients"
+    ]
+  },
+  "privacy_attacks": {
+    "training_rounds": 20,
+    "methods": ["fedavg", "dp-fedavg-ckks", "caabc"],
+    "noise_multiplier": 1.2,
+    "delta": 0.00001,
+    "secure_rng_required_for_dp": true,
+    "maximum_membership_examples_per_class_before_calibration_split": 2000,
+    "expected_membership_evaluation_examples_per_class": 720,
+    "cohort_size_basis": "Locked validation set contains 439 positives; label matching selects 439 positive plus 1000 negative records per group, then a disjoint half is reserved for calibration.",
+    "membership_attack": "label-matched loss score; threshold calibrated on a disjoint half and evaluated on the other half",
+    "membership_primary_endpoints": ["attack_auc", "attack_advantage"],
+    "membership_sensitivity_endpoint": "orientation-invariant attack AUC",
+    "gradient_reconstruction_steps": 300,
+    "gradient_reconstruction_samples_per_seed": 4,
+    "gradient_observations": [
+      "plaintext-exact",
+      "caabc-mask-worst-case",
+      "dp-sanitized",
+      "dp-caabc-worst-case"
+    ],
+    "gradient_primary_endpoints": [
+      "feature_rmse",
+      "feature_cosine_similarity",
+      "final_gradient_mse"
+    ],
+    "target_ciphertext_chunks": 2
+  },
+  "analysis": {
+    "unit": "paired model seed",
+    "minimum_seed_count": 5,
+    "interval": "two-sided Student-t 95 percent confidence interval across paired seeds",
+    "multiplicity": "Holm adjustment within each endpoint family; raw condition-level results retained",
+    "missing_seed_policy": "no confirmatory security inference until every registered seed/component cell passes schema and hash validation",
+    "claim_boundary": "Empirical attacks cannot prove DP or cryptographic security; results quantify the registered attacks under this dataset and threat model."
+  }
+}

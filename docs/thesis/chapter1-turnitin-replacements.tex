@@ -1,0 +1,211 @@
+% Chapter 1 Turnitin revision blocks
+% ----------------------------------
+% The Chapter 1 source used to build the submitted PDF is not present in this
+% workspace. Copy only the replacement body required at each marked location.
+% Preserve the section/subsection labels already used by the main thesis file.
+
+% REPLACEMENT 1
+% Location: Chapter 1, Introduction, opening discussion (PDF thesis pp. 1--2;
+% Turnitin report pp. 32--33). Replace the paragraphs beginning with
+% "Healthcare is becoming increasingly dependent..." and ending with the
+% description of the combined framework.
+
+Healthcare institutions now generate longitudinal records that can support risk
+prediction, monitoring, and clinical research. Evidence held by one hospital,
+however, reflects that institution's patient population, measurement practice,
+and care pathway. A model developed from one source can therefore lose accuracy
+when it is applied elsewhere. Multi-institutional learning is valuable because it
+can expose a model to a broader range of clinical variation, but conventional
+data pooling creates additional privacy, ownership, consent, and breach risks.
+
+Cross-silo federated learning changes the location of model fitting. Participating
+institutions optimize locally and provide model contributions to a coordinating
+process instead of transferring their source records \cite{mcmahan2017fedavg}.
+Medical studies have demonstrated the feasibility of this arrangement across
+natural institutional partitions, including brain-tumour segmentation and
+COVID-19 outcome prediction \cite{sheller2020federated,dayan2021federated}.
+Local retention nevertheless protects only one boundary. Shared parameters can
+still expose information about training examples, and an authenticated
+participant can still manipulate the collaborative model
+\cite{shokri2017membership,zhu2019dlg,bagdasaryan2020backdoor}.
+
+The engineering problem is consequently broader than deciding where data are
+stored. A useful collaboration must limit the influence of individual patients,
+conceal institutional updates from the coordinator, control the cost of encrypted
+communication, detect or contain invalid state transitions, and preserve evidence
+of who authorized a model release. This thesis investigates those requirements as
+one bounded system and introduces CAABC-FL to connect adaptive compression with
+the packing structure of CKKS ciphertexts \cite{cheon2017homomorphic}. The work
+then evaluates predictive utility, privacy exposure, poisoning response,
+communication cost, cryptographic correctness, and governance behaviour under a
+common experimental protocol.
+
+% REPLACEMENT 2
+% Location: Section 1.1, Background of the Study, historical development
+% (Turnitin report pp. 35--36). Replace the milestone paragraphs that describe
+% FedAvg, membership inference, fully homomorphic encryption, CKKS, and secure
+% aggregation.
+
+Modern privacy-preserving collaboration emerged from several research streams
+that developed independently. Fully homomorphic encryption established that a
+program could, in principle, operate on encrypted values without first revealing
+their plaintext \cite{gentry2009fully}. CKKS later supplied approximate packed
+arithmetic suited to real-valued numerical workloads, making it relevant to model
+aggregation \cite{cheon2017homomorphic}. Secure aggregation pursued a related
+goal at protocol level: the coordinator learns a combined contribution while
+individual client inputs remain hidden \cite{bonawitz2017practical}.
+
+Federated optimization provided the learning structure into which these controls
+could be inserted. FedAvg reduced the frequency of communication by allowing
+clients to perform several local optimization steps before their contributions
+were combined \cite{mcmahan2017fedavg}. Subsequent attacks demonstrated why
+local data retention was not a complete privacy argument. Membership-inference
+methods tested whether particular records influenced a trained model, while
+gradient-inversion work showed that shared learning signals could reveal
+approximations of private examples \cite{shokri2017membership,zhu2019dlg,
+geiping2020inverting}. These milestones shifted the field from data-locality alone
+towards layered protection of training, communication, aggregation, and release.
+
+% REPLACEMENT 3
+% Location: Subsection 1.1.1, State of the Art in the Modern Context, opening
+% paragraphs (Turnitin report pp. 37--38).
+
+Current research treats protected federated learning as a combination of
+statistical, cryptographic, and operational controls. Differentially private
+training limits the effect attributable to one protected unit; homomorphic or
+secure aggregation conceals update values during coordination; and authenticated
+services bind messages to recognized participants. In healthcare, multiparty
+homomorphic analytics has already supported distributed survival and genomic
+analyses, showing that protected computation can operate on substantive
+biomedical tasks \cite{froelicher2021famh}. Reproducible frameworks and natural
+multi-centre datasets have also improved the evaluation of institutional
+heterogeneity \cite{ogier2022flamby,foley2022openfl}.
+
+The remaining difficulty is compatibility. Many robust aggregators inspect the
+distance, direction, or coordinates of every client update, whereas protected
+aggregation deliberately hides those values. Encryption can also expand a small
+logical update into several ciphertext objects, so a plaintext compression ratio
+does not establish a network saving. Recent systems address parts of these
+conflicts through encrypted anomaly detection, jointly generated privacy noise,
+or privacy-compatible sparse aggregation \cite{xu2024ddfed,gu2025dpbrem,
+asi2025preamble}. Their differing datasets, trust assumptions, and adversary
+models leave room for an aligned healthcare evaluation that measures utility,
+privacy, poisoning, encrypted bytes, and release governance together.
+
+% REPLACEMENT 4
+% Location: Section 1.2, Research Problem and Its Context (Turnitin report
+% pp. 41--42). Replace the core problem statement.
+
+Keeping records inside their originating hospitals does not make the complete
+learning process private or trustworthy. An update can encode information about
+the patients used to produce it; a malicious institution can submit a replacement,
+sign-flipped, label-flipped, or backdoored contribution; and repeated transmission
+of CKKS ciphertexts can impose considerably more traffic than the underlying
+parameter vector. These risks interact. Concealing every individual update helps
+confidentiality, for example, but prevents the coordinator from directly applying
+many geometry-based poisoning defences.
+
+The research problem is therefore to construct and evaluate a multi-institutional
+learning framework that protects patient influence and institutional update
+values, converts logical compression into a measurable encrypted-wire reduction,
+and provides verifiable controls over participation, aggregation, and model
+release. Existing work supplies strong components for individual parts of this
+problem, but fewer studies test their compatibility under one dataset split,
+threat model, and statistical protocol. The thesis addresses that integration gap
+without assuming that differential privacy, encryption, or an audit record alone
+is sufficient.
+
+% REPLACEMENT 5
+% Location: Section 1.4, Applications and Practical Use Cases, opening paragraph
+% (Turnitin report pp. 45--46).
+
+The proposed framework is intended as research infrastructure for an authorized
+healthcare consortium rather than as an autonomous clinical device. Its immediate
+use is to study how hospitals could build a common risk model while retaining
+custody of source records and exchanging only protected, authenticated model
+contributions. Potential tasks include early deterioration or sepsis prediction,
+readmission analysis, multi-centre imaging research, and distributed clinical
+analytics. Each application would still require task-specific validation,
+institutional approval, and human oversight before operational use.
+
+% REPLACEMENT 6
+% Location: Section 1.6, Research Methodology Overview, first two paragraphs
+% (Turnitin report pp. 49--51).
+
+The study uses an artifact-centred experimental methodology. It first specifies
+the actors, protected assets, adversary capabilities, and release conditions for a
+cross-silo healthcare consortium. Those requirements are implemented as hospital,
+coordinator, authority, verification, registry, and audit services. The learning
+path combines patient-level private local optimization, CAABC-FL support
+selection, CKKS aggregation, signed envelopes, independent aggregate
+recomputation, validation, and rollback.
+
+Evaluation uses the two natural source partitions of the 2019
+PhysioNet/Computing in Cardiology Challenge sepsis cohort
+\cite{reyna2020early,physionet2019sepsis}. Patients are separated before feature
+construction so that observations from one person cannot enter both training and
+evaluation. Comparisons are paired by seed and conducted under frozen protocols.
+The analysis records clinical discrimination and calibration, serialized
+ciphertext traffic, privacy-accounting output, registered attack outcomes,
+cryptographic error, latency, and governance failure cases. Confidence intervals
+are calculated over independent model seeds rather than treating predictions or
+attack trials from one trained model as independent experiments.
+
+% REPLACEMENT 7
+% Location: Section 1.7, Research Contribution, introductory paragraph
+% (Turnitin report pp. 51--53). Keep the existing detailed contribution list
+% after this paragraph.
+
+The contribution of this research lies in connecting mechanisms that are usually
+evaluated separately and then testing the resulting trade-offs. The work provides
+a formalized end-to-end architecture, the CAABC-FL communication mechanism, an
+executable multi-service research system, and a paired experimental comparison on
+natural hospital partitions. Its central empirical claim is deliberately narrow:
+under the registered protocol, CAABC-FL reduces serialized encrypted upload while
+remaining within the specified AUROC non-inferiority margin. Privacy, AUPRC,
+poisoning, computation, and governance outcomes are retained as separate evidence
+and are not used to claim universal superiority.
+
+% REPLACEMENT 8
+% Location: Sections 1.8, 1.8.1 and 1.8.2 (Turnitin report pp. 53--55).
+
+The project was completed with existing computing resources and openly available
+research software. Consequently, the budget records the resources actually used
+rather than assigning an artificial monetary value to free tools or public data.
+No dedicated server, paid clinical dataset, cloud subscription, laboratory
+equipment, or project travel was required. This cost statement applies only to
+the reported research prototype; an independent multi-hospital deployment would
+require a separate budget for infrastructure, security operations, governance,
+and clinical validation.
+
+The timeline groups the work into problem definition, literature review, data
+preparation, system design, implementation, controlled experimentation,
+statistical analysis, and thesis preparation. Some activities overlap because
+experimental findings were used to refine the threat model and implementation.
+The Gantt chart records that iterative progression and distinguishes development
+work from the later confirmatory evaluation.
+
+% REPLACEMENT 9 -- CRITICAL CONTENT CORRECTION
+% Location: Section 1.9, Organization of the Dissertation (Turnitin report
+% p. 56). Replace the entire existing section because it still describes a heart
+% disease prediction thesis.
+
+The remainder of the dissertation is organized into four chapters. Chapter~2
+reviews cross-silo federated learning, differential privacy, homomorphic and
+secure aggregation, communication-efficient optimization, privacy attacks,
+poisoning defences, and accountable governance. It then compares representative
+studies and identifies the integration and evaluation gaps addressed by this
+research.
+
+Chapter~3 translates those gaps into the conceptual framework, threat model,
+problem formulation, layered architecture, CAABC-FL algorithm, data-processing
+pipeline, and experimental protocol. It also states the assumptions that separate
+the implemented research system from a production clinical deployment.
+
+Chapter~4 reports predictive, communication, privacy, poisoning, cryptographic,
+and service-level results. It presents paired statistical analyses, same-protocol
+baseline comparisons, ablation evidence, negative outcomes, and the limits of the
+supported claims. Chapter~5 consolidates the findings and contributions, records
+the study's limitations, and identifies the technical and clinical work required
+for stronger future deployment evidence. Supplementary protocols, measurements,
+and engineering mappings are provided in the appendices and annexures.

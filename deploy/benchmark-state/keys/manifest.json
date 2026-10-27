@@ -1,0 +1,16 @@
+{
+  "parameters": {
+    "profile": "seal-default-8192",
+    "poly_modulus_degree": 8192,
+    "coeff_mod_bit_sizes": [
+      60,
+      40,
+      40,
+      60
+    ],
+    "global_scale_bits": 40
+  },
+  "public_context": "public.context",
+  "authority_context": "authority.context",
+  "warning": "authority.context contains the centralized research secret key; never mount it in coordinator or hospital services"
+}

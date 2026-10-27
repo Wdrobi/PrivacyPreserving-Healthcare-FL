@@ -1,0 +1,68 @@
+{
+  "protocol_id": "q1-extension-v1",
+  "title": "Acceptance-driven advanced privacy, adaptive poisoning, and CAABC ablation extension",
+  "status": "frozen-before-extension-execution",
+  "parent_protocols": {
+    "utility": "protocols/q1-confirmatory-v1.json",
+    "security": "protocols/q1-security-confirmatory-v1.json"
+  },
+  "dataset": {
+    "processed_root": "data/processed/physionet-2019-confirmatory-20260829",
+    "dataset_lock": "results/q1-confirmatory-v1/dataset.lock.json",
+    "dataset_lock_sha256": "864d2b3c100dd27d59adffd4bc0bf6a729caf22d8f88c71619ba52effa13aa07",
+    "processed_manifest_sha256": "d8517464a5792fcf7c1e858c7ff8441fea86085df05360a5a2007d064fb16d8c",
+    "test_partition_access": "CAABC ablation uses the already registered test outcome; privacy and poisoning components prohibit test access"
+  },
+  "paired_seeds": [1201, 1213, 1231, 1249, 1277],
+  "advanced_privacy": {
+    "training_rounds": 20,
+    "target_methods": ["fedavg", "dp-fedavg-ckks", "caabc"],
+    "attacks": ["lira-online", "rmia-low-cost"],
+    "reference_models": 8,
+    "shadow_epochs": 8,
+    "maximum_candidates_per_group": 512,
+    "maximum_population": 256,
+    "endpoints": ["attack_auc", "tpr_at_fpr_0_001", "tpr_at_fpr_0_01", "tpr_at_fpr_0_05", "maximum_advantage"],
+    "boundary": "architecture-matched complementary central shadows; not exact optimizer/DP/CKKS-matched reference training"
+  },
+  "adaptive_poisoning": {
+    "clients_per_hospital": 10,
+    "root_fraction": 0.02,
+    "malicious_fractions": [0.2, 0.4],
+    "attacks": ["colluding-replacement", "sybil-backdoor", "adaptive-trust"],
+    "defenses": ["mean", "coordinate-median", "trimmed-mean", "multi-krum", "geometric-median", "fltrust"],
+    "endpoints": ["auroc_delta_from_clean_defense", "backdoor_asr_delta_from_clean_defense"]
+  },
+  "longitudinal_adaptive_poisoning": {
+    "rounds": 20,
+    "clients_per_hospital": 10,
+    "malicious_fractions": [0.2, 0.4],
+    "attacks": ["sybil-backdoor", "adaptive-trust", "sleeper-backdoor", "adaptive-vote-backdoor"],
+    "defenses": ["mean", "mean-validation-reputation", "fltrust"],
+    "validation_loss_tolerance": 0.02,
+    "vote_fraction": 0.6666666666666666,
+    "endpoints": ["final_evaluation_auroc", "final_evaluation_auprc", "backdoor_asr_delta_from_clean_defense", "rolled_back_rounds", "final_malicious_quarantined_clients"]
+  },
+  "caabc_ablation": {
+    "rounds": 20,
+    "block_size": 256,
+    "secure_rng": true,
+    "registered_variants": [
+      {"chunks": 2, "refresh_interval": 5, "error_feedback": false},
+      {"chunks": 2, "refresh_interval": 1, "error_feedback": true},
+      {"chunks": 2, "refresh_interval": 10, "error_feedback": true},
+      {"chunks": 1, "refresh_interval": 5, "error_feedback": true},
+      {"chunks": 4, "refresh_interval": 5, "error_feedback": true},
+      {"chunks": 8, "refresh_interval": 5, "error_feedback": true}
+    ],
+    "existing_references": ["dp-fedavg-ckks", "caabc-k2-r5-ef"],
+    "endpoints": ["test_auroc", "test_auprc", "test_brier", "actual_wire_reduction"]
+  },
+  "analysis": {
+    "unit": "paired seed",
+    "minimum_seed_count": 5,
+    "interval": "two-sided Student-t 95 percent confidence interval",
+    "multiplicity": "Holm adjustment within privacy, poisoning, longitudinal, and ablation endpoint families",
+    "claim_boundary": "No external-clinical, physical multi-host, arbitrary t-of-n CKKS, or TDX/SNP claim is authorized by this protocol"
+  }
+}

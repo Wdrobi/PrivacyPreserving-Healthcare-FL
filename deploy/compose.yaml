@@ -1,0 +1,128 @@
+name: healthfl
+
+x-common: &common
+  build:
+    context: ..
+    dockerfile: deploy/Dockerfile
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=256m,noexec,nosuid
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  networks:
+    - consortium
+
+services:
+  authority:
+    <<: *common
+    command: ["python", "-m", "healthfl.services.authority"]
+    environment:
+      HEALTHFL_STATE_DIR: /state
+      HEALTHFL_PUBLIC_CONTEXT: /keys/public.context
+      HEALTHFL_AUTHORITY_CONTEXT: /run/secrets/authority.context
+      HEALTHFL_SERVICE_TOKEN: ${HEALTHFL_SERVICE_TOKEN:?set HEALTHFL_SERVICE_TOKEN}
+      HEALTHFL_MIN_PARTICIPANTS: ${HEALTHFL_MIN_PARTICIPANTS:-2}
+      HEALTHFL_TLS_CERT: /certs/authority.crt
+      HEALTHFL_TLS_KEY: /certs/authority.key
+      HEALTHFL_CLIENT_CA: /certs/ca.crt
+      HEALTHFL_CONSORTIUM_IDENTITIES: /trust/consortium-identities.json
+    volumes:
+      - authority-state:/state
+      - ${HEALTHFL_HOST_STATE:-./state}/keys/public.context:/keys/public.context:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/keys/authority.context:/run/secrets/authority.context:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/certs:/certs:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/identities/consortium-identities.json:/trust/consortium-identities.json:ro
+    expose: ["8444"]
+
+  coordinator:
+    <<: *common
+    command: ["python", "-m", "healthfl.services.coordinator"]
+    depends_on: [authority, witness-a, witness-b, witness-c]
+    environment:
+      HEALTHFL_STATE_DIR: /state
+      HEALTHFL_PUBLIC_CONTEXT: /keys/public.context
+      HEALTHFL_SERVICE_TOKEN: ${HEALTHFL_SERVICE_TOKEN:?set HEALTHFL_SERVICE_TOKEN}
+      HEALTHFL_ADMIN_TOKEN: ${HEALTHFL_ADMIN_TOKEN:?set HEALTHFL_ADMIN_TOKEN}
+      HEALTHFL_MODEL_SIGNING_KEY: /run/secrets/coordinator-model.ed25519
+      HEALTHFL_MIN_PARTICIPANTS: ${HEALTHFL_MIN_PARTICIPANTS:-2}
+      HEALTHFL_AUTHORITY_URL: https://authority:8444
+      HEALTHFL_AUDIT_TOKEN: ${HEALTHFL_AUDIT_TOKEN:?set HEALTHFL_AUDIT_TOKEN}
+      HEALTHFL_AUDIT_WITNESS_URLS: https://witness-a:8450,https://witness-b:8450,https://witness-c:8450
+      HEALTHFL_AUDIT_WITNESS_MANIFEST: /trust/audit-witnesses.json
+      HEALTHFL_AUDIT_THRESHOLD: 2
+      HEALTHFL_TLS_CERT: /certs/coordinator.crt
+      HEALTHFL_TLS_KEY: /certs/coordinator.key
+      HEALTHFL_CLIENT_CA: /certs/ca.crt
+      HEALTHFL_SERVER_CA: /certs/ca.crt
+    volumes:
+      - coordinator-state:/state
+      - ${HEALTHFL_HOST_STATE:-./state}/keys/public.context:/keys/public.context:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/identities/coordinator-model.ed25519:/run/secrets/coordinator-model.ed25519:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/audit-witnesses/manifest.json:/trust/audit-witnesses.json:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/certs:/certs:ro
+    ports: ["${HEALTHFL_COORDINATOR_PORT:-8443}:8443"]
+
+  witness-a:
+    <<: *common
+    command: ["python", "-m", "healthfl.services.witness"]
+    environment:
+      HEALTHFL_WITNESS_ID: witness-a
+      HEALTHFL_STATE_DIR: /state
+      HEALTHFL_AUDIT_TOKEN: ${HEALTHFL_AUDIT_TOKEN:?set HEALTHFL_AUDIT_TOKEN}
+      HEALTHFL_WITNESS_SIGNING_KEY: /run/secrets/witness.ed25519
+      HEALTHFL_TLS_CERT: /certs/witness-a.crt
+      HEALTHFL_TLS_KEY: /certs/witness-a.key
+      HEALTHFL_CLIENT_CA: /certs/ca.crt
+    volumes:
+      - witness-a-state:/state
+      - ${HEALTHFL_HOST_STATE:-./state}/audit-witnesses/witness-a.ed25519:/run/secrets/witness.ed25519:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/certs:/certs:ro
+    expose: ["8450"]
+
+  witness-b:
+    <<: *common
+    command: ["python", "-m", "healthfl.services.witness"]
+    environment:
+      HEALTHFL_WITNESS_ID: witness-b
+      HEALTHFL_STATE_DIR: /state
+      HEALTHFL_AUDIT_TOKEN: ${HEALTHFL_AUDIT_TOKEN:?set HEALTHFL_AUDIT_TOKEN}
+      HEALTHFL_WITNESS_SIGNING_KEY: /run/secrets/witness.ed25519
+      HEALTHFL_TLS_CERT: /certs/witness-b.crt
+      HEALTHFL_TLS_KEY: /certs/witness-b.key
+      HEALTHFL_CLIENT_CA: /certs/ca.crt
+    volumes:
+      - witness-b-state:/state
+      - ${HEALTHFL_HOST_STATE:-./state}/audit-witnesses/witness-b.ed25519:/run/secrets/witness.ed25519:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/certs:/certs:ro
+    expose: ["8450"]
+
+  witness-c:
+    <<: *common
+    command: ["python", "-m", "healthfl.services.witness"]
+    environment:
+      HEALTHFL_WITNESS_ID: witness-c
+      HEALTHFL_STATE_DIR: /state
+      HEALTHFL_AUDIT_TOKEN: ${HEALTHFL_AUDIT_TOKEN:?set HEALTHFL_AUDIT_TOKEN}
+      HEALTHFL_WITNESS_SIGNING_KEY: /run/secrets/witness.ed25519
+      HEALTHFL_TLS_CERT: /certs/witness-c.crt
+      HEALTHFL_TLS_KEY: /certs/witness-c.key
+      HEALTHFL_CLIENT_CA: /certs/ca.crt
+    volumes:
+      - witness-c-state:/state
+      - ${HEALTHFL_HOST_STATE:-./state}/audit-witnesses/witness-c.ed25519:/run/secrets/witness.ed25519:ro
+      - ${HEALTHFL_HOST_STATE:-./state}/certs:/certs:ro
+    expose: ["8450"]
+
+networks:
+  consortium:
+    driver: bridge
+
+volumes:
+  authority-state:
+  coordinator-state:
+  witness-a-state:
+  witness-b-state:
+  witness-c-state:

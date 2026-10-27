@@ -1,0 +1,112 @@
+{
+  "protocol_id": "q1-sota-reproduction-v1",
+  "title": "Same-protocol reproduction of communication-efficient private FL comparators",
+  "status": "frozen before SOTA adapter runs; post-hoc extension after original confirmatory test access",
+  "claim_scope": "Direct comparisons are valid only for re-runs on the locked PhysioNet cohort, model, privacy budget, CKKS backend, round budget, and paired seeds. They are not reproductions of the source papers' published dataset numbers.",
+  "dataset_lock": {
+    "path": "results/q1-confirmatory-v1/dataset.lock.json",
+    "protocol_sha256": "0b82c33986b6b6bf9393872eb2999cce518808d16fc7de475d15e67f9632e199",
+    "processed_manifest_sha256": "d8517464a5792fcf7c1e858c7ff8441fea86085df05360a5a2007d064fb16d8c",
+    "split_seed": 20260829,
+    "test_accessed_before_this_extension": true
+  },
+  "shared_execution": {
+    "model": "two-layer binary MLP with 64 hidden units",
+    "features": 280,
+    "local_epochs": 1,
+    "batch_size": 128,
+    "local_learning_rate": 0.03,
+    "rounds": 20,
+    "seeds": [1201, 1213, 1231, 1249, 1277],
+    "patient_level_dp": {
+      "mechanism": "per-sample DP-SGD before compression/encryption",
+      "noise_multiplier": 1.2,
+      "max_grad_norm": 1.0,
+      "delta": 0.00001,
+      "accountant": "RDP",
+      "secure_rng_required_for_final_runs": true
+    },
+    "transport": {
+      "backend": "TenSEAL 0.3.17 CKKS",
+      "target_ciphertext_chunks": 2,
+      "client_specific_sparse_support_policy": "dense CKKS re-encoding; logical compression is reported separately and no encrypted wire saving is claimed"
+    },
+    "operating_point": "Youden-J selected on pooled validation predictions and frozen before test scoring"
+  },
+  "methods": [
+    {
+      "method_id": "dp-fedavg-ckks",
+      "role": "dense private encrypted reference",
+      "source": "internal assumption-matched reference"
+    },
+    {
+      "method_id": "fed-ef-sgd-topk-dense-ckks",
+      "role": "SOTA biased-compression comparator",
+      "source_paper": "https://proceedings.mlr.press/v202/li23o.html",
+      "source_code_status": "No official implementation is linked from the publisher page or paper; paper-faithful Algorithm 1 reimplementation.",
+      "compressor": "client-specific Top-k",
+      "server_optimizer": "SGD",
+      "server_learning_rate": 1.0,
+      "adaptations": [
+        "The sign of the error-feedback state is expressed in local model-delta coordinates, which is algebraically equivalent to Algorithm 1's global-minus-local update.",
+        "The source paper is non-private; the frozen record-level DP-SGD mechanism is applied before compression as privacy-preserving post-processing.",
+        "Sparse client supports are dense CKKS re-encoded to preserve sum-only encrypted aggregation."
+      ]
+    },
+    {
+      "method_id": "fed-ef-ams-topk-dense-ckks",
+      "role": "SOTA adaptive biased-compression comparator",
+      "source_paper": "https://proceedings.mlr.press/v202/li23o.html",
+      "source_code_status": "No official implementation is linked from the publisher page or paper; paper-faithful Algorithm 1 reimplementation.",
+      "compressor": "client-specific Top-k",
+      "server_optimizer": "AMSGrad",
+      "server_learning_rate": 0.01,
+      "beta1": 0.9,
+      "beta2": 0.99,
+      "tau": 0.001,
+      "adaptations": [
+        "The frozen record-level DP-SGD mechanism is applied before compression.",
+        "Sparse client supports are dense CKKS re-encoded to preserve sum-only encrypted aggregation."
+      ]
+    },
+    {
+      "method_id": "soteriafl-sgd-randk-dense-ckks",
+      "role": "SOTA shifted-compression comparator",
+      "source_paper": "https://proceedings.neurips.cc/paper_files/paper/2022/hash/1b645a77cf48821afc3ee7e5b5d42617-Abstract-Conference.html",
+      "official_repository": "https://github.com/haoyuzhao123/soteriafl",
+      "official_commit": "bfa728fd4af852d861d0c2bbe757600de22a6b6a",
+      "official_optimizers_py_sha256": "5adda3ca8d43e3ac1b5741c68ff05c529aecd05895e07486a429cfe1c15a7b2a",
+      "compressor": "independently sampled unbiased random-k",
+      "shift_stepsize": "sqrt((1 + 2*omega) / (2*(1 + omega)^3)), omega=d/k-1",
+      "server_learning_rate": 1.0,
+      "adaptations": [
+        "The negative local DP model delta is used as the gradient-direction surrogate because the common healthcare protocol performs one local epoch.",
+        "The paper's local-DP Gaussian mechanism is replaced by the study's frozen patient-level DP-SGD mechanism; no original SoteriaFL LDP claim is transferred.",
+        "Example-count weighting replaces the source algorithm's equal client mean to match every healthcare comparator.",
+        "Independent random-k supports are dense CKKS re-encoded, so only logical sparse payload reduction is claimed."
+      ]
+    },
+    {
+      "method_id": "caabc",
+      "role": "proposed method",
+      "source": "internal proposed method under the same frozen protocol"
+    }
+  ],
+  "analysis": {
+    "primary_metrics": ["test_auroc", "test_auprc"],
+    "secondary_metrics": ["test_precision", "test_sensitivity", "test_specificity", "test_f1", "test_balanced_accuracy", "test_matthews_correlation", "test_brier"],
+    "systems_metrics": ["wire_upload_bytes", "actual_wire_reduction", "logical_payload_bytes", "logical_payload_reduction"],
+    "paired_reference": "caabc",
+    "interval": "two-sided paired Student-t 95 percent confidence interval",
+    "minimum_complete_seeds": 5,
+    "multiple_testing": "Holm correction across the three new comparator-versus-CAABC primary metric families",
+    "missing_cells": "No direct superiority claim until all paired cells complete"
+  },
+  "claim_boundaries": [
+    "This extension is frozen before the new SOTA runs but after the original test set had already been accessed; it is not a prospective preregistration.",
+    "Fed-EF is a paper-faithful reimplementation, not an official-code reproduction.",
+    "SoteriaFL's recurrence is official-code verified, but the healthcare DP and encrypted transport adaptations change its original threat model.",
+    "Dense CKKS re-encoding of client-specific supports prevents real encrypted wire savings for Fed-EF and SoteriaFL in this sum-only deployment.",
+    "No source-paper published number is treated as directly comparable across datasets."
+  ]
+}

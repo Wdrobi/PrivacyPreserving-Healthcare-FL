@@ -1,0 +1,11 @@
+.venv/
+.git/
+data/
+results/
+deploy/state/
+**/__pycache__/
+**/*.py[cod]
+.env
+*.db
+*.db-wal
+*.db-shm

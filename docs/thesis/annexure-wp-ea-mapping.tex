@@ -1,0 +1,132 @@
+\clearpage
+\chapter*{Annexure: Mapping of Complex Engineering Problems and Activities}
+\addcontentsline{toc}{chapter}{Annexure: WP and EA Mapping}
+
+This annexure maps the executed research to the Complex Engineering Problem (WP) and Complex Engineering Activity (EA) categories required by the university. The attribute names and generic descriptions are reproduced from the university-provided accreditation worksheet; the application-and-evidence statements are specific to this thesis. Proposed clinical or production capabilities are not counted as completed activities. Table~\ref{tab:cep} addresses the problem attributes, and Table~\ref{tab:cea} records the engineering activities used to investigate them.
+
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.18}
+
+\begin{longtable}{|p{0.9cm}|p{2.8cm}|p{3.8cm}|p{5.2cm}|}
+\caption{Complex Engineering Problems (WP) mapped to the thesis}
+\label{tab:cep}\\
+\hline
+\textbf{No.} & \textbf{Attribute} & \textbf{Description} & \textbf{Application and evidence in this thesis} \\
+\hline
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable\ -- continued from previous page}\\
+\hline
+\textbf{No.} & \textbf{Attribute} & \textbf{Description} & \textbf{Application and evidence in this thesis} \\
+\hline
+\endhead
+\hline
+\multicolumn{4}{r}{Continued on next page}\\
+\endfoot
+\hline
+\endlastfoot
+
+\multicolumn{4}{|p{12.7cm}|}{\textbf{Complex engineering problems} have WP1 and some or all of WP2--WP7. The entries below identify where these characteristics appear in the present study.}\\
+\hline
+
+\textbf{WP1} &
+Depth of knowledge required &
+Cannot be resolved without in-depth engineering knowledge at the WK3, WK4, WK5, WK6, or WK8 level and a first-principles analytical approach. &
+The problem required federated optimization, patient-level DP accounting, CKKS packing and approximate arithmetic, secure message design, attack modelling, and statistical inference to be considered together. Section~\ref{sec:problem-formulation} formalizes the resulting constraints; Section~\ref{sec:system-architecture} translates them into executable roles.\\
+\hline
+
+\textbf{WP2} &
+Range of conflicting requirements &
+Involves wide-ranging or conflicting technical, engineering, and other issues. &
+Stronger DP changes predictive utility; encryption protects update values but increases traffic and restricts plaintext-based poisoning defences; compression saves bandwidth but can reduce AUPRC. The registered AUROC and wire gates passed, while the adverse AUPRC difference remained visible (Table~\ref{tab:confirmatory-gates}).\\
+\hline
+
+\textbf{WP3} &
+Depth of analysis required &
+Has no obvious solution and requires abstract thinking and originality to formulate suitable models. &
+A sparse plaintext vector did not necessarily become a smaller CKKS message. CAABC-FL was formulated around a common, ciphertext-aligned block support, encrypted aggregate block scoring, and error feedback. Serialized uploads and matched-seed utility were measured rather than inferred from coordinate counts (Table~\ref{tab:communication-results}).\\
+\hline
+
+\textbf{WP4} &
+Familiarity of issues &
+Involves infrequently encountered issues. &
+The unusual issue was the mismatch between client-specific sparse supports and sum-only encrypted aggregation. A second was that the strongest one-round plaintext robustness baselines required individual update geometry unavailable to the coordinator. The comparison and its compatibility boundary are discussed in Section~\ref{sec:results-comparative-analysis}.\\
+\hline
+
+\textbf{WP5} &
+Extent of applicable codes &
+Extends beyond problems encompassed by existing standards and codes of professional engineering practice. &
+Security and professional standards inform authentication, privacy, and responsible reporting, but none specifies the combined DP--CAABC--CKKS--validation protocol or proves its clinical safety. The thesis therefore states protocol-specific assumptions and tests rather than claiming ISO certification, regulatory compliance, or production approval (Section~\ref{sec:engineering-society}).\\
+\hline
+
+\textbf{WP6} &
+Stakeholders and conflicting needs &
+Involves diverse stakeholder groups with widely varying and sometimes conflicting needs. &
+Patients require confidentiality and meaningful consent; hospitals need data control and manageable traffic; researchers need reproducible comparisons; security operators need verifiable releases; clinicians would need reliable, interpretable outputs. These are analysed stakeholder requirements, not evidence of interviews, user testing, or deployment with these groups (Section~\ref{sec:engineering-society}).\\
+\hline
+
+\textbf{WP7} &
+Interdependence &
+Is a high-level problem containing many interdependent component parts and sub-problems. &
+Patient-level DP precedes support scoring; the common support determines CKKS packing; signed envelopes bind that support to a round; the authority verifies the encrypted sum; validation decides model release; witnesses record the decision. A change in one step changes the assumptions or evidence needed for the others (Figure~\ref{fig:system-architecture}).\\
+\hline
+\end{longtable}
+
+\clearpage
+
+\begin{longtable}{|p{0.9cm}|p{2.8cm}|p{3.8cm}|p{5.2cm}|}
+\caption{Complex Engineering Activities (EA) mapped to the thesis}
+\label{tab:cea}\\
+\hline
+\textbf{No.} & \textbf{Attribute} & \textbf{Description} & \textbf{Application and evidence in this thesis} \\
+\hline
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable\ -- continued from previous page}\\
+\hline
+\textbf{No.} & \textbf{Attribute} & \textbf{Description} & \textbf{Application and evidence in this thesis} \\
+\hline
+\endhead
+\hline
+\multicolumn{4}{r}{Continued on next page}\\
+\endfoot
+\hline
+\endlastfoot
+
+\multicolumn{4}{|p{12.7cm}|}{\textbf{Complex engineering activities} involve some or all of EA1--EA5. The mapping distinguishes executed research activity from a proposed deployment pathway.}\\
+\hline
+
+\textbf{EA1} &
+Range of resources &
+Involves diverse resources, including people, equipment, information, technologies, and funding where required. &
+The work used the public 40,336-patient PhysioNet cohort, a personal CPU workstation, open-source learning and cryptographic libraries, Docker services, frozen protocols, and result manifests. No hospital infrastructure, paid clinical dataset, or measured institutional operating budget is claimed (Tables~\ref{tab:results-environment} and~\ref{tab:reproducibility-checklist}).\\
+\hline
+
+\textbf{EA2} &
+Level of interactions &
+Requires resolution of significant problems arising from interactions among wide-ranging or conflicting technical and other issues. &
+DP noise changed utility; CKKS serialization changed the meaning of compression; encrypted aggregation removed direct access to individual-update geometry; validation improved release control but caused rollback and utility cost. These interactions were tested in the utility, communication, and poisoning matrices (Tables~\ref{tab:core-clinical-results}, \ref{tab:communication-results}, and~\ref{tab:longitudinal-poisoning}).\\
+\hline
+
+\textbf{EA3} &
+Innovation &
+Involves creative use of engineering principles and research-based knowledge in a novel design. &
+CAABC-FL aligned adaptive shared-block selection and error feedback with CKKS ciphertext chunks. The integrated service added signed hospital submissions, independent aggregate recomputation, validation and rollback, and witnessed audit checkpoints. The measured contribution is about 56\% encrypted-wire reduction with the registered AUROC non-inferiority gate met; it is not a claim of superiority on every metric (Table~\ref{tab:confirmatory-gates}).\\
+\hline
+
+\textbf{EA4} &
+Consequences to society and the environment &
+May have significant consequences for society and the environment that are difficult to predict or mitigate fully. &
+The intended benefit is collaboration without centralizing raw patient records. Potential harms include membership leakage, biased or poisoned predictions, unauthorized inference, and inappropriate clinical reliance. CKKS and repeated experiments also consume computation, although energy and carbon were not measured. The system remains a retrospective research implementation, not validated clinical decision support (Sections~\ref{sec:engineering-society} and~\ref{sec:conclusion-limitations}).\\
+\hline
+
+\textbf{EA5} &
+Familiarity &
+Extends beyond previous experience by applying principles-based approaches to unfamiliar issues. &
+The work moved from conventional FL metrics to serialized-ciphertext accounting, patient-level privacy and attack evaluation, encrypted-aggregation verification, and failure-mode testing. Frozen dataset splits, paired seeds, five-seed security matrices, and explicit claim boundaries made unfamiliar integration choices inspectable (Appendices~\ref{app:experimental-protocols} and~\ref{app:evidence-inventory}).\\
+\hline
+\end{longtable}
+
+\endgroup
+
+The mapping shows why this project is more than an application of one pre-existing classifier. Its complexity lies in the interaction between learning quality, patient-level privacy, encrypted communication, malicious participation, and accountable release. Its demonstrated outcome is a bounded research system: the proposed compression met its registered AUROC and encrypted-wire criteria, while AUPRC loss, poisoning exposure, centralized decryption, and the absence of clinical and physical multi-host validation remain explicit limitations.

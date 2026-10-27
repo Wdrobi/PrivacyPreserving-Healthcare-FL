@@ -1,0 +1,378 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authority
+  namespace: healthfl
+spec:
+  selector:
+    app: authority
+  ports:
+    - name: mtls
+      port: 8444
+      targetPort: 8444
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coordinator
+  namespace: healthfl
+spec:
+  selector:
+    app: coordinator
+  ports:
+    - name: mtls
+      port: 8443
+      targetPort: 8443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: witness
+  namespace: healthfl
+spec:
+  clusterIP: None
+  selector:
+    app: witness
+  ports:
+    - name: mtls
+      port: 8450
+      targetPort: 8450
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: witness-a
+  namespace: healthfl
+spec:
+  selector:
+    statefulset.kubernetes.io/pod-name: witness-0
+  ports:
+    - name: mtls
+      port: 8450
+      targetPort: 8450
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: witness-b
+  namespace: healthfl
+spec:
+  selector:
+    statefulset.kubernetes.io/pod-name: witness-1
+  ports:
+    - name: mtls
+      port: 8450
+      targetPort: 8450
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: witness-c
+  namespace: healthfl
+spec:
+  selector:
+    statefulset.kubernetes.io/pod-name: witness-2
+  ports:
+    - name: mtls
+      port: 8450
+      targetPort: 8450
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: authority
+  namespace: healthfl
+spec:
+  serviceName: authority
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authority
+  template:
+    metadata:
+      labels:
+        app: authority
+      annotations:
+        io.katacontainers.config.hypervisor.kernel_params: >-
+          agent.aa_kbc_params=cc_kbc::http://REPLACE_TRUSTEE_KBS_HOST:8080
+    spec:
+      runtimeClassName: kata-qemu-tdx
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: authority
+          image: ghcr.io/REPLACE_ORG/healthfl-service:0.2.0
+          imagePullPolicy: IfNotPresent
+          command: ["python", "/app/scripts/start_attested_authority.py"]
+          env:
+            - name: HEALTHFL_STATE_DIR
+              value: /state
+            - name: HEALTHFL_PUBLIC_CONTEXT
+              value: /keys/public.context
+            - name: HEALTHFL_AUTHORITY_CONTEXT
+              value: /run/secrets/authority.context
+            - name: HEALTHFL_KEY_RELEASE_MODE
+              value: trustee-coco-attested
+            - name: HEALTHFL_TRUSTEE_RESOURCE_URL
+              value: http://127.0.0.1:8006/cdh/resource/healthfl/ckks/authority-context
+            - name: HEALTHFL_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: healthfl-service-tokens
+                  key: service-token
+            - name: HEALTHFL_MIN_PARTICIPANTS
+              value: "2"
+            - name: HEALTHFL_TLS_CERT
+              value: /tls/tls.crt
+            - name: HEALTHFL_TLS_KEY
+              value: /tls/tls.key
+            - name: HEALTHFL_CLIENT_CA
+              value: /ca/ca.crt
+            - name: HEALTHFL_CONSORTIUM_IDENTITIES
+              value: /trust/consortium-identities.json
+          ports:
+            - containerPort: 8444
+              name: mtls
+          readinessProbe:
+            tcpSocket:
+              port: mtls
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: state
+              mountPath: /state
+            - name: runtime-secrets
+              mountPath: /run/secrets
+            - name: public-context
+              mountPath: /keys
+              readOnly: true
+            - name: tls
+              mountPath: /tls
+              readOnly: true
+            - name: ca
+              mountPath: /ca
+              readOnly: true
+            - name: authority-trust
+              mountPath: /trust
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: runtime-secrets
+          emptyDir:
+            medium: Memory
+            sizeLimit: 64Mi
+        - name: public-context
+          secret:
+            secretName: healthfl-public-context
+        - name: tls
+          secret:
+            secretName: authority-tls
+        - name: ca
+          secret:
+            secretName: consortium-ca
+        - name: authority-trust
+          secret:
+            secretName: authority-trust
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 256Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: state
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: coordinator
+  namespace: healthfl
+spec:
+  serviceName: coordinator
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coordinator
+  template:
+    metadata:
+      labels:
+        app: coordinator
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: coordinator
+          image: ghcr.io/REPLACE_ORG/healthfl-service:0.2.0
+          command: ["python", "-m", "healthfl.services.coordinator"]
+          env:
+            - name: HEALTHFL_STATE_DIR
+              value: /state
+            - name: HEALTHFL_PUBLIC_CONTEXT
+              value: /keys/public.context
+            - name: HEALTHFL_MODEL_SIGNING_KEY
+              value: /coordinator-keys/coordinator-model.ed25519
+            - name: HEALTHFL_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: healthfl-service-tokens
+                  key: service-token
+            - name: HEALTHFL_ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: healthfl-service-tokens
+                  key: admin-token
+            - name: HEALTHFL_AUDIT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: healthfl-service-tokens
+                  key: audit-token
+            - name: HEALTHFL_AUTHORITY_URL
+              value: https://authority:8444
+            - name: HEALTHFL_AUDIT_WITNESS_URLS
+              value: https://witness-a:8450,https://witness-b:8450,https://witness-c:8450
+            - name: HEALTHFL_AUDIT_WITNESS_MANIFEST
+              value: /coordinator-keys/audit-witnesses.json
+            - name: HEALTHFL_AUDIT_THRESHOLD
+              value: "2"
+            - name: HEALTHFL_MIN_PARTICIPANTS
+              value: "2"
+            - name: HEALTHFL_TLS_CERT
+              value: /tls/tls.crt
+            - name: HEALTHFL_TLS_KEY
+              value: /tls/tls.key
+            - name: HEALTHFL_CLIENT_CA
+              value: /ca/ca.crt
+            - name: HEALTHFL_SERVER_CA
+              value: /ca/ca.crt
+          ports:
+            - containerPort: 8443
+              name: mtls
+          readinessProbe:
+            tcpSocket:
+              port: mtls
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - {name: state, mountPath: /state}
+            - {name: public-context, mountPath: /keys, readOnly: true}
+            - {name: coordinator-keys, mountPath: /coordinator-keys, readOnly: true}
+            - {name: tls, mountPath: /tls, readOnly: true}
+            - {name: ca, mountPath: /ca, readOnly: true}
+            - {name: tmp, mountPath: /tmp}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values: [authority, witness]
+      volumes:
+        - {name: public-context, secret: {secretName: healthfl-public-context}}
+        - {name: coordinator-keys, secret: {secretName: coordinator-keys}}
+        - {name: tls, secret: {secretName: coordinator-tls}}
+        - {name: ca, secret: {secretName: consortium-ca}}
+        - {name: tmp, emptyDir: {medium: Memory, sizeLimit: 256Mi}}
+  volumeClaimTemplates:
+    - metadata:
+        name: state
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: witness
+  namespace: healthfl
+spec:
+  serviceName: witness
+  replicas: 3
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: witness
+  template:
+    metadata:
+      labels:
+        app: witness
+    spec:
+      automountServiceAccountToken: false
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: witness
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: witness
+          image: ghcr.io/REPLACE_ORG/healthfl-service:0.2.0
+          command: ["python", "/app/scripts/start_stateful_witness.py"]
+          env:
+            - name: HEALTHFL_STATE_DIR
+              value: /state
+            - name: HEALTHFL_AUDIT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: healthfl-service-tokens
+                  key: audit-token
+            - name: HEALTHFL_CLIENT_CA
+              value: /ca/ca.crt
+          ports:
+            - containerPort: 8450
+              name: mtls
+          readinessProbe:
+            tcpSocket:
+              port: mtls
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - {name: state, mountPath: /state}
+            - {name: witness-keys, mountPath: /witness-keys, readOnly: true}
+            - {name: witness-pki, mountPath: /certs, readOnly: true}
+            - {name: ca, mountPath: /ca, readOnly: true}
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - {name: witness-keys, secret: {secretName: witness-keys}}
+        - {name: witness-pki, secret: {secretName: witness-pki}}
+        - {name: ca, secret: {secretName: consortium-ca}}
+        - {name: tmp, emptyDir: {medium: Memory, sizeLimit: 128Mi}}
+  volumeClaimTemplates:
+    - metadata:
+        name: state
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi

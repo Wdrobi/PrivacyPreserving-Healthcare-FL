@@ -1,0 +1,451 @@
+\appendix
+
+\chapter{Reproducibility and Execution Environment}
+\label{app:reproducibility}
+
+This appendix records the information needed to inspect or repeat the experimental work reported in Chapter~\ref{chap:results-discussion}. It is intentionally separated from the main results chapter so that implementation detail does not interrupt the interpretation of the findings. The commands and file locations refer to the submitted repository snapshot. A successful rerun demonstrates consistency with the documented research workflow; it does not convert the retrospective experiments into clinical validation.
+
+\section{Recorded Software Environment}
+\label{appsec:software-environment}
+
+The frozen evidence package records the environment shown in Table~\ref{tab:appendix-environment}. The main scientific experiments were CPU based. TenSEAL was used for the deployed single-key CKKS path, while OpenFHE was used only for the isolated three-party multiparty-decryption experiment.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Recorded software environment for the submitted experiments}
+    \label{tab:appendix-environment}
+    \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \toprule
+        Component & Recorded value \\
+        \midrule
+        Operating system & Windows 11, AMD64 \\
+        Python & CPython 3.13.3 \\
+        Learning and privacy & PyTorch 2.13.0+cpu; Opacus 1.6.0 \\
+        Numerical analysis & NumPy 2.5.2; SciPy 1.18.1 \\
+        Homomorphic encryption & TenSEAL 0.3.17; OpenFHE 1.5.1 in the isolated multiparty test \\
+        Security library & Cryptography 50.0.1 \\
+        Visualization & Matplotlib 3.11.1 \\
+        DP randomness & OS-seeded AES-256-CTR stream, secure Poisson sampling, and four-draw Gaussian construction \\
+        Service execution & Docker containers and mutually authenticated processes on one physical host \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+The dependency specifications are stored in \path{requirements-scientific.txt}, \path{requirements-services.txt}, and \path{requirements-openfhe.txt}. Package versions are also captured in \path{results/thesis/environment.json}. The environment record is evidence of the configuration that produced the submitted files; dependency installation on a different operating system may select platform-specific binary builds and can therefore change timings slightly.
+
+\section{Dataset and Split Lock}
+\label{appsec:dataset-lock}
+
+The primary study used the 40,336-patient PhysioNet/Computing in Cardiology Challenge 2019 training cohort. The frozen protocol identifies the source archive by object count, download-manifest hash, and licence hash. The preprocessing manifest is separately hashed after patient-level splitting and feature construction. These checks prevent an incomplete download, changed preprocessing output, or an unintended patient split from being silently accepted as the confirmatory dataset.
+
+The split seed was 20260829. Patients were stratified within each of the two source hospitals into 70\% training, 15\% validation, and 15\% test partitions. Normalization parameters and class weights were estimated from training patients only. The validation partition selected the operating threshold, which was then frozen for pooled and site-specific test evaluation. Poisoning and membership-inference procedures that did not require final utility testing used designated training or validation partitions and did not reopen the utility test labels.
+
+The principal protocol is stored in \path{protocols/q1-confirmatory-v1.json}. Its associated processed-data lock is \path{results/q1-confirmatory-v1/dataset.lock.json}. The security, extension, SOTA, and dropout protocols refer back to this lock rather than creating new data partitions.
+
+\section{Reproduction Profiles}
+\label{appsec:reproduction-profiles}
+
+The repository provides two entry profiles. From the repository root, the shorter verification profile is executed as follows:
+
+\begin{verbatim}
+.\scripts\reproduce.ps1 -Profile smoke
+\end{verbatim}
+
+This profile runs the automated checks and rebuilds the manifests, hashes, traceability matrix, and thesis evidence tables from the retained machine-readable outputs. The full profile is invoked with:
+
+\begin{verbatim}
+.\scripts\reproduce.ps1 -Profile thesis
+\end{verbatim}
+
+The thesis profile additionally reruns the locked scientific and service experiments before rebuilding the evidence package. It is substantially slower and replaces the named result directories with fresh outputs. The main PhysioNet preparation and benchmark path can also be executed explicitly:
+
+\begin{verbatim}
+$env:PYTHONPATH = "src"
+.\.venv\Scripts\python.exe scripts\download_physionet_2019.py `
+  --destination data/raw/physionet-2019 --workers 24
+.\.venv\Scripts\python.exe scripts\preprocess_physionet_2019.py `
+  --root data/raw/physionet-2019 `
+  --destination data/processed/physionet-2019-confirmatory-20260829 `
+  --seed 20260829
+\end{verbatim}
+
+The frozen runners validate the protocol, dataset lock, completed-cell schema, and result hashes before publication-named summaries are released. Interrupted matrix runs are resumable, and a completed cell is reused only when its recorded hash remains valid.
+
+\section{Randomness and Expected Variation}
+\label{appsec:randomness-variation}
+
+Model seeds fix data-ordering and initialization choices used for pairing methods. Secure DP sampling and noise remain intentionally non-deterministic because their entropy is obtained from the operating system. CKKS encryption is randomized as well. Consequently, ciphertext bytes, ciphertext fingerprints, and bit-for-bit model trajectories are not expected to repeat. Reproduction is assessed through protocol conformance, privacy-accounting outputs, numerical tolerances, completed experiment cells, and aggregate statistical behaviour rather than identical ciphertexts.
+
+The custom secure-randomness implementation was exercised in the full-cohort runs and its backend provenance was recorded for each client. It has not received an independent cryptographic audit. The implementation therefore supports the experimental privacy evaluation and recorded accountant output, but it is not presented as an independently certified production DP engine.
+
+\section{Reproducibility Checklist}
+\label{appsec:reproducibility-checklist}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Reproducibility checklist for the submitted evidence}
+    \label{tab:reproducibility-checklist}
+    \begin{tabularx}{\textwidth}{@{}lXc@{}}
+        \toprule
+        Item & Verification basis & Available \\
+        \midrule
+        Frozen dataset identity & Download, licence, raw-object, and processed-manifest hashes & Yes \\
+        Patient-level split & Fixed split seed and per-hospital split manifest & Yes \\
+        Model and training settings & Machine-readable confirmatory protocol & Yes \\
+        Privacy settings & Adjacency, clipping, noise, $\delta$, and accountant recorded & Yes \\
+        Paired trials & Seed lists fixed by method tier & Yes \\
+        Statistical procedure & Confidence interval, paired unit, gates, and corrections recorded & Yes \\
+        Raw and derived outputs & CSV/JSON results plus analysis manifests & Yes \\
+        Code/result snapshot & SHA-256 artifact manifest & Yes \\
+        Physical multi-host trace & Not performed & No \\
+        Prospective clinical validation & Outside the scope of this study & No \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+
+\chapter{Frozen Experimental Protocols}
+\label{app:experimental-protocols}
+
+\section{Primary Utility and Communication Protocol}
+\label{appsec:primary-protocol}
+
+Table~\ref{tab:primary-protocol-specification} condenses the configuration that governed the primary 125-cell matrix. Values were fixed before confirmatory test access. The model contains 280 input features, one hidden layer of 64 units, and a binary output. Every paired method used the same patient split, initialization seed, round budget, and local-training settings within a trial.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Frozen primary experimental specification}
+    \label{tab:primary-protocol-specification}
+    \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \toprule
+        Element & Frozen specification \\
+        \midrule
+        Task & Matched-landmark early-sepsis classification with a 24-hour history \\
+        Cohort & 40,336 patients from two natural source-hospital partitions \\
+        Features & 40 clinical variables summarized into 280 inputs \\
+        Model & Two-layer binary MLP, 64 hidden units, 18,049 trainable parameters \\
+        Training & 20 rounds; one local epoch; batch size 128; learning rate 0.03 \\
+        Core seeds & 1201, 1213, 1231, 1249, 1277, 1291, 1301, 1321, 1361, 1381 \\
+        Secondary seeds & 1201, 1213, 1231, 1249, 1277 \\
+        DP definition & Add-or-remove-one-patient adjacency; per-sample DP-SGD \\
+        DP parameters & Noise multiplier 1.2; clipping norm 1.0; $\delta=10^{-5}$; RDP accountant \\
+        CKKS configuration & TenSEAL 0.3.17; degree 8192; coefficient bits $(60,40,40,60)$; scale $2^{40}$ \\
+        CAABC settings & Block size 256; two ciphertext chunks; support refresh every five rounds; error feedback \\
+        Threshold selection & Youden's $J$ on pooled validation data, then frozen for all test reporting \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+The optimization tier contained FedAvg, FedProx, SCAFFOLD, FedNova, FedAdam, and FedYogi over ten seeds. The core private tier contained DP-FedAvg, dense DP-FedAvg-CKKS, CAABC-static, and CAABC-FL over the same ten seeds. Random-$k$-CKKS, Top-$k$ with dense CKKS transport, error-feedback Top-$k$ with dense CKKS transport, fixed-block CKKS, and quantized dense CKKS formed the five-seed secondary compression tier. This arrangement used more replication for the principal comparisons while retaining feasible cost for the encrypted secondary methods.
+
+\section{Registered Outcomes and Decision Rules}
+\label{appsec:outcomes-rules}
+
+AUROC and AUPRC were the primary clinical outcomes. Secondary outcomes included sensitivity, specificity, precision, negative predictive value, F1, balanced accuracy, Matthews correlation coefficient, Brier score, calibration intercept, and calibration slope. Communication outcomes included serialized encrypted upload, actual encrypted-wire reduction, logical payload, and logical payload reduction.
+
+CAABC-FL was compared with dense DP-FedAvg-CKKS using paired seed-level differences. The AUROC non-inferiority margin was $-0.015$, and the minimum required encrypted-wire reduction was 40\%. The joint primary claim required both gates to pass. Two-sided Student-$t$ 95\% confidence intervals were reported across paired seeds. Secondary outcomes were treated as exploratory, and registered endpoint families used Holm adjustment where multiple related hypotheses were evaluated.
+
+\section{Security and Privacy Evaluation Matrix}
+\label{appsec:security-protocol}
+
+The security protocol used five paired seeds: 1201, 1213, 1231, 1249, and 1277. Its design is summarized in Table~\ref{tab:security-protocol-matrix}. The one-round matrix deliberately included defences that are incompatible with a sum-only encrypted coordinator. These methods were retained as assumption-mismatched robustness references, not as deployable components of the primary service.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Frozen security and privacy evaluation matrix}
+    \label{tab:security-protocol-matrix}
+    \begin{tabularx}{\textwidth}{@{}p{3.1cm}X@{}}
+        \toprule
+        Component & Registered design \\
+        \midrule
+        One-round poisoning & 20 virtual clients; 10 per source hospital; malicious fractions 0.1--0.4; seven attacks; six aggregation rules; 870 condition records \\
+        Five-round poisoning & Sign flip, model replacement, and backdoor at 0.2 and 0.4 malicious fractions; mean, validation/reputation mean, Multi-Krum, and FLTrust; 700 round records and 140 final scenarios \\
+        Adaptive extension & Colluding replacement, Sybil backdoor, adaptive trust, sleeper backdoor, and adaptive-vote variants; 20-round trajectories \\
+        Powered membership inference & 720 members and 720 non-members per seed for FedAvg, dense DP-FedAvg-CKKS, and CAABC-FL \\
+        Advanced membership inference & Online LiRA and low-cost RMIA; eight architecture-matched reference models per seed; low-FPR endpoints \\
+        Gradient reconstruction & 300 optimization steps; four records per seed; exact, masked, DP-sanitized, and combined observations \\
+        CAABC ablation & Six registered variants covering error feedback, support refresh, and one-, two-, four-, and eight-chunk budgets \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+Empirical privacy attacks quantify the success of specific adversaries under their recorded information access. They do not prove differential privacy. Similarly, poisoning resistance in a finite attack matrix is evidence about those attacks and does not establish formal Byzantine robustness.
+
+\section{Same-Protocol SOTA Comparison}
+\label{appsec:sota-protocol}
+
+Fed-EF and SoteriaFL were evaluated under the same cohort, model, record-level DP mechanism, round budget, CKKS backend, and five paired seeds as CAABC-FL \cite{li2023fedef,li2022soteriafl}. Table~\ref{tab:sota-adaptations} states the adaptations needed to make their algorithms comparable within the healthcare protocol. These experiments are same-protocol reimplementations; they are not reproductions of the source papers' published dataset values.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Status and adaptations of same-protocol SOTA comparators}
+    \label{tab:sota-adaptations}
+    \begin{tabularx}{\textwidth}{@{}p{3cm}p{3.2cm}X@{}}
+        \toprule
+        Method & Reproduction status & Study-specific adaptation \\
+        \midrule
+        Fed-EF-SGD & Paper-faithful implementation & Record-level DP-SGD precedes Top-$k$ compression; client-specific support is re-encoded into dense CKKS \\
+        Fed-EF-AMS & Paper-faithful implementation & Same DP and transport adaptation; AMSGrad server settings follow the frozen adapter \\
+        SoteriaFL-SGD & Recurrence checked against official code & Local DP is replaced by the common record-level DP-SGD path; example weighting and model-delta surrogate are used; random supports are re-encoded densely \\
+        DP-FedAvg-CKKS & Assumption-matched internal reference & Dense encrypted update with the same DP and training configuration \\
+        CAABC-FL & Proposed method & Common adaptive block support is aligned with packed CKKS transport \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+
+\chapter{Supplementary Quantitative Evidence}
+\label{app:supplementary-results}
+
+\section{Complete CAABC Ablation Summary}
+\label{appsec:caabc-ablation}
+
+Table~\ref{tab:caabc-ablation-complete} presents all registered CAABC ablation variants. Here, $k$ denotes the ciphertext-chunk budget, $r$ denotes the support-refresh interval, and EF denotes error feedback. The one-chunk configuration produced the largest wire reduction but had the lowest AUPRC. Increasing the budget improved AUPRC and Brier score, but the eight-chunk configuration transmitted slightly more than the dense reference. The selected two-chunk, five-round-refresh configuration therefore represents a deliberate communication--utility compromise rather than the best setting for every metric.
+
+\begin{table}[htbp]
+    \centering
+    \caption{CAABC mechanism ablation over five paired seeds}
+    \label{tab:caabc-ablation-complete}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccc@{}}
+        \toprule
+        Variant & AUROC (95\% CI) & AUPRC (95\% CI) & Brier (95\% CI) & Wire reduction (95\% CI) \\
+        \midrule
+        $k=1,r=5$, EF & 0.733 [0.727, 0.738] & 0.372 [0.349, 0.394] & 0.0675 [0.0658, 0.0693] & 76.0\% [75.996, 76.001] \\
+        $k=2,r=1$, EF & 0.730 [0.724, 0.735] & 0.391 [0.381, 0.401] & 0.0646 [0.0642, 0.0649] & 40.0\% [39.988, 40.012] \\
+        $k=2,r=5$, EF & 0.730 [0.727, 0.734] & 0.384 [0.376, 0.393] & 0.0658 [0.0650, 0.0666] & 56.0\% [55.991, 56.007] \\
+        $k=2,r=10$, EF & 0.733 [0.728, 0.738] & 0.380 [0.366, 0.394] & 0.0662 [0.0654, 0.0671] & 58.0\% [57.993, 58.005] \\
+        $k=2,r=5$, no EF & 0.729 [0.724, 0.734] & 0.374 [0.366, 0.383] & 0.0667 [0.0660, 0.0673] & 56.0\% [55.997, 56.009] \\
+        $k=4,r=5$, EF & 0.732 [0.727, 0.737] & 0.392 [0.382, 0.402] & 0.0645 [0.0639, 0.0651] & 16.0\% [15.986, 16.016] \\
+        $k=8,r=5$, EF & 0.731 [0.727, 0.735] & 0.394 [0.387, 0.402] & 0.0634 [0.0627, 0.0642] & $-4.0$\% [$-4.007$, $-3.988$] \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+\section{Same-Protocol SOTA Summary}
+\label{appsec:sota-results-full}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Same-protocol comparison with reproduced communication-efficient methods}
+    \label{tab:sota-results-appendix}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccc@{}}
+        \toprule
+        Method & AUROC (95\% CI) & AUPRC (95\% CI) & F1 (95\% CI) & Encrypted-wire reduction \\
+        \midrule
+        DP-FedAvg-CKKS & 0.731 [0.726, 0.736] & 0.394 [0.386, 0.402] & 0.299 [0.234, 0.364] & 0.000\% [0.000, 0.000] \\
+        CAABC-FL & 0.730 [0.727, 0.734] & 0.384 [0.376, 0.393] & 0.245 [0.174, 0.316] & 55.999\% [55.991, 56.007] \\
+        Fed-EF-SGD & 0.731 [0.726, 0.736] & 0.395 [0.387, 0.403] & 0.272 [0.213, 0.331] & 0.007\% [$-0.003$, 0.016] \\
+        Fed-EF-AMS & 0.732 [0.728, 0.736] & 0.341 [0.327, 0.355] & 0.263 [0.241, 0.285] & 0.003\% [$-0.015$, 0.022] \\
+        SoteriaFL-SGD & 0.727 [0.716, 0.738] & 0.392 [0.383, 0.401] & 0.339 [0.318, 0.361] & 0.000\% [$-0.009$, 0.010] \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+The paired analysis did not show universal predictive superiority for CAABC-FL. Relative to Fed-EF-SGD, its AUROC difference was $-0.0006$ [$-0.0048$, 0.0037] and its AUPRC difference was $-0.0106$ [$-0.0146$, $-0.0067$]. Relative to Fed-EF-AMS, its AUROC difference was $-0.0014$ [$-0.0036$, 0.0008], whereas its AUPRC difference was $+0.0438$ [0.0314, 0.0562]. Relative to SoteriaFL-SGD, the AUROC difference was $+0.0034$ [$-0.0062$, 0.0131] and the AUPRC difference was $-0.0076$ [$-0.0132$, $-0.0020$]. The defensible distinction is that CAABC-FL achieved a substantial measured encrypted-wire reduction while the client-specific sparse SOTA comparators required dense CKKS transport in the evaluated sum-only system.
+
+\section{Membership-Inference Summary}
+\label{appsec:membership-full}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Powered loss-based membership-inference results}
+    \label{tab:membership-appendix}
+    \begin{tabular}{@{}lccc@{}}
+        \toprule
+        Method & Attack AUROC (95\% CI) & Attack advantage (95\% CI) & Records per group/seed \\
+        \midrule
+        FedAvg & 0.5239 [0.5085, 0.5393] & 0.0306 [$-0.0128$, 0.0740] & 720 \\
+        DP-FedAvg-CKKS & 0.5050 [0.4922, 0.5179] & $-0.0047$ [$-0.0210$, 0.0116] & 720 \\
+        CAABC-FL & 0.5035 [0.4929, 0.5142] & 0.0022 [$-0.0231$, 0.0276] & 720 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The DP methods used $\epsilon=1.9345$ and $\delta=10^{-5}$ in this experiment. Their attack intervals were near chance for the registered loss-based classifier. This does not mean that membership disclosure is impossible; it means that the specified attacker did not obtain a reliable advantage under the frozen evaluation. The stronger LiRA and RMIA analyses in Chapter~\ref{chap:results-discussion} provide complementary, attack-specific evidence.
+
+\section{Gradient-Reconstruction Summary}
+\label{appsec:gradient-full}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Three-hundred-step gradient-reconstruction results}
+    \label{tab:gradient-appendix}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lccc@{}}
+        \toprule
+        Observation exposed to attacker & Feature RMSE (95\% CI) & Feature cosine similarity (95\% CI) & Samples per seed \\
+        \midrule
+        Plaintext exact & 0.684 [0.434, 0.935] & 0.557 [0.486, 0.628] & 4 \\
+        CAABC mask, worst-case values & 0.598 [0.572, 0.624] & 0.577 [0.552, 0.601] & 4 \\
+        DP-sanitized & 2.547 [2.387, 2.706] & $-0.039$ [$-0.057$, $-0.021$] & 4 \\
+        DP plus CAABC, worst-case values & 2.763 [2.597, 2.929] & $-0.021$ [$-0.036$, $-0.006$] & 4 \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+Masking alone did not consistently increase reconstruction error relative to exact plaintext exposure. The substantial deterioration occurred after DP sanitization. The combined result must therefore be attributed primarily to clipping and noise rather than to compression alone.
+
+
+\chapter{Threat--Control--Evidence Traceability}
+\label{app:security-traceability}
+
+This appendix connects the threat model in Chapter~\ref{chap:proposed-methodology} to implemented controls, executable evidence, and remaining risk. ``Implemented'' means that the control was exercised in this research system; it does not mean clinical or production readiness. ``Partial'' denotes an implemented control with a material trust or deployment boundary. ``Gap'' denotes planned functionality that was not implemented.
+
+\begin{longtable}{@{}p{0.8cm}p{3.2cm}p{5.1cm}p{1.4cm}p{4.0cm}@{}}
+    \caption{Threat--control--residual-risk traceability matrix}\label{tab:threat-traceability-full}\\
+    \toprule
+    ID & Threat & Principal control & Status & Residual risk \\
+    \midrule
+    \endfirsthead
+    \multicolumn{5}{c}{\tablename\ \thetable\ -- continued from previous page}\\
+    \toprule
+    ID & Threat & Principal control & Status & Residual risk \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{5}{r}{Continued on next page}\\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    T01 & Central raw-data disclosure & Institution-local training; only protected updates leave a hospital & Implemented & Compromise of a hospital endpoint remains outside the evaluated boundary \\
+    T02 & Gradient or update leakage & Record-level DP-SGD and CKKS encryption & Partial & Central decryptor and metadata leakage remain \\
+    T03 & Membership inference & Clipping, Gaussian noise, RDP accounting, loss attack, LiRA, and RMIA evaluation & Partial & Empirical attacks do not prove DP; the RNG needs independent review \\
+    T04 & Model-replacement poisoning & Norm bounding, distributed validation, rollback, and reputation quarantine & Implemented & Adaptive bounded attacks can evade validation \\
+    T05 & Sign-flip or bounded poisoning & Norm bounding and aggregate validation & Partial & Byzantine robustness was not established \\
+    T06 & Sybil enrolment & One organization, one active identity rule & Partial & No external consortium credential issuer was evaluated \\
+    T07 & Update tampering or spoofing & Ed25519 signatures plus TLS 1.3 mutual authentication & Implemented & Development CA lacks managed revocation and rotation \\
+    T08 & Replay or stale update & Durable nonce, timestamp, round, and model-version binding & Implemented & Multi-region replay consistency is not implemented \\
+    T09 & Curious aggregator & Public-only CKKS aggregation, independent recomputation, and signed FLTrust statistics & Partial & Deployed TenSEAL authority retains one complete decryption key \\
+    T10 & Compromised key authority & Isolated OpenFHE multiparty CKKS and fail-closed attested-release profile & Partial & Not service-integrated, dropout tolerant, or hardware-attested \\
+    T11 & Audit-log modification & Hash chain plus three persistent witnesses and two-of-three signed receipts & Partial & Not BFT consensus; coordinator and two witnesses can equivocate \\
+    T12 & Unauthorized inference & Signed identity, purpose, consent, and model-version checks over mTLS & Implemented & Consent administration is consortium controlled; authority remains trusted \\
+    T13 & Inference replay or probing & Nonce rejection and fixed-window query limits & Implemented & Limiter is neither distributed nor crash persistent \\
+    T14 & Prediction-output leakage & Five-percentage-point bucket and risk-band release & Partial & Repeated-query and model-extraction risks need broader evaluation \\
+    T15 & Use after revocation & Versioned consent checks and ciphertext deletion & Implemented & Deletion evidence is process-local \\
+    T16 & Single-actor release & Two-of-three signed guardian authorization & Partial & Guardians and decryptor execute in one process; this is not threshold cryptography \\
+    T17 & Adaptive or colluding poisoning & Colluding, Sybil, sleeper, adaptive-trust, and adaptive-vote stress tests & Partial & Virtual silos and bounded attack families do not provide formal guarantees \\
+    T18 & Weak experimental randomness & OS-seeded AES-256-CTR sampling and Gaussian-noise backend & Partial & Custom implementation has not been independently audited \\
+    T19 & Key compromise over time or client dropout & Rotation and dropout recovery identified in the production design & Gap & Long-lived-key and availability risks remain \\
+\end{longtable}
+
+The machine-readable form of this matrix is stored in \path{results/thesis/threat_control_traceability.csv}. Its evidence fields point to source modules, tests, and result manifests. The table should be read together with the trust-boundary discussion in Sections~\ref{sec:conclusion-limitations} and~\ref{sec:future-work}.
+
+
+\chapter{Service, Governance, and Failure-Mode Validation}
+\label{app:service-validation}
+
+\section{Executed Service Roles}
+\label{appsec:executed-service-roles}
+
+The hardened profile separated hospital agents, a public-key-only coordinator, a research key authority, and three persistent audit witnesses into distinct processes or containers. Hospital agents signed and encrypted local updates. The coordinator verified admission, freshness, replay, round, model, and signature constraints without receiving a CKKS secret key. Before decryption, the authority reverified the original hospital envelopes and independently reconstructed the weighted ciphertext. Each audit checkpoint required two valid receipts from three independently keyed witnesses.
+
+The service path used TLS 1.3 mutual authentication, SQLite write-ahead logging, content-addressed ciphertext storage, and an Ed25519-signed model registry. The scientific 40,336-patient matrix and the hardened network tests were complementary profiles; the complete scientific training matrix was not deployed across physically separate hospitals.
+
+\section{Positive and Negative Controls}
+\label{appsec:positive-negative-controls}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Executed governance and service failure controls}
+    \label{tab:service-controls}
+    \begin{tabularx}{\textwidth}{@{}p{4.0cm}p{3.0cm}X@{}}
+        \toprule
+        Test case & Observed decision & Interpretation \\
+        \midrule
+        Valid signed encrypted updates & Accepted and aggregated & Enrolled hospitals completed the protected update path \\
+        Coordinator secret-key inspection & No secret key present & Aggregation service used a public-only CKKS context \\
+        Forged aggregate substitution & Rejected & Authority recomputation did not match the submitted aggregate \\
+        Missing round credential & HTTP 403 & Mutual TLS alone did not authorize orchestration \\
+        Missing client certificate & TLS handshake failed & Client authentication was enforced at the transport boundary \\
+        Coordinator restart & State recovered & Round, model, identity, nonce, update, and audit state persisted \\
+        One witness unavailable & Operation continued & Two-of-three receipt policy tolerated one outage \\
+        Witness restarted & Checkpoints reconciled & Lagging witness caught up to the common durable tip \\
+        Authorized inference & Released coarsened result & Consent, purpose, identity, and model checks passed \\
+        Replayed inference nonce & Denied as replay & Request replay protection activated \\
+        Wrong inference purpose & Denied & Purpose was not covered by consent \\
+        Missing release quorum & Denied & One governance actor could not release the prediction \\
+        Revoked consent & Denied; retained ciphertext count zero & Use after revocation was blocked in the tested process \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+The OpenFHE container separately completed native 3-of-3 multiparty CKKS decryption and failed closed when one partial-decryption share was absent. This verifies an isolated cryptographic workflow, not a networked arbitrary-$t$-of-$n$ service. The main TenSEAL service remained centrally keyed.
+
+\section{Scalability Scope}
+\label{appsec:scalability-scope}
+
+The Docker scalability run used five services, real CKKS ciphertexts, 18,049-coordinate updates, and 2, 4, 8, and 16 authenticated hospital clients. At 2 clients, end-to-end processing required 1.337 seconds; at 16 clients, it required 7.080 seconds and received approximately 25.28 MiB of encrypted uploads. These results describe one sequential run per client count on one physical host. They are useful for identifying service overhead and serialized traffic, but they do not provide WAN latency, concurrent throughput, peak-resource, or physical multi-host confidence intervals.
+
+\section{Confidential Deployment Profile}
+\label{appsec:confidential-profile}
+
+The Kubernetes profile contains a restricted coordinator, authority, and three-witness topology. It specifies a Confidential Containers runtime class for the authority, requires key retrieval through a guest-local Confidential Data Hub, applies default-deny network policy, and spreads witness replicas across three nodes. The manifests were schema validated. They were not executed on real Intel TDX or AMD SEV-SNP hardware, and no hardware attestation transcript was collected. The profile is therefore a deployment specification and hardening path, not experimental proof of a verified confidential cluster.
+
+
+\chapter{Evidence Inventory and Claim Boundaries}
+\label{app:evidence-inventory}
+
+\section{Machine-Readable Evidence Map}
+\label{appsec:evidence-map}
+
+\begin{longtable}{@{}p{5.2cm}p{9.4cm}@{}}
+    \caption{Principal reproducibility and evidence artifacts}\label{tab:evidence-inventory}\\
+    \toprule
+    Artifact & Purpose \\
+    \midrule
+    \endfirsthead
+    \multicolumn{2}{c}{\tablename\ \thetable\ -- continued from previous page}\\
+    \toprule
+    Artifact & Purpose \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endlastfoot
+    \path{protocols/q1-confirmatory-v1.json} & Primary dataset, model, privacy, seed, method-tier, outcome, and gate specification \\
+    \path{protocols/q1-security-confirmatory-v1.json} & Frozen poisoning, membership-inference, and 300-step reconstruction design \\
+    \path{protocols/q1-extension-v1.json} & Advanced privacy, adaptive poisoning, long-horizon, and CAABC ablation design \\
+    \path{protocols/q1-sota-reproduction-v1.json} & Same-protocol Fed-EF and SoteriaFL adapter definitions and comparison boundaries \\
+    \path{protocols/q1-sota-security-systems-v1.json} & Post-hoc security and systems comparison specification \\
+    \path{results/q1-confirmatory-v1} & Completed 125-cell utility and communication matrix, predictions, hashes, and publication outputs \\
+    \path{results/q1-security-confirmatory-v1/analysis} & Poisoning, membership, reconstruction summaries, figures, and statistical manifest \\
+    \path{results/q1-extension-v1/analysis} & Advanced privacy, adaptive poisoning, longitudinal, and ablation summaries \\
+    \path{results/q1-sota-reproduction-v1/analysis} & Same-protocol SOTA tables, paired differences, and trade-off figures \\
+    \path{results/q1-service-scalability-v1/analysis} & Single-host authenticated-service timing and upload evidence \\
+    \path{results/openfhe-multiparty/summary.json} & Isolated three-party, 3-of-3 CKKS execution and failure result \\
+    \path{results/verified-aggregation/summary.json} & Independent aggregate-recomputation evidence \\
+    \path{results/trust-hardening/summary.json} & Witness quorum, outage tolerance, and reconciliation evidence \\
+    \path{results/thesis/artifact_manifest.json} & SHA-256 inventory of source, protocol, test, and primary result artifacts \\
+    \path{results/thesis/environment.json} & Software and operating-environment record \\
+    \path{results/thesis/threat_control_traceability.csv} & Machine-readable threat, control, evidence, status, and residual-risk map \\
+\end{longtable}
+
+The artifact manifest is the snapshot identifier for the submitted evidence because the repository copy used for this study does not contain a usable Git history. Generated thesis tables are excluded from recursively hashing themselves. The manifest should be preserved with the final thesis archive so that later changes to code or results can be distinguished from the evaluated snapshot.
+
+\section{Permitted and Unsupported Claims}
+\label{appsec:claim-boundaries}
+
+The combined evidence supports the following bounded conclusions:
+
+\begin{itemize}
+    \item the framework is executable end to end as a controlled research system across its scientific and hardened service profiles;
+    \item record-level DP accounting, real CKKS transport, CAABC compression, signed updates, independent aggregate verification, witnessed auditing, and governed inference were implemented and exercised;
+    \item CAABC-FL passed the registered AUROC non-inferiority and encrypted-wire-reduction gates against dense DP-FedAvg-CKKS under the frozen PhysioNet protocol;
+    \item the registered privacy, reconstruction, poisoning, dropout, and service experiments quantify behaviour within their stated attacker and execution assumptions; and
+    \item same-protocol SOTA comparisons are valid for the shared implementation conditions and paired seeds described in Appendix~\ref{app:experimental-protocols}.
+\end{itemize}
+
+The evidence does not support the following stronger descriptions:
+
+\begin{itemize}
+    \item universal predictive, privacy, communication, or poisoning superiority;
+    \item formal Byzantine robustness or proof that all privacy attacks fail;
+    \item a service-integrated, dropout-tolerant, arbitrary-$t$-of-$n$ threshold CKKS system;
+    \item a Hyperledger Fabric, Raft, or BFT blockchain deployment;
+    \item hardware-verified TDX or SEV-SNP execution, physical multi-host performance, or WAN scalability;
+    \item prospective clinical validity, medical-device readiness, regulatory compliance, or safe autonomous decision support; or
+    \item direct numerical superiority over published papers evaluated on different datasets, models, privacy definitions, or communication accounting rules.
+\end{itemize}
+
+These boundaries are part of the study's evidence rather than qualifications added after the results. They separate what was measured from what remains an engineering or clinical research objective, and they provide a clear basis for future replication and extension.

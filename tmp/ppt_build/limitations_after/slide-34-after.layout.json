@@ -1,0 +1,992 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/ofu103u5",
+    "id": "ofu103u5",
+    "slide": 34,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "OBJECT",
+    "layoutType": "obj",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Basis",
+    "colors": {
+      "accent1": "#A6B727",
+      "accent2": "#DF5327",
+      "accent3": "#FE9E00",
+      "accent4": "#418AB3",
+      "accent5": "#D7D447",
+      "accent6": "#818183",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#565349",
+      "lt2": "#DDDDDD",
+      "hlink": "#F59E00",
+      "folHlink": "#B2B2B2"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Arial"
+      },
+      "minorFont": {
+        "latinTypeface": "Arial"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Corbel"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "OBJECT",
+      "type": "obj",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/17",
+          "id": "17",
+          "name": "Google Shape;17;p2",
+          "bbox": [
+            120,
+            64,
+            1036.8,
+            142.4
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/18",
+          "id": "18",
+          "name": "Google Shape;18;p2",
+          "bbox": [
+            120,
+            216,
+            1036.52,
+            424
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 1,
+            "verticalAlignment": "top",
+            "wrap": "square",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/19",
+          "id": "19",
+          "name": "Google Shape;19;p2",
+          "bbox": [
+            120,
+            653.42,
+            244.52,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/20",
+          "id": "20",
+          "name": "Google Shape;20;p2",
+          "bbox": [
+            414.61,
+            653.42,
+            495.3,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/21",
+          "id": "21",
+          "name": "Google Shape;21;p2",
+          "bbox": [
+            979.48,
+            653.42,
+            179.13,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›",
+                  "alignment": "right"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "backgroundColor": "lt1",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/10",
+          "id": "10",
+          "name": "Google Shape;10;p1",
+          "bbox": [
+            24.27,
+            25.6,
+            1230.93,
+            669.6
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 9.6,
+              "right": 9.6,
+              "bottom": 9.6,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "fillColor": "lt1",
+          "lineColor": "dk1",
+          "lineWidth": 1.33
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/11",
+          "id": "11",
+          "name": "Google Shape;11;p1",
+          "bbox": [
+            120,
+            64,
+            1036.8,
+            142.4
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/12",
+          "id": "12",
+          "name": "Google Shape;12;p1",
+          "bbox": [
+            120,
+            216,
+            1036.52,
+            424
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 1,
+            "verticalAlignment": "top",
+            "wrap": "square",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/13",
+          "id": "13",
+          "name": "Google Shape;13;p1",
+          "bbox": [
+            120,
+            653.42,
+            244.52,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/14",
+          "id": "14",
+          "name": "Google Shape;14;p1",
+          "bbox": [
+            414.61,
+            653.42,
+            495.3,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 6,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/15",
+          "id": "15",
+          "name": "Google Shape;15;p1",
+          "bbox": [
+            979.48,
+            653.42,
+            179.13,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›",
+                  "alignment": "right"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fyt83ilk",
+      "id": "211",
+      "name": "Google Shape;211;p28",
+      "bbox": [
+        198.64,
+        25.38,
+        842.72,
+        84.88
+      ],
+      "geometry": "rect",
+      "text": "Limitations",
+      "textPreview": "Limitations",
+      "resolvedFontSize": 58.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 58.67,
+        "typeface": "Corbel",
+        "color": "dk1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        },
+        "useParagraphSpacing": true
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Limitations"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Limitations",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Limitations",
+              "fontSize": 53.33,
+              "typeface": "Arial",
+              "color": "#002060",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 90000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0z29wnm5",
+      "id": "212",
+      "name": "Google Shape;212;p28",
+      "bbox": [
+        1183.5,
+        642.75,
+        71.75,
+        52.3
+      ],
+      "geometry": "rect",
+      "text": "34",
+      "textPreview": "34",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 16,
+        "typeface": "Corbel",
+        "color": "dk1",
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        },
+        "useParagraphSpacing": true
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "34"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "34",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "fontSize": 30,
+            "typeface": "Arial",
+            "color": "#062B6F",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "34",
+              "fontSize": 30,
+              "typeface": "Arial",
+              "color": "#062B6F"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/v6dcnexg",
+      "id": "225",
+      "name": "Google Shape;214;p28",
+      "bbox": [
+        1041.36,
+        26.41,
+        204.07,
+        84.9
+      ],
+      "contentType": "image/png",
+      "imageCrop": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "asset": {
+        "assetId": "/ppt/media/image2.png",
+        "contentType": "image/png",
+        "byteLength": 138025
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image2.png",
+        "contentType": "image/png",
+        "byteLength": 138025
+      }
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/o3m907m1",
+      "id": "216",
+      "name": "Google Shape;216;p28",
+      "bbox": [
+        280.49,
+        695.88,
+        701.23,
+        23.5
+      ],
+      "geometry": "rect",
+      "text": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+      "textPreview": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 16,
+        "typeface": "Corbel",
+        "color": "dk1",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        },
+        "useParagraphSpacing": true
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+              "typeface": "Arial",
+              "color": "#002060"
+            }
+          ],
+          "bulletCharacter": ""
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7ux8jm1k",
+      "id": "220",
+      "name": "limitations-bullets",
+      "bbox": [
+        110,
+        145,
+        1060,
+        425
+      ],
+      "geometry": "rect",
+      "text": "External validity: One retrospective sepsis cohort, two source hospitals, and one MLP. No prospective or external clinical validation.\nKey governance: The main TenSEAL path retains central key custody. The OpenFHE threshold test remains an isolated 3-of-3 experiment.\nDeployment realism: Timing came from sequential single-host runs. No wide-area deployment or physical TDX/SEV-SNP cluster was tested.\nEvaluation scope: Privacy and poisoning conclusions cover only the registered attacks, five seeds, and evaluated trust assumptions.",
+      "textPreview": "External validity: One retrospective sepsis cohort, two source hospitals, and one MLP. No prospective or external clinical validation. | ...",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 20,
+        "typeface": "Arial",
+        "color": "#263244",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 8,
+        "lines": [
+          {
+            "index": 1,
+            "text": "• External validity: One retrospective sepsis cohort, two source hospitals, and one MLP. No prospective or external"
+          },
+          {
+            "index": 2,
+            "text": "clinical validation."
+          },
+          {
+            "index": 3,
+            "text": "• Key governance: The main TenSEAL path retains central key custody. The OpenFHE threshold test remains an"
+          },
+          {
+            "index": 4,
+            "text": "isolated 3-of-3 experiment."
+          },
+          {
+            "index": 5,
+            "text": "• Deployment realism: Timing came from sequential single-host runs. No wide-area deployment or physical"
+          },
+          {
+            "index": 6,
+            "text": "TDX/SEV-SNP cluster was tested."
+          },
+          {
+            "index": 7,
+            "text": "• Evaluation scope: Privacy and poisoning conclusions cover only the registered attacks, five seeds, and evaluated"
+          },
+          {
+            "index": 8,
+            "text": "trust assumptions."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "External validity: One retrospective sepsis cohort, two source hospitals, and one MLP. No prospective or external clinical validation.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "External validity: One retrospective sepsis cohort, two source hospitals, and one MLP. No prospective or external clinical validation.",
+              "fontSize": 20,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        },
+        {
+          "index": 2,
+          "text": "Key governance: The main TenSEAL path retains central key custody. The OpenFHE threshold test remains an isolated 3-of-3 experiment.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Key governance: The main TenSEAL path retains central key custody. The OpenFHE threshold test remains an isolated 3-of-3 experiment.",
+              "fontSize": 20,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        },
+        {
+          "index": 3,
+          "text": "Deployment realism: Timing came from sequential single-host runs. No wide-area deployment or physical TDX/SEV-SNP cluster was tested.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Deployment realism: Timing came from sequential single-host runs. No wide-area deployment or physical TDX/SEV-SNP cluster was tested.",
+              "fontSize": 20,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        },
+        {
+          "index": 4,
+          "text": "Evaluation scope: Privacy and poisoning conclusions cover only the registered attacks, five seeds, and evaluated trust assumptions.",
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Evaluation scope: Privacy and poisoning conclusions cover only the registered attacks, five seeds, and evaluated trust assumptions.",
+              "fontSize": 20,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mto7qh0f",
+      "id": "221",
+      "name": "limitations-close",
+      "bbox": [
+        145,
+        585,
+        990,
+        45
+      ],
+      "geometry": "rect",
+      "text": "Evidence supports bounded protocol-level claims. Clinical and production-security validation remain future work.",
+      "textPreview": "Evidence supports bounded protocol-level claims. Clinical and production-security validation remain future work.",
+      "resolvedFontSize": 17.51,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 17.51,
+        "typeface": "Arial",
+        "color": "#C00000",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "autoFitLineSpaceReduction": 10000,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Evidence supports bounded protocol-level claims. Clinical and production-security validation remain future work."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Evidence supports bounded protocol-level claims. Clinical and production-security validation remain future work.",
+          "resolvedTextStyle": {
+            "fontSize": 17.51,
+            "typeface": "Arial",
+            "color": "#C00000",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Evidence supports bounded protocol-level claims. Clinical and production-security validation remain future work.",
+              "fontSize": 17.51,
+              "typeface": "Arial",
+              "color": "#C00000",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/z6d8f21o",
+      "id": "224",
+      "name": "visible-footer-date-26",
+      "bbox": [
+        49,
+        670,
+        190,
+        22
+      ],
+      "geometry": "rect",
+      "text": "25 September 2026",
+      "textPreview": "25 September 2026",
+      "resolvedFontSize": 17.54,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 0.94,
+        "autoFitLineSpaceReduction": 10000,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "25 September 2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "25 September 2026",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "typeface": "Arial",
+            "color": "#17365D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "25 September 2026",
+              "fontSize": 11,
+              "typeface": "Arial",
+              "color": "#17365D"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/w7mtgje1",
+      "id": "226",
+      "name": "Picture 1",
+      "bbox": [
+        47.51,
+        30.03,
+        81.06,
+        81.06
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image3.png",
+        "contentType": "image/png",
+        "byteLength": 1486874
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image3.png",
+        "contentType": "image/png",
+        "byteLength": 1486874
+      }
+    }
+  ],
+  "composeRuns": []
+}

@@ -1,0 +1,2 @@
+tenseal==0.3.17
+cryptography==50.0.1

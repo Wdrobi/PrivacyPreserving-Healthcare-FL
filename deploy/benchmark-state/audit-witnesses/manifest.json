@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "threshold": 2,
+  "witnesses": {
+    "witness-a": "PVYHEl77ALocyRzoq0N+w086Vi+/IT0vSG65qfsRzX8=",
+    "witness-b": "unaZ4WovzRZQ5JPIWNVBO3b2NEscw0RKddCC3Wshitg=",
+    "witness-c": "5X3qGAEbSLoAc04iuQ0koxuk4iHjSz9/PMX8Od/NNHc="
+  },
+  "fingerprints": {
+    "witness-a": "39dd03073a2af606ab9ae2c7bd0def9443f050a1ac47d6e39fd3efca70440e41",
+    "witness-b": "9de0be82f7ba73865fa80f5a9597e03cc6b29a359b6474e3fb63006c9129a03b",
+    "witness-c": "21452b80726ab659d97577a8118396bf3c6d46934b5fc4ada43c3b9073803c6b"
+  },
+  "manifest_digest": "272f990d3e6a307546c4848265db721e07733213cf04ea1dfec66483062a9a32"
+}

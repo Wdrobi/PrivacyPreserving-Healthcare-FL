@@ -1,0 +1,54 @@
+{"kind":"deck","id":"pr/042m2t","name":"Deck"}
+{"kind":"slide","id":"sl/y90nupkv","slide":1,"title":"CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutiona...","textShapes":5}
+{"kind":"slide","id":"sl/hwbqtkby","slide":2,"title":"Table of Contents","textShapes":46}
+{"kind":"slide","id":"sl/ofy9wn61","slide":3,"title":"Introduction","textShapes":4}
+{"kind":"slide","id":"sl/jyx0ra1s","slide":4,"title":"Background","textShapes":5}
+{"kind":"slide","id":"sl/i107q5of","slide":5,"title":"Problem Statement","textShapes":5}
+{"kind":"slide","id":"sl/x8f69ofe","slide":6,"title":"Motivation (1/2)","textShapes":13}
+{"kind":"slide","id":"sl/gnmp4jqx","slide":7,"title":"Motivation (2/2)","textShapes":10}
+{"kind":"chart","id":"ch/jy1ov61w","slide":7,"name":"Chart","chartType":"bar","title":"Average AUC on participating sites","bbox":[465,140,730,370]}
+{"kind":"slide","id":"sl/fu1gfa1s","slide":8,"title":"Research Objectives","textShapes":10}
+{"kind":"slide","id":"sl/udsvah03","slide":9,"title":"Research Questions","textShapes":10}
+{"kind":"slide","id":"sl/m90b6t0r","slide":10,"title":"Literature Review","textShapes":4}
+{"kind":"slide","id":"sl/jetc3ut0","slide":11,"title":"Related Studies (1/3)","textShapes":22}
+{"kind":"table","id":"tb/4nqtgvet","slide":11,"name":"Table 256","rows":5,"cols":4,"preview":"Study | Focus | Main contribution | Limitation for this thesis","bbox":[80,170,1120,395]}
+{"kind":"slide","id":"sl/8f2psfyx","slide":12,"title":"CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutiona...","textShapes":22}
+{"kind":"table","id":"tb/cbqdsz21","slide":12,"name":"Table 47","rows":5,"cols":5,"preview":"Approach | Privacy | Communication | Poisoning response | Main assumption","bbox":[55,170,1170,395]}
+{"kind":"slide","id":"sl/hgzapcr6","slide":13,"title":"Related Studies (3/3)","textShapes":21}
+{"kind":"table","id":"tb/kzy1kfup","slide":13,"name":"Table 255","rows":6,"cols":6,"preview":"Method | Healthcare evidence | Formal DP | Protected aggregation | Wire-aware compression | Poisoning defence","bbox":[45,165,1190,420]}
+{"kind":"slide","id":"sl/6lsnupw7","slide":14,"title":"Comparison of Related Studies","textShapes":24}
+{"kind":"table","id":"tb/ulwjmt83","slide":14,"name":"Table 270","rows":6,"cols":6,"preview":"Method | Healthcare evidence | Formal DP | Protected aggregation | Wire-aware compression | Poisoning defence","bbox":[45,165,1190,420]}
+{"kind":"table","id":"tb/q1g3exsb","slide":14,"name":"Table 291","rows":6,"cols":5,"preview":"Study | Year | Method | Main contribution | Limitation relative to this thesis","bbox":[55,160,1170,420]}
+{"kind":"slide","id":"sl/vaxsvy10","slide":15,"title":"Research Gap","textShapes":6}
+{"kind":"slide","id":"sl/gny5sjyp","slide":16,"title":"Conceptual Framework","textShapes":19}
+{"kind":"slide","id":"sl/14bup87q","slide":17,"title":"Methodology","textShapes":4}
+{"kind":"slide","id":"sl/y5wne50z","slide":18,"title":"System Approach: Local Privacy Pipeline","textShapes":28}
+{"kind":"slide","id":"sl/nid43ytk","slide":19,"title":"System Approach: Trust and Model Release","textShapes":34}
+{"kind":"slide","id":"sl/zyxsni5k","slide":20,"title":"CAABC-FL Algorithm","textShapes":42}
+{"kind":"slide","id":"sl/m1wvqtk3","slide":21,"title":"Problem Formulation","textShapes":31}
+{"kind":"slide","id":"sl/5onypobq","slide":22,"title":"Research Design","textShapes":11}
+{"kind":"slide","id":"sl/c7uhcr6t","slide":23,"title":"Data Collection Methods","textShapes":8}
+{"kind":"slide","id":"sl/7qto7e10","slide":24,"title":"Data Analysis Methods","textShapes":12}
+{"kind":"slide","id":"sl/69wfm9o7","slide":25,"title":"Experimental Setup","textShapes":14}
+{"kind":"table","id":"tb/i187m5kf","slide":25,"name":"Table 262","rows":7,"cols":2,"preview":"Component | Registered configuration","bbox":[100,160,1080,430]}
+{"kind":"slide","id":"sl/l0bepsfm","slide":26,"title":"Budget Plan","textShapes":6}
+{"kind":"table","id":"tb/snydsnmd","slide":26,"name":"Table 238","rows":5,"cols":3,"preview":"Resource | Provision | Direct project cost","bbox":[160,235,960,330]}
+{"kind":"slide","id":"sl/4vyxknqp","slide":27,"title":"Results and Discussion","textShapes":4}
+{"kind":"slide","id":"sl/3mdove10","slide":28,"title":"Key Findings","textShapes":15}
+{"kind":"slide","id":"sl/i5o3q10v","slide":29,"title":"Same-Protocol Comparison","textShapes":6}
+{"kind":"chart","id":"ch/ts7e943m","slide":29,"name":"Chart","chartType":"bar","title":"Actual encrypted upload reduction (%)","bbox":[725,155,500,400]}
+{"kind":"table","id":"tb/hoje18bm","slide":29,"name":"Table 239","rows":6,"cols":4,"preview":"Method | AUROC | AUPRC | Upload (MiB)","bbox":[45,165,650,385]}
+{"kind":"slide","id":"sl/wnqh07ex","slide":30,"title":"Privacy, Poisoning and Systems Performance","textShapes":7}
+{"kind":"slide","id":"sl/lcn6tkb6","slide":31,"title":"Conclusion","textShapes":4}
+{"kind":"slide","id":"sl/6l0j294r","slide":32,"title":"Summary of Key Findings","textShapes":14}
+{"kind":"slide","id":"sl/nax4b2dk","slide":33,"title":"Research Contributions","textShapes":12}
+{"kind":"slide","id":"sl/ofu103u5","slide":34,"title":"Limitations","textShapes":6}
+{"kind":"slide","id":"sl/1obmtofm","slide":35,"title":"Future Work","textShapes":14}
+{"kind":"slide","id":"sl/m9s3ehgf","slide":36,"title":"Conclusion","textShapes":25}
+{"kind":"slide","id":"sl/jyhsreh4","slide":37,"title":"References (1/2)","textShapes":12}
+{"kind":"slide","id":"sl/ofahkri5","slide":38,"title":"References (2/2)","textShapes":12}
+{"kind":"slide","id":"sl/twb2lg7e","slide":39,"title":"Thesis Timeline","textShapes":7}
+{"kind":"table","id":"tb/vepgrq94","slide":39,"name":"Table 238","rows":5,"cols":3,"preview":"Phase | Period | Status","bbox":[160,235,960,330]}
+{"kind":"slide","id":"sl/5ojatgfe","slide":40,"title":"Abbreviations","textShapes":12}
+{"kind":"slide","id":"sl/cnmpwjmp","slide":41,"title":"Q&A Session","textShapes":5}
+{"kind":"slide","id":"sl/7mdw7yh8","slide":42,"title":"Thank You","textShapes":5}

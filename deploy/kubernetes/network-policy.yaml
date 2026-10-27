@@ -1,0 +1,90 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: healthfl
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: coordinator-ingress
+  namespace: healthfl
+spec:
+  podSelector:
+    matchLabels: {app: coordinator}
+  policyTypes: [Ingress]
+  ingress:
+    - ports: [{protocol: TCP, port: 8443}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: authority-from-coordinator
+  namespace: healthfl
+spec:
+  podSelector:
+    matchLabels: {app: authority}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels: {app: coordinator}
+      ports: [{protocol: TCP, port: 8444}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: witnesses-from-coordinator
+  namespace: healthfl
+spec:
+  podSelector:
+    matchLabels: {app: witness}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels: {app: coordinator}
+      ports: [{protocol: TCP, port: 8450}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: coordinator-egress
+  namespace: healthfl
+spec:
+  podSelector:
+    matchLabels: {app: coordinator}
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - podSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [authority, witness]
+      ports:
+        - {protocol: TCP, port: 8444}
+        - {protocol: TCP, port: 8450}
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - {protocol: UDP, port: 53}
+        - {protocol: TCP, port: 53}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: authority-trustee-egress
+  namespace: healthfl
+spec:
+  podSelector:
+    matchLabels: {app: authority}
+  policyTypes: [Egress]
+  egress:
+    - ports:
+        - {protocol: TCP, port: 8080}
+        - {protocol: TCP, port: 8006}
+        - {protocol: UDP, port: 53}

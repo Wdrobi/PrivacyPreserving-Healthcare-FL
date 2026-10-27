@@ -1,0 +1,120 @@
+\clearpage
+\chapter*{Annexure: Mapping SDG Goals to Achievements from Thesis/Project}
+\addcontentsline{toc}{chapter}{Annexure: SDG--Goal Mapping}
+
+The United Nations 2030 Agenda identifies 17 Sustainable Development Goals (SDGs) that connect health, education, equity, institutions, innovation, and environmental stewardship \cite{un2015sdgs}. This annexure examines how the thesis relates to those goals. It does not imply that a research prototype fulfills a global SDG target. Instead, it distinguishes an observed project-level contribution from a possible future benefit and from a topic for which the study produced no evidence.
+
+In Table~\ref{tab:sdg-mapping}, \emph{Direct} means that a goal is substantively addressed by the implemented research and its reported measurements. \emph{Indirect} means that the work develops relevant capability or identifies a pathway, but does not measure the goal's societal outcome. \emph{Not demonstrated} means that the thesis did not evaluate an outcome relevant enough to claim an achievement for that goal. These levels describe alignment within this project, not fulfillment of the United Nations targets.
+
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.18}
+
+\begin{longtable}{|p{3.5cm}|p{7.4cm}|p{1.8cm}|}
+\caption{Mapping of all 17 SDGs to evidenced thesis achievements}
+\label{tab:sdg-mapping}\\
+\hline
+\textbf{SDG goal} & \textbf{Relevant achievement or evidence boundary} & \textbf{Project-level alignment} \\
+\hline
+\endfirsthead
+\multicolumn{3}{c}{\tablename\ \thetable\ -- continued from previous page}\\
+\hline
+\textbf{SDG goal} & \textbf{Relevant achievement or evidence boundary} & \textbf{Project-level alignment} \\
+\hline
+\endhead
+\hline
+\multicolumn{3}{r}{Continued on next page}\\
+\endfoot
+\hline
+\endlastfoot
+
+\textbf{SDG 1: No Poverty} &
+The thesis did not measure household costs, healthcare affordability, income, or poverty reduction. Using public data and open-source tools for research does not establish an anti-poverty outcome. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 2: Zero Hunger} &
+Food security, nutrition, and agricultural outcomes were outside the research question and evaluation. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 3: Good Health and Well-being} &
+The study developed and tested a privacy-preserving early-sepsis prediction workflow on 40,336 retrospective patient records from two source hospitals. It reported AUROC, AUPRC, sensitivity, calibration, and site-specific results (Table~\ref{tab:core-clinical-results}). No prospective clinical benefit or patient-outcome improvement was measured. &
+Direct \\
+\hline
+
+\textbf{SDG 4: Quality Education} &
+Designing the framework, reproducing baselines, interpreting statistical evidence, and documenting limitations demonstrate research and engineering learning. The thesis did not evaluate teaching quality or educational access beyond the project itself. &
+Indirect \\
+\hline
+
+\textbf{SDG 5: Gender Equality} &
+The dataset and experiments did not support a complete sex- or gender-stratified fairness assessment, and the project did not measure equal participation or gender outcomes. No improvement is claimed. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 6: Clean Water and Sanitation} &
+Water quality, sanitation systems, and access to these services were not part of the design or testing. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 7: Affordable and Clean Energy} &
+The system measured ciphertext bytes and execution time, but not electricity use, energy cost, or renewable-energy adoption. A lower network payload is not evidence of a net energy saving. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 8: Decent Work and Economic Growth} &
+The project involved practical software, security, statistical, and documentation work that can develop professional skills. It did not assess jobs, working conditions, productivity in a workplace, or economic growth. &
+Indirect \\
+\hline
+
+\textbf{SDG 9: Industry, Innovation and Infrastructure} &
+CAABC-FL aligned adaptive compression with CKKS packing and reduced measured encrypted upload by about 56\% while passing the registered AUROC non-inferiority gate (Table~\ref{tab:confirmatory-gates}). Authenticated service and verification components were also exercised. This is research innovation, not adopted healthcare infrastructure. &
+Direct \\
+\hline
+
+\textbf{SDG 10: Reduced Inequalities} &
+The study reported source-hospital results and discussed the risk that smaller or under-resourced institutions may benefit unequally. It did not measure subgroup fairness, access disparities, or a reduction in inequality. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 11: Sustainable Cities and Communities} &
+No municipal, urban-service, disaster-resilience, housing, or community-sustainability outcome was evaluated. A scalable software design alone does not demonstrate this goal. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 12: Responsible Consumption and Production} &
+Actual serialized CKKS traffic was measured, redundant experiment reruns were limited by resumable cells, and results were retained as inspectable artifacts. The project did not conduct a lifecycle assessment or quantify material, energy, or carbon savings (Sections~\ref{subsec:sustainability} and~\ref{appsec:reproducibility-checklist}). &
+Indirect \\
+\hline
+
+\textbf{SDG 13: Climate Action} &
+Greenhouse-gas emissions, climate mitigation, and adaptation were not measured. Communication reduction must not be presented as a quantified climate benefit. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 14: Life Below Water} &
+Marine ecosystems, water pollution, and related environmental outcomes were outside the project scope. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 15: Life on Land} &
+The thesis did not examine biodiversity, terrestrial ecosystems, land use, or conservation outcomes. &
+Not demonstrated \\
+\hline
+
+\textbf{SDG 16: Peace, Justice and Strong Institutions} &
+The research system used signed institutional identities, replay checks, independent aggregate recomputation, consent and purpose checks, and two-of-three witnessed audit receipts. Forged or unauthorized operations were rejected in controlled tests (Table~\ref{tab:system-case-results}). These are prototype accountability controls, not evidence that real institutions became stronger or that regulatory compliance was achieved. &
+Direct \\
+\hline
+
+\textbf{SDG 17: Partnerships for the Goals} &
+The architecture was designed for collaboration among institutions without moving raw patient records and was evaluated on two natural hospital partitions. It was not deployed through a real multi-institutional agreement, so an operational partnership outcome remains unverified. &
+Indirect \\
+\hline
+\end{longtable}
+
+\endgroup
+
+The strongest evidenced alignment is with SDG~3, SDG~9, and SDG~16: healthcare-oriented predictive research, innovation in encrypted communication, and accountable system controls. SDG~4, SDG~8, SDG~12, and SDG~17 have indirect connections through research learning, professional practice, resource-aware design, and the possibility of future institutional collaboration. The remaining goals are retained in the table for completeness without assigning them unsupported achievements. Any future claim of clinical benefit, reduced inequality, lower environmental impact, or an operational consortium would require separate outcome measurements and stakeholder participation beyond this thesis.

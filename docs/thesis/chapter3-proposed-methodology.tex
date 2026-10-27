@@ -1,0 +1,834 @@
+\chapter{Proposed Methodology}
+\label{chap:proposed-methodology}
+
+\section{Introduction}
+\label{sec:method-introduction}
+
+The literature review exposed a design conflict that determines the methodology of this study. Concealing hospital updates protects institutional information, yet the same concealment removes the plaintext geometry required by many poisoning defences. Communication reduction introduces a second constraint because a sparse logical update does not necessarily occupy fewer encrypted bytes. This chapter converts those conflicts into a build-and-evaluate methodology spanning the system architecture, CAABC-FL mechanism, adversary assumptions, frozen experiments, and claim boundaries.
+
+The study follows a design-science approach supported by controlled quantitative experiments. First, a hybrid conceptual framework specifies how local data retention, patient-level differential privacy (DP), communication-efficient learning, homomorphic aggregation, poisoning controls, and accountable governance should interact. Second, the framework is translated into a modular cross-silo architecture with separate hospital, coordinator, key-authority, verification, and audit roles. Third, the proposed ciphertext-aligned adaptive block compression method, called CAABC-FL, is evaluated together with established optimization, privacy, compression, and robustness baselines. Finally, the design is assessed using predictive, calibration, privacy, communication, poisoning, cryptographic-correctness, and governance outcomes.
+
+The logical flow of the chapter moves from abstraction to implementation evidence. Section~\ref{sec:conceptual-framework} defines the conceptual framework, research design, and threat assumptions. Section~\ref{sec:problem-formulation} expresses the collaborative learning problem and its privacy, communication, integrity, and release constraints mathematically. Section~\ref{sec:system-architecture} describes the technical architecture, algorithms, equations, parameters, complexity, and data-flow diagrams. Section~\ref{sec:data-methods} explains the dataset, preprocessing, experimental matrix, metrics, and statistical procedures. Section~\ref{sec:engineering-society} examines societal impact, sustainability, ethics, and professional responsibility. Implementation details are introduced where they affect reproducibility, while performance findings are reserved for the results chapter.
+
+This methodology makes a deliberate distinction between an implemented research system and a production healthcare platform. The executable system contains real DP training, real TenSEAL CKKS ciphertexts, mutually authenticated services, signed updates, independent aggregate recomputation, persistent audit witnesses, and governed inference. Its main service still uses a centralized research key authority. A separate OpenFHE experiment demonstrates three-of-three multiparty CKKS, but it is not integrated into the network service and is not dropout tolerant. The study therefore evaluates a hardened research system without claiming clinical validation, regulatory certification, arbitrary threshold decryption, or confidential multi-host production deployment.
+
+\section{Conceptual Framework}
+\label{sec:conceptual-framework}
+
+The conceptual framework is a process-and-control model that connects the research problem to the proposed engineering mechanisms and measurable outcomes. It treats secure collaboration as a sequence of transformations applied to a hospital's local learning signal. Raw patient data remain within the institutional boundary; only a clipped, privatized, compressed, encrypted, authenticated, and policy-bound contribution may enter the collaboration. The global result is released only after aggregation verification and validation, and each important decision produces tamper-evident evidence.
+
+Figure~\ref{fig:conceptual-framework} organizes the framework into four stages. The first stage contains the study inputs: naturally partitioned hospital data, an explicit threat model, and the three research objectives. The second stage contains five mutually dependent protection mechanisms. The third stage contains the measurable outcomes. The final stage limits interpretation to the evidence actually produced. The feedback arrows indicate that validation and audit observations affect later support selection, reputation, and participation decisions.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\small,
+    node distance=8mm and 10mm,
+    box/.style={draw, rounded corners=2pt, align=center, minimum height=11mm, minimum width=32mm, fill=blue!7},
+    protect/.style={draw, rounded corners=2pt, align=center, minimum height=12mm, minimum width=34mm, fill=green!10},
+    outcome/.style={draw, rounded corners=2pt, align=center, minimum height=11mm, minimum width=32mm, fill=orange!12},
+    boundary/.style={draw, dashed, rounded corners=2pt, align=center, minimum height=12mm, minimum width=42mm, fill=red!5},
+    flow/.style={-{Latex[length=2.2mm]}, thick},
+    feedback/.style={-{Latex[length=2mm]}, dashed, thick, color=gray!80}
+]
+\node[box] (data) {Natural hospital partitions\\and local patient records};
+\node[box, below=of data] (threat) {Threat and trust model\\privacy, poisoning, tampering};
+\node[box, below=of threat] (objectives) {Research objectives\\design, implementation, evaluation};
+
+\node[protect, right=17mm of data] (local) {Local learning\\training-only preprocessing\\and patient-level DP};
+\node[protect, below=of local] (caabc) {Communication control\\CAABC common blocks\\and error feedback};
+\node[protect, below=of caabc] (crypto) {Confidentiality and identity\\CKKS, signatures, mTLS};
+\node[protect, below=of crypto] (trust) {Integrity control\\validation, rollback, reputation};
+\node[protect, below=of trust] (govern) {Governance\\independent verification\\and audit quorum};
+
+\node[outcome, right=17mm of local] (utility) {Clinical-model outcomes\\AUROC, AUPRC, calibration};
+\node[outcome, below=of utility] (privacy) {Privacy outcomes\\formal budget and attacks};
+\node[outcome, below=of privacy] (systems) {System outcomes\\wire bytes, latency, error};
+\node[outcome, below=of systems] (robust) {Robustness outcomes\\attack effect, rollback, availability};
+\node[boundary, below=of robust] (claims) {Bounded research evidence\\no universal, clinical, or\\production-security claim};
+
+\draw[flow] (data) -- (local);
+\draw[flow] (threat) -- (crypto);
+\draw[flow] (objectives) -- (govern);
+\draw[flow] (local) -- (caabc);
+\draw[flow] (caabc) -- (crypto);
+\draw[flow] (crypto) -- (trust);
+\draw[flow] (trust) -- (govern);
+\draw[flow] (local) -- (utility);
+\draw[flow] (caabc) -- (systems);
+\draw[flow] (crypto) -- (privacy);
+\draw[flow] (trust) -- (robust);
+\draw[flow] (utility) -- (claims);
+\draw[flow] (privacy) -- (claims);
+\draw[flow] (systems) -- (claims);
+\draw[flow] (robust) -- (claims);
+\draw[feedback] (robust.west) to[bend left=22] node[above, sloped]{reputation and policy feedback} (caabc.east);
+\draw[feedback] (govern.east) to[bend right=18] (claims.west);
+\end{tikzpicture}%
+}
+\caption{Conceptual framework of the proposed hybrid privacy-preserving collaboration method.}
+\label{fig:conceptual-framework}
+\end{figure}
+
+\paragraph{1) Distributed clinical evidence.}
+The framework begins with two natural institutional partitions rather than randomly generated clients. Each hospital retains its patient files and performs local preprocessing and training. The conceptual purpose of this boundary is data minimization: the collaboration should receive no raw measurement, patient identifier, or row-level clinical record. The study uses a retrospective public cohort so that the engineering method can be evaluated reproducibly without representing the experiment as a live clinical deployment.
+
+\paragraph{2) Patient-level privacy.}
+Per-sample gradient clipping bounds the contribution of one patient, and calibrated random noise produces record-level DP following the DP-SGD principle \cite{abadi2016deep}. Privacy accounting is performed across repeated local updates. The protected unit, clipping bound, noise multiplier, sampling procedure, privacy accountant, and $\delta$ are fixed in the experimental protocol. The common CAABC support is derived only from already privatized updates; under this condition, support selection is post-processing and consumes no additional privacy budget.
+
+\paragraph{3) Ciphertext-aligned communication.}
+CAABC-FL divides the model update into contiguous blocks, scores those blocks using the privatized update, and selects one public support shared by all participating hospitals. Common support is essential because the same coordinates can be packed into the same CKKS slots and aggregated without revealing institution-specific sparsity patterns. Error feedback stores information omitted from the current transmission and reintroduces it in a later round, following the conservation principle used by communication-efficient FL \cite{li2023fedef}. This component links model utility directly to serialized encrypted traffic rather than assuming that plaintext sparsity implies network savings.
+
+\paragraph{4) Cryptographic confidentiality and message authenticity.}
+CKKS protects the values uploaded by each hospital while permitting weighted addition over packed ciphertexts \cite{cheon2017homomorphic}. Ed25519 signatures bind each encrypted update to the sender, round, model version, privacy metadata, nonce, record count, support, ciphertext digest, and timestamp. Mutual TLS protects service-to-service transport and authenticates both endpoints. These controls address different threats: CKKS hides update values from the coordinator, signatures protect origin and message integrity, and mTLS protects the network channel.
+
+\paragraph{5) Integrity, release governance, and accountability.}
+The public-only coordinator verifies and aggregates ciphertexts but holds no TenSEAL secret key. The authority independently verifies the original hospital envelopes, recomputes the weighted encrypted aggregate, compares its digest with the coordinator request, and decrypts only the verified aggregate. A candidate model is evaluated on a disjoint validation partition. It is committed when the registered acceptance condition is satisfied; otherwise, the previous model is retained. Signed validation decisions update reputation, while three independently keyed witnesses sign audit checkpoints and require a two-of-three receipt quorum. The audit witnesses provide tamper-evident accountability, not blockchain or Byzantine-consensus guarantees.
+
+\paragraph{6) Measurable and bounded outcomes.}
+The framework produces four evidence groups: clinical-model utility and calibration; formal and empirical privacy; communication and cryptographic cost; and poisoning response and availability. A method is not considered successful merely because one metric improves. For example, encrypted-wire reduction must be assessed together with AUROC, AUPRC, calibration, and added cryptographic work. Likewise, a rollback is both a security response and a possible availability cost. This multi-outcome view guides the architecture and statistical methodology that follow.
+
+\subsection{Research Design and Methodological Propositions}
+\label{subsec:research-design}
+
+The research design combines artifact construction with a controlled comparative experiment. The artifact is the hybrid FL system and its CAABC-FL mechanism. The experimental factors are the optimizer, privacy condition, encryption condition, compression method, poisoning attack, robustness defence, and random seed. The principal responses are predictive utility, calibration, serialized communication, privacy-attack performance, reconstruction quality, attack-induced utility loss, backdoor success, rollback behaviour, and cryptographic correctness.
+
+Three methodological propositions connect the research objectives to testable evidence:
+
+\begin{enumerate}
+    \item \textbf{Integrated feasibility proposition:} a cross-silo workflow can apply patient-level DP, real CKKS aggregation, authenticated services, independent verification, and persistent audit controls without transferring raw patient data.
+    \item \textbf{Communication--utility proposition:} CAABC-FL can reduce actual serialized CKKS upload bytes relative to dense DP-FedAvg-CKKS while remaining non-inferior in AUROC within the pre-specified margin.
+    \item \textbf{Security-evaluation proposition:} the validation, rollback, reputation, and governance controls can be evaluated against specified privacy and poisoning attacks without being misrepresented as universal or formally Byzantine-proof protection.
+\end{enumerate}
+
+The primary confirmatory comparison uses two jointly interpreted gates. Let $d_s^{\mathrm{AUROC}}$ be the paired CAABC-minus-dense-CKKS AUROC difference for seed $s$, and let $d_s^{\mathrm{wire}}$ be the paired encrypted-wire reduction. CAABC satisfies the registered methodological criterion only when
+\begin{equation}
+    \operatorname{LCB}_{0.95}\!\left(\bar d^{\mathrm{AUROC}}\right)>-0.015
+    \quad\text{and}\quad
+    \operatorname{LCB}_{0.95}\!\left(\bar d^{\mathrm{wire}}\right)>0.40,
+    \label{eq:primary-gates}
+\end{equation}
+where $\operatorname{LCB}_{0.95}$ denotes the lower bound of the two-sided 95\% confidence interval. Passing these gates does not establish superiority on AUPRC, privacy, robustness, or every dataset. Those outcomes are reported separately.
+
+\subsection{Threat Model and Trust Assumptions}
+\label{subsec:threat-model}
+
+The threat model contains honest, honest-but-curious, Byzantine, and compromised roles. Hospitals are authenticated consortium members, but a subset may submit malformed, scaled, sign-flipped, replacement, ALIE, label-flipped, backdoored, colluding, Sybil, sleeper, or adaptive updates. The coordinator is assumed to follow the aggregation protocol for the confidentiality analysis while attempting to infer information from accessible messages. Network adversaries may eavesdrop, tamper, replay, or impersonate. The research authority is policy constrained but remains a trusted plaintext boundary because the main TenSEAL service uses one secret key. Audit witnesses may be unavailable or individually compromised; the implemented quorum tolerates one unavailable witness but not coordinator-plus-two-witness collusion.
+
+\begin{table}[htbp]
+\centering
+\caption{Actors, protected assets, threats, and methodological controls}
+\label{tab:threat-controls-method}
+\small
+\begin{tabularx}{\textwidth}{@{}p{2.4cm}p{3.0cm}X X@{}}
+\toprule
+Actor or boundary & Principal asset & Threat considered & Control evaluated \\
+\midrule
+Hospital & Patient records and signing key & Record disclosure, key theft, malicious update, false identity & Local retention, record-level DP, local key separation, signed envelope, consortium admission \\
+Coordinator & Round state, ciphertexts, global model & Honest-but-curious inference, aggregate forgery, replay, unauthorized participation & Public-only CKKS context, digest-addressed storage, nonce/version checks, mTLS, independent recomputation \\
+Key authority & Secret CKKS context and plaintext aggregate & Unauthorized or forged decryption request & Service credential, quorum policy, pinned participant manifest, replay state, envelope re-verification, aggregate digest match \\
+Audit witnesses & Ordered checkpoint history & Log rewrite, equivocation, witness outage & Three separately keyed persistent witnesses, chain-continuity checks, two signed receipts, reconciliation \\
+Global model & Utility, calibration, and integrity & Poisoning, backdoor, harmful release, denial of progress & Validation gate, rollback, reputation, quarantine, attack-specific evaluation \\
+Inference path & Patient feature vector and prediction & Replay, purpose misuse, excessive disclosure & Signed request, consent and purpose binding, pseudonym hashing, model/schema binding, minimized risk bucket \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The model excludes physical attacks on hospital hardware, side-channel leakage from cryptographic libraries, compromise of a majority audit quorum, compromise of the centralized authority, and formal verification of the custom secure random-number generator. The separate three-of-three OpenFHE experiment demonstrates multiparty functionality but does not change the service threat model. These exclusions are reported because security conclusions are valid only relative to explicit adversary capabilities.
+
+\section{Problem Formulation}
+\label{sec:problem-formulation}
+
+\subsection{Collaborative Learning Setting}
+\label{subsec:collaborative-setting}
+
+Let $\mathcal{K}=\{1,\ldots,K\}$ denote the healthcare institutions admitted to one collaboration. The records controlled by institution $k$ are represented as
+\begin{equation}
+    \mathcal{D}_k=\{(x_{k,i},y_{k,i})\}_{i=1}^{n_k},
+    \qquad x_{k,i}\in\mathbb{R}^{p},\quad y_{k,i}\in\{0,1\},
+    \label{eq:institutional-dataset}
+\end{equation}
+In Equation~\ref{eq:institutional-dataset}, $n_k$ counts patients at site $k$ and the implemented early-sepsis representation has $p=280$ features. The source system determines the partition, so the local distributions need not be identical. No step pools these records at the coordinator or redistributes them to manufacture balanced clients.
+
+For model parameters $\theta\in\mathbb{R}^{d}$ and per-patient loss $\ell$, the local empirical objective is
+\begin{equation}
+    F_k(\theta)=\frac{1}{n_k}\sum_{i=1}^{n_k}
+    \ell\!\left(f_{\theta}(x_{k,i}),y_{k,i}\right).
+    \label{eq:local-empirical-risk}
+\end{equation}
+Conventional federated averaging seeks a model that minimizes the example-weighted global risk \cite{mcmahan2017fedavg},
+\begin{equation}
+    \theta^{*}=\arg\min_{\theta}F(\theta),
+    \qquad
+    F(\theta)=\sum_{k=1}^{K}\alpha_kF_k(\theta),
+    \qquad
+    \alpha_k=\frac{n_k}{\sum_{j=1}^{K}n_j}.
+    \label{eq:global-federated-objective}
+\end{equation}
+The present study adds a stronger systems requirement: the consortium must approach this objective without disclosing raw records or unprotected individual updates, while controlling encrypted communication and rejecting unauthenticated or harmful state transitions. Therefore, minimizing prediction loss alone is not an adequate formulation of the research problem.
+
+At round $t$, the signed parameter vector $\theta_t$ is the only model version eligible for local optimization. After authenticating it, site $k$ trains with $\mathcal{D}_k^{\mathrm{train}}$ and produces $\Delta_{k,t}$. Validation and test records are excluded from that update; test labels are also prohibited from selecting hyperparameters, compression support, or a release threshold.
+
+\subsection{Patient-Level Privacy Constraint}
+\label{subsec:problem-privacy-constraint}
+
+The privacy unit is one patient rather than one row or one hospital. Thus, $D$ and $D'$ are neighbouring inputs when they differ by the complete contribution of a single patient. Applying the standard approximate-DP definition to this adjacency relation \cite{dwork2006calibrating}, the randomized training mechanism $\mathcal{M}$ must satisfy, for every measurable output set $O$,
+\begin{equation}
+    \Pr[\mathcal{M}(D)\in O]
+    \leq e^{\epsilon}\Pr[\mathcal{M}(D')\in O]+\delta.
+    \label{eq:patient-level-dp-definition}
+\end{equation}
+The implementation approximates this requirement through per-sample clipping, Gaussian perturbation, secure Poisson sampling, and Rényi-DP accounting, following the DP-SGD construction \cite{dwork2006calibrating,abadi2016deep}. For clipping bound $C$ and noise multiplier $\sigma$, the protected local update is written abstractly as
+\begin{equation}
+    \widetilde{\Delta}_{k,t}
+    =\mathcal{M}_{\mathrm{DP}}
+      (\theta_t,\mathcal{D}_k^{\mathrm{train}};C,\sigma),
+    \qquad
+    \mathcal{M}_{\mathrm{DP}}\text{ satisfies }(\epsilon_t,\delta)
+    \text{ under the recorded accountant.}
+    \label{eq:private-local-update}
+\end{equation}
+For the frozen experiments, $C=1.0$, $\sigma=1.2$, and $\delta=10^{-5}$. The privacy budget is composed over the complete sequence of local steps rather than claimed separately for each released model. Block scoring and support selection operate on $\widetilde{\Delta}_{k,t}$; consequently, their outputs are treated as post-processing of the privatized update and do not inspect the unclipped gradient.
+
+\subsection{Ciphertext-Aligned Communication Constraint}
+\label{subsec:problem-communication-constraint}
+
+Let $r_{k,t}\in\mathbb{R}^{d}$ be the error-feedback residual maintained by hospital $k$, and let
+\begin{equation}
+    u_{k,t}=\widetilde{\Delta}_{k,t}+r_{k,t}
+    \label{eq:effective-private-update}
+\end{equation}
+be the effective private update before compression. The $d$ coordinates are divided into $q=\lceil d/B\rceil$ contiguous blocks $I_1,\ldots,I_q$, where $B=256$. A common support $S_t\subseteq\{1,\ldots,q\}$ must satisfy the CKKS packing budget
+\begin{equation}
+    \sum_{b\in S_t}|I_b|\leq cL,
+    \label{eq:ciphertext-packing-constraint}
+\end{equation}
+where $L=4096$ is the available slot count and $c=2$ is the target number of update ciphertext chunks. CAABC-FL selects $S_t$ from encrypted aggregate scores derived from the privatized updates. Every participating hospital then applies the same projection $P_{S_t}$,
+\begin{equation}
+    p_{k,t}=P_{S_t}(u_{k,t}),
+    \qquad
+    r_{k,t+1}=u_{k,t}-P_{S_t}^{\mathsf T}p_{k,t}.
+    \label{eq:problem-error-feedback}
+\end{equation}
+The shared support is a necessary part of the communication formulation. If every client reveals or chooses a different Top-$k$ support, a sum-only coordinator cannot align the coordinates without learning additional structure. Re-encoding such updates into dense CKKS protects the support but removes the claimed encrypted-network saving. The problem is therefore to reduce the number and serialized size of ciphertexts, not merely the number of non-zero plaintext coordinates.
+
+Let $W_t(\Pi)$ be the total serialized bytes uploaded in round $t$ by protocol $\Pi$. The communication objective is
+\begin{equation}
+    \min_{\Pi}\;W(\Pi)=\sum_{t=0}^{T-1}W_t(\Pi)
+    \quad\text{subject to the privacy, packing, utility, and integrity constraints.}
+    \label{eq:wire-objective}
+\end{equation}
+Actual wire cost includes encrypted score-refresh messages, packed encrypted updates, and serialization overhead. It is measured from transmitted ciphertext objects rather than estimated from sparsity.
+
+\subsection{Authenticated and Verified Encrypted Aggregation}
+\label{subsec:problem-encrypted-aggregation}
+
+Hospital $k$ encrypts the packed vector with the consortium CKKS public context,
+\begin{equation}
+    c_{k,t}=\operatorname{Enc}_{pk}(p_{k,t}),
+    \label{eq:encrypted-packed-update}
+\end{equation}
+and creates a signed envelope containing its institutional identity, round, source-model version, privacy metadata, record count, common-support identifier, timestamp, nonce, and ciphertext digest. Define the admissibility predicate
+\begin{align}
+    A_{k,t}={}&\operatorname{Enrolled}(k)\land
+    \operatorname{ValidSig}(k,t)\land
+    \operatorname{Fresh}(t)\land
+    \operatorname{NonceUnused}(k,t) \nonumber\\
+    &\land\operatorname{ModelBound}(k,t)\land
+    \operatorname{SupportBound}(k,t)\land
+    \operatorname{ContextBound}(k,t).
+    \label{eq:update-admissibility}
+\end{align}
+Only envelopes for which $A_{k,t}=1$ enter the accepted set $\mathcal{K}_t^{+}$. The coordinator holds the public context but no TenSEAL secret key. It computes
+\begin{equation}
+    C_t=\sum_{k\in\mathcal{K}_t^{+}}
+    \beta_{k,t}c_{k,t},
+    \qquad
+    \beta_{k,t}=\frac{n_k\rho_{k,t}}
+    {\sum_{j\in\mathcal{K}_t^{+}}n_j\rho_{j,t}},
+    \label{eq:problem-encrypted-aggregate}
+\end{equation}
+where $\rho_{k,t}$ is the reputation multiplier. Because CKKS supports approximate addition and plaintext-scalar multiplication, the ciphertext decrypts approximately to the weighted average of accepted packed updates \cite{cheon2017homomorphic}. Individual $c_{k,t}$ values are not decrypted in the intended service flow.
+
+The research authority receives the original signed envelopes and the coordinator's claimed aggregate. It re-evaluates Equation~\ref{eq:update-admissibility}, independently reconstructs Equation~\ref{eq:problem-encrypted-aggregate}, and compares the reconstructed ciphertext digest with the submitted digest. Aggregate release is allowed only when
+\begin{equation}
+    R_t=mathbb{I}\!\left[
+        |\mathcal{K}_t^{+}|\geq q_{\mathrm{part}}
+        \land H(C_t^{\mathrm{authority}})=H(C_t^{\mathrm{coordinator}})
+        \land \operatorname{RequestFresh}(t)
+    \right]=1,
+    \label{eq:aggregate-release-condition}
+\end{equation}
+where $q_{\mathrm{part}}$ is the required participant quorum. This detects omitted, substituted, or differently weighted envelopes under the implemented deterministic aggregation path. It is an independent recomputation control, not a zero-knowledge proof. Moreover, because the deployed TenSEAL authority owns one complete secret context, Equation~\ref{eq:aggregate-release-condition} reduces but does not eliminate trust in that authority.
+
+When $R_t=1$, the authority releases only the decrypted aggregate
+\begin{equation}
+    \widehat{\Delta}_t=P_{S_t}^{\mathsf T}\operatorname{Dec}_{sk}(C_t),
+    \qquad
+    \theta'_t=\theta_t+\widehat{\Delta}_t.
+    \label{eq:candidate-global-model}
+\end{equation}
+The separate OpenFHE experiment demonstrates native three-party, three-of-three decryption, but it is not the backend of this equation in the main service and does not provide dropout-tolerant arbitrary threshold decryption.
+
+\subsection{Governed Model Release and Accountability}
+\label{subsec:problem-release-governance}
+
+The decrypted candidate does not become the next global model automatically. Let $a_{v,t}\in\{0,1\}$ be the signed decision of validator $v$ on a disjoint validation partition, and let $q_{\mathrm{val}}$ be the required vote fraction. The model transition is
+\begin{equation}
+    \theta_{t+1}=
+    \begin{cases}
+        \theta'_t,
+        & \text{if }R_t=1\text{ and }
+          \dfrac{1}{|\mathcal{V}_t|}\sum_{v\in\mathcal{V}_t}a_{v,t}
+          \geq q_{\mathrm{val}},\\[2mm]
+        \theta_t, & \text{otherwise.}
+    \end{cases}
+    \label{eq:governed-model-transition}
+\end{equation}
+The second case is a rollback: the last accepted model remains active, and the rejection contributes to the reputation and audit evidence. Validation limits the release of candidates that measurably worsen the registered validation loss, but it cannot prove that every committed model is free from a stealthy backdoor.
+
+For ordered audit event $e_t$, the coordinator forms a hash-chain entry
+\begin{equation}
+    h_t=H(h_{t-1}\Vert e_t),
+    \qquad
+    \sum_{w=1}^{3}\mathbb{I}
+    [\operatorname{Verify}_{pk_w}(h_t,\sigma_{w,t})=1]\geq2,
+    \label{eq:audit-witness-condition}
+\end{equation}
+where $\sigma_{w,t}$ is witness $w$'s signature. The two-of-three rule makes one unavailable or inconsistent witness insufficient to erase the checkpoint. It does not constitute PBFT, blockchain consensus, or protection against collusion between the coordinator and two witnesses.
+
+\subsection{Joint Research Objective}
+\label{subsec:joint-research-objective}
+
+The complete problem is a constrained multi-objective design problem. Let $\Pi$ denote the training, compression, cryptographic, verification, and governance policy. The study seeks a Pareto-feasible policy
+\begin{equation}
+    \min_{\Pi}\left(
+        F(\theta_T),
+        W(\Pi),
+        \mathcal{R}_{\mathrm{privacy}}(\Pi),
+        \mathcal{R}_{\mathrm{integrity}}(\Pi)
+    \right)
+    \label{eq:joint-multiobjective}
+\end{equation}
+subject to patient-level DP as in Equation~\ref{eq:patient-level-dp-definition}, ciphertext packing as in Equation~\ref{eq:ciphertext-packing-constraint}, envelope admissibility as in Equation~\ref{eq:update-admissibility}, verified aggregate release as in Equation~\ref{eq:aggregate-release-condition}, governed model transition as in Equation~\ref{eq:governed-model-transition}, and witnessed traceability as in Equation~\ref{eq:audit-witness-condition}. Here, $\mathcal{R}_{\mathrm{privacy}}$ and $\mathcal{R}_{\mathrm{integrity}}$ are evaluated through the registered membership-inference, reconstruction, poisoning, rollback, and failure-mode experiments; they are not claimed as closed-form proofs.
+
+For the principal algorithmic contribution, this broad problem is converted into two operational gates. CAABC-FL must retain AUROC within the pre-specified non-inferiority margin and reduce measured encrypted upload by at least the registered amount relative to dense DP-FedAvg-CKKS, as defined in Equation~\ref{eq:primary-gates}. Other outcomes, including AUPRC, sensitivity, specificity, F1, calibration, empirical privacy, poisoning response, latency, and availability, remain independently reportable constraints and trade-offs. Passing the two primary gates therefore supports a bounded communication--utility claim, not universal superiority.
+
+\section{System Architecture}
+\label{sec:system-architecture}
+
+The technical system uses a layered, modular, cross-silo client--server architecture. Data and local training remain at the hospitals; the coordinator performs public-key-only orchestration and encrypted aggregation; the authority verifies and decrypts the aggregate; and independent witnesses preserve signed audit checkpoints. A research evaluation plane executes comparative methods and attacks on frozen patient partitions. This separation reduces unnecessary privilege and permits each claim to be attached to a specific component.
+
+Figure~\ref{fig:system-architecture} presents the implemented research architecture. Solid arrows denote executed service or experiment paths. The dashed OpenFHE box represents an isolated multiparty experiment and must not be interpreted as the key backend used by the main service.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\scriptsize,
+    node distance=6mm and 8mm,
+    layer/.style={draw, rounded corners=2pt, align=center, minimum height=9mm, minimum width=29mm},
+    hospital/.style={layer, fill=blue!9},
+    privacy/.style={layer, fill=green!10},
+    service/.style={layer, fill=orange!12},
+    authority/.style={layer, fill=red!8},
+    witness/.style={layer, fill=yellow!16},
+    research/.style={layer, fill=purple!8},
+    flow/.style={-{Latex[length=2mm]}, thick},
+    meta/.style={-{Latex[length=1.8mm]}, dashed, color=gray!85}
+]
+\node[hospital] (ha) {Hospital A\\local patient store};
+\node[hospital, below=of ha] (hb) {Hospital B\\local patient store};
+\node[privacy, right=of ha] (traina) {Training-only features\\280 inputs; local MLP};
+\node[privacy, right=of hb] (trainb) {Training-only features\\280 inputs; local MLP};
+\node[privacy, right=of traina] (protecta) {DP-SGD $\rightarrow$ CAABC\\CKKS pack $\rightarrow$ sign};
+\node[privacy, right=of trainb] (protectb) {DP-SGD $\rightarrow$ CAABC\\CKKS pack $\rightarrow$ sign};
+
+\node[service, right=13mm of protecta, yshift=-9mm] (coord) {Public-only coordinator\\identity, freshness, replay\\encrypted weighted aggregation};
+\node[service, below=of coord] (registry) {Ciphertext object store\\versioned model registry\\signed model distribution};
+\node[authority, right=13mm of coord] (auth) {Research key authority\\reverify envelopes\\recompute and decrypt aggregate};
+\node[research, below=of auth] (gate) {Validation and reputation\\commit or rollback\\attack/evaluation harness};
+
+\node[witness, below=12mm of registry, xshift=-15mm] (w1) {Witness A};
+\node[witness, right=of w1] (w2) {Witness B};
+\node[witness, right=of w2] (w3) {Witness C};
+\node[witness, below=of w2] (quorum) {Two-of-three signed\\checkpoint receipts};
+
+\node[authority, dashed, below=12mm of gate] (openfhe) {Separate OpenFHE experiment\\native 3-of-3 multiparty CKKS\\not service-integrated};
+
+\draw[flow] (ha) -- (traina);
+\draw[flow] (hb) -- (trainb);
+\draw[flow] (traina) -- (protecta);
+\draw[flow] (trainb) -- (protectb);
+\draw[flow] (protecta) -- node[above]{signed CKKS envelope over mTLS} (coord);
+\draw[flow] (protectb) -- (coord);
+\draw[flow] (coord) -- (registry);
+\draw[flow] (coord) -- node[above]{original envelopes + aggregate} (auth);
+\draw[flow] (auth) -- (gate);
+\draw[flow] (gate) -- node[below]{approved delta} (registry);
+\draw[flow] (registry.west) to[bend left=18] node[below, sloped]{signed global model} (ha.east);
+\draw[flow] (registry.west) to[bend right=18] (hb.east);
+\draw[meta] (coord) -- (w1);
+\draw[meta] (coord) -- (w2);
+\draw[meta] (coord) -- (w3);
+\draw[flow] (w1) -- (quorum);
+\draw[flow] (w2) -- (quorum);
+\draw[flow] (w3) -- (quorum);
+\draw[meta] (openfhe) -- node[right]{capability evidence only} (auth);
+\end{tikzpicture}%
+}
+\caption{Layered system architecture of the implemented research framework and its trust boundaries.}
+\label{fig:system-architecture}
+\end{figure}
+
+The architecture was exercised through two complementary profiles. The scientific profile runs local DP training, CAABC selection, real CKKS packing, baselines, attacks, and statistical evaluation on the complete cohort. The service profile runs hospital, coordinator, authority, and witness processes with mTLS, signatures, independent recomputation, persistent state, and governed release on controlled update vectors. These profiles share message and cryptographic concepts, but the full 40,336-patient scientific matrix was not transmitted through a physical multi-host service cluster. Figure~\ref{fig:system-architecture} therefore represents the integrated research design supported by component-level execution, not evidence of one production-scale deployment.
+
+The architecture consists of the following components.
+
+\paragraph{Hospital agents.}
+Each hospital holds its local data partition, preprocessing state, local model, DP engine, CAABC residual, CKKS public context, institutional certificate, and Ed25519 signing key. An agent receives a signed global model, verifies its digest and signature, performs one local epoch, and constructs a signed encrypted-update envelope. The private signing key and raw patient data do not leave the hospital role.
+
+\paragraph{Public-only coordinator.}
+The coordinator owns no CKKS secret key. It verifies hospital enrollment, round and model-version binding, timestamps, nonces, signatures, support compatibility, and protocol metadata. Accepted ciphertexts are stored by SHA-256 digest. The service then computes a record- and reputation-weighted ciphertext sum. Separating the coordinator from decryption reduces the information available to an honest-but-curious orchestrator.
+
+\paragraph{Research key authority and independent verification.}
+The authority receives the original signed hospital envelopes rather than accepting a coordinator-created aggregate without evidence. It repeats signature and participant checks, independently reconstructs the record weights, recomputes the homomorphic aggregate using a public context, and compares the serialized digest. Only a match is eligible for decryption. This is an independent recomputation control, not a zero-knowledge proof. The main service remains centralized at this authority; multiparty decryption is evaluated only in the isolated three-of-three OpenFHE experiment \cite{mouchet2021multiparty}.
+
+\paragraph{Validation, reputation, and model registry.}
+The decrypted aggregate is converted into a candidate global-model delta. Each participating site can evaluate the candidate on its validation partition and sign its decision. An accepted candidate is committed atomically as a new version; a rejected candidate causes rollback to the previous version. The registry binds the model vector, source round, version, creation time, digest, and coordinator signature. Reputation affects later weights and eligibility, but it is treated as an empirical control because a colluding or sleeper attacker may manipulate voting behaviour.
+
+\paragraph{Permissioned audit witnesses.}
+The coordinator maintains a durable local hash chain and sends checkpoint events to three separately keyed mTLS witness services. Each witness verifies index and previous-hash continuity before signing a receipt. Two valid pinned-key receipts form the release quorum, and a reconciliation process repairs a lagging witness. This provides identity-aware, tamper-evident evidence similar in purpose to permissioned-ledger accountability \cite{androulaki2018hyperledger}; it is not Hyperledger Fabric, Raft, or Byzantine fault-tolerant consensus.
+
+\paragraph{Governed inference.}
+For the implemented linear-model service slice, a hospital verifies the signed model, hashes the patient pseudonym locally, encrypts the feature vector, and signs a request containing consent, purpose, model version, schema, timestamp, and nonce. The coordinator validates the policy bindings before the authority evaluates the request. Only a coarse risk bucket, risk band, and review disposition are returned. The central authority can technically see decrypted features, so the method does not claim end-to-end FHE inference or hardware-attested confidentiality.
+
+The service roles communicate through TLS~1.3 with mandatory client certificates, following the authenticated and integrity-protected channel model defined for TLS \cite{rescorla2018tls}. Hospital and model artifacts use Ed25519 signatures as standardized in RFC~8032 \cite{josefsson2017eddsa}. Runtime containers use read-only root filesystems, dropped Linux capabilities, unprivileged users, and persistent SQLite/WAL state. These are engineering controls; production PKI rotation, revocation, HSM custody, and multi-host disaster recovery remain outside the implemented scope.
+
+\subsection{Algorithms and Model Explanation}
+\label{subsec:algorithms-model}
+
+\subsubsection{Prediction model and local objective}
+
+Each patient is represented by $x\in\mathbb{R}^{280}$. The predictive model is a two-layer binary multilayer perceptron with 64 hidden units:
+\begin{equation}
+    z = \mathbf{w}_2^{\mathsf T}\operatorname{ReLU}(\mathbf{W}_1x+\mathbf{b}_1)+b_2,
+    \qquad
+    \hat p = \sigma(z)=\frac{1}{1+e^{-z}}.
+    \label{eq:mlp-model}
+\end{equation}
+The architecture contains $280\times64+64+64+1=18{,}049$ trainable parameters. Hospital $k$ minimizes weighted binary cross-entropy,
+\begin{equation}
+    \mathcal{L}_k(\theta)= -\frac{1}{n_k}\sum_{i=1}^{n_k}
+    \left[w_{+}y_i\log\hat p_i+(1-y_i)\log(1-\hat p_i)\right],
+    \label{eq:weighted-bce}
+\end{equation}
+where the positive-class weight $w_{+}$ is calculated only from the confirmatory training partition. Every federated round performs one local epoch with batch size 128, learning rate 0.03, and a common initial model for paired methods.
+
+\subsubsection{Patient-level differentially private training}
+
+For a minibatch $B$, each per-sample gradient $g_i$ is clipped at norm $C$ and aggregated with Gaussian noise:
+\begin{equation}
+    \bar g_i = \frac{g_i}{\max(1,\lVert g_i\rVert_2/C)},
+    \qquad
+    \widetilde g = \frac{1}{|B|}\left(\sum_{i\in B}\bar g_i + \sigma C\mathbf{z}\right),
+    \quad \mathbf{z}\sim\mathcal{N}(0,\mathbf{I}).
+    \label{eq:dpsgd}
+\end{equation}
+The frozen configuration uses $C=1.0$, noise multiplier $\sigma=1.2$, $\delta=10^{-5}$, Poisson sampling, and an RDP accountant. The final runs require an OS-entropy-seeded AES-256-CTR random source, secure Poisson sampling, and a four-draw Gaussian hardening construction. This backend is recorded per client but has not received an independent cryptographic audit; therefore, the work reports its implementation provenance without claiming production certification. Private adaptive clipping was considered in the literature \cite{andrew2021adaptive}, but the confirmatory protocol freezes a fixed clipping bound to prevent post-hoc tuning.
+
+\subsubsection{CAABC block selection and error feedback}
+
+Let the privatized local update at round $t$ be $\Delta_{k,t}\in\mathbb{R}^{d}$, with $d=18{,}049$. The vector is divided into $q=\lceil d/B\rceil$ contiguous blocks $I_b$ of size at most $B=256$. Each hospital computes
+\begin{equation}
+    s_{k,t,b}=\left\lVert\Delta_{k,t}[I_b]\right\rVert_2.
+    \label{eq:block-score}
+\end{equation}
+The scores are CKKS-encrypted and combined with record weights $\alpha_k=n_k/\sum_j n_j$. After verified release of the aggregate scores, blocks are ranked by $\sum_k\alpha_ks_{k,t,b}$. The common support $S_t$ maximizes the retained aggregate score under the ciphertext-slot budget:
+\begin{equation}
+    S_t=\arg\max_{S\subseteq\{1,\ldots,q\}}
+    \sum_{b\in S}\sum_k\alpha_ks_{k,t,b}
+    \quad\text{subject to}\quad
+    \sum_{b\in S}|I_b|\leq cL,
+    \label{eq:caabc-support}
+\end{equation}
+where $L=4096$ is the CKKS slot capacity and $c=2$ is the target number of update ciphertext chunks. The support is refreshed every $R=5$ rounds; otherwise, the previous support is reused.
+
+For error feedback, hospital $k$ maintains residual $r_{k,t}$. It transmits the selected part of $u_{k,t}=\Delta_{k,t}+r_{k,t}$ and updates
+\begin{equation}
+    p_{k,t}=P_{S_t}(u_{k,t}),
+    \qquad
+    r_{k,t+1}=u_{k,t}-P_{S_t}^{\mathsf T}p_{k,t},
+    \label{eq:error-feedback}
+\end{equation}
+where $P_{S_t}$ packs the selected blocks and $P_{S_t}^{\mathsf T}$ scatters them back into a dense vector. Therefore,
+$\Delta_{k,t}+r_{k,t}-P_{S_t}^{\mathsf T}p_{k,t}-r_{k,t+1}=0$ up to floating-point error. This identity makes omitted compression error telescope across rounds rather than being permanently discarded.
+
+\subsubsection{Encrypted aggregation and governed update}
+
+Each packed update is encrypted under CKKS. The coordinator computes
+\begin{equation}
+    C_t = \sum_{k\in\mathcal{K}_t}\beta_{k,t}\operatorname{Enc}(p_{k,t}),
+    \qquad
+    \beta_{k,t}=
+    \frac{n_k\rho_{k,t}}{\sum_{j\in\mathcal{K}_t}n_j\rho_{j,t}},
+    \label{eq:encrypted-aggregate}
+\end{equation}
+where $\rho_{k,t}$ is the current reputation multiplier. The verified decrypted aggregate is scattered into $\widehat\Delta_t=P_{S_t}^{\mathsf T}\operatorname{Dec}(C_t)$ and forms candidate parameters $\theta'_t=\theta_t+\widehat\Delta_t$.
+
+For validator $v$, let $L_v(\theta)$ denote loss on its disjoint validation partition. A validator accepts when
+\begin{equation}
+    a_{v,t}=\mathbb{I}\!\left[L_v(\theta'_t)\leq L_v(\theta_t)+\tau\right],
+    \label{eq:validation-gate}
+\end{equation}
+with tolerance $\tau$ fixed before evaluation. The service commits only when the required signed vote threshold is reached; otherwise, it rolls back. The poisoning experiments use $\tau=0.02$ and a two-thirds vote fraction. This gate controls the released aggregate model but does not prove that every accepted update is benign.
+
+Algorithm~\ref{alg:secure-caabc-round} summarizes a complete CAABC-FL round.
+
+\begin{algorithm}[htbp]
+\caption{Authenticated and governed CAABC-FL round}
+\label{alg:secure-caabc-round}
+\begin{algorithmic}[1]
+\Require Global parameters $\theta_t$; hospitals $\mathcal{K}_t$; residuals $r_{k,t}$; block size $B$; chunk budget $c$; refresh interval $R$; DP parameters $(C,\sigma,\delta)$; CKKS public context
+\Ensure Committed $\theta_{t+1}$ or rollback to $\theta_t$
+\ForAll{hospital $k\in\mathcal{K}_t$}
+    \State Verify the signed global-model version and preprocess local training records
+    \State Train one local epoch with per-sample clipping, secure noise, and privacy accounting
+    \State Compute privatized update $\Delta_{k,t}$
+    \If{$t=0$ or $t\bmod R=0$}
+        \State Compute block scores $s_{k,t,b}$ and encrypt the score vector
+    \EndIf
+\EndFor
+\If{support refresh is required}
+    \State Coordinator aggregates encrypted score vectors
+    \State Authority verifies the request and releases only the aggregate scores
+    \State Select common support $S_t$ subject to the $cL$ coordinate budget
+\EndIf
+\ForAll{hospital $k\in\mathcal{K}_t$}
+    \State $u_{k,t}\gets\Delta_{k,t}+r_{k,t}$
+    \State $p_{k,t}\gets P_{S_t}(u_{k,t})$; $r_{k,t+1}\gets u_{k,t}-P_{S_t}^{\mathsf T}p_{k,t}$
+    \State Encrypt $p_{k,t}$; bind round, version, privacy, support, nonce, and digest metadata
+    \State Sign the envelope and submit it through mutually authenticated TLS
+\EndFor
+\State Coordinator rejects invalid, stale, replayed, ineligible, or support-mismatched envelopes
+\State Coordinator computes encrypted weighted aggregate $C_t$
+\State Authority re-verifies all envelopes, independently recomputes $C_t$, and checks its digest
+\State Authority decrypts only the verified aggregate; form candidate $\theta'_t$
+\State Collect signed validation decisions and update reputation evidence
+\If{the registered vote and validation rule accepts $\theta'_t$}
+    \State Atomically commit and sign $\theta_{t+1}\gets\theta'_t$
+\Else
+    \State Roll back: $\theta_{t+1}\gets\theta_t$
+\EndIf
+\State Anchor the round event to the permissioned witness quorum
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Parameter settings}
+
+Table~\ref{tab:method-parameters} records the confirmatory configuration. Values were frozen before confirmatory test access. Model and method seeds fix initialization and paired sampling decisions, whereas cryptographic randomization and secure DP noise remain intentionally non-deterministic.
+
+\begin{table}[htbp]
+\centering
+\caption{Frozen model, privacy, compression, and CKKS parameters}
+\label{tab:method-parameters}
+\small
+\begin{tabularx}{\textwidth}{@{}p{3.5cm}p{3.0cm}X@{}}
+\toprule
+Component & Setting & Methodological purpose \\
+\midrule
+Input/model & 280--64--1 MLP; 18,049 parameters & Compact nonlinear binary classifier with fixed capacity across paired methods \\
+Training & 20 rounds; 1 local epoch; batch 128; learning rate 0.03 & Common optimization budget for the confirmatory comparison \\
+Class imbalance & Positive weight from training data only & Prevent test prevalence from influencing optimization \\
+DP & $\sigma=1.2$, $C=1.0$, $\delta=10^{-5}$, RDP accountant & Record-level add-or-remove-one-patient protection \\
+CAABC & Block size 256; 2 CKKS chunks; refresh every 5 rounds & Align the selected support with real ciphertext packing \\
+Error feedback & Enabled in full CAABC & Retain omitted update information across rounds \\
+CKKS & TenSEAL 0.3.17; polynomial degree 8192; coefficient bits $(60,40,40,60)$; scale $2^{40}$ & Packed approximate encrypted weighted addition \\
+Operating threshold & Maximum Youden's $J$ on pooled validation & Freeze one decision point without consulting test labels \\
+Primary reference & Dense DP-FedAvg-CKKS & Isolate the effect of adaptive ciphertext-aligned compression \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Complexity and communication analysis}
+
+Let $p$ denote the number of model parameters, $K$ the number of hospitals, $T$ the number of rounds, $L$ the CKKS slot capacity, $m$ the selected coordinate budget, $q=\lceil p/B\rceil$ the number of blocks, and $R$ the refresh interval. Local forward and backward computation is $O(n_kp)$ per epoch for hospital $k$, with $O(p)$ model and residual memory. Block scoring costs $O(p)$ on refresh rounds and $O(1)$ additional work on non-refresh rounds aside from packing. Ranking $q$ scores costs $O(q\log q)$.
+
+Dense encrypted training sends approximately
+\begin{equation}
+    N_{\mathrm{dense}}=KT\left\lceil\frac{p}{L}\right\rceil
+    \label{eq:dense-cipher-count}
+\end{equation}
+client update ciphertexts. CAABC sends update ciphertexts plus encrypted scores:
+\begin{equation}
+    N_{\mathrm{CAABC}}=K\left[
+    T\left\lceil\frac{m}{L}\right\rceil+
+    \left\lceil\frac{T}{R}\right\rceil
+    \left\lceil\frac{q}{L}\right\rceil
+    \right].
+    \label{eq:caabc-cipher-count}
+\end{equation}
+For the frozen dimensions, $p=18{,}049$, $L=4096$, $q=71$, $m\leq8192$, and $R=5$: a dense update requires five ciphertext chunks, whereas a packed CAABC update targets two chunks and adds one small score ciphertext per refresh. Ciphertext count is only an analytical bound. The empirical method records the actual serialized byte length of every ciphertext because serialization metadata and partial chunks can change the byte ratio.
+
+The coordinator performs $O(K\lceil m/L\rceil)$ ciphertext--plaintext scalar multiplications and ciphertext additions per round. The independent authority repeats the aggregation before decryption, intentionally trading extra computation for detection of a forged aggregate. Audit and signature operations are linear in the number of accepted envelopes and checkpoint witnesses. The architecture therefore reduces communication at the cost of score selection, verification, and cryptographic work; both sides of this trade-off are measured.
+
+\subsection{Data Flow Diagram}
+\label{subsec:data-flow}
+
+The data-flow diagrams use rectangles for external entities, rounded rectangles for processes, cylinders for persistent stores, and arrows for data movement. Raw patient records never cross the hospital boundary. Figure~\ref{fig:dfd-level0} gives the context-level view, while Figure~\ref{fig:dfd-level1} decomposes the collaboration into its major processes.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\small,
+    entity/.style={draw, rectangle, minimum width=34mm, minimum height=12mm, align=center, fill=blue!8},
+    process/.style={draw, rounded corners=5mm, minimum width=55mm, minimum height=25mm, align=center, fill=green!10},
+    flow/.style={-{Latex[length=2.2mm]}, thick}
+]
+\node[entity] (hospitals) {Participating hospitals\\A and B};
+\node[process, right=25mm of hospitals] (system) {P0: Hybrid privacy-preserving\\federated collaboration system};
+\node[entity, right=25mm of system] (authority) {Research key authority\\and audit witnesses};
+\node[entity, below=18mm of system] (researcher) {Authorized researcher\\and evaluator};
+
+\draw[flow] (hospitals) -- node[above, align=center]{signed encrypted updates;\\validation decisions} (system);
+\draw[flow] (system) -- node[below, align=center]{signed global model;\\minimized inference result} (hospitals);
+\draw[flow] (system) -- node[above, align=center]{envelopes, aggregate,\\audit checkpoints} (authority);
+\draw[flow] (authority) -- node[below, align=center]{verified aggregate release;\\signed receipts} (system);
+\draw[flow] (researcher) -- node[right]{frozen protocol and authorized run} (system);
+\draw[flow] (system) -- node[left]{de-identified metrics and manifests} (researcher);
+\end{tikzpicture}%
+}
+\caption{Level-0 data flow diagram of the research system.}
+\label{fig:dfd-level0}
+\end{figure}
+
+At Level~0, hospitals are the only entities that access patient-level source files. The collaboration system receives protected updates and returns a signed global model. The authority and witnesses receive only the evidence necessary for verification, decryption policy, and audit anchoring. The researcher controls the frozen experiment and receives aggregate metrics, predictions indexed by experiment identifiers, and reproducibility manifests rather than operational patient identities.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    font=\scriptsize,
+    entity/.style={draw, rectangle, minimum width=26mm, minimum height=9mm, align=center, fill=blue!8},
+    process/.style={draw, rounded corners=4mm, minimum width=31mm, minimum height=12mm, align=center, fill=green!10},
+    store/.style={draw, cylinder, shape border rotate=90, aspect=0.28, minimum width=25mm, minimum height=11mm, align=center, fill=yellow!15},
+    flow/.style={-{Latex[length=1.8mm]}, thick}
+]
+\node[entity] (hospital) {Hospital agent};
+\node[store, below=of hospital] (localdata) {D1: Local\\patient data};
+\node[process, right=10mm of hospital] (p1) {P1: Split, fit,\\preprocess, train};
+\node[process, right=of p1] (p2) {P2: Clip, noise,\\score, pack, encrypt};
+\node[process, right=of p2] (p3) {P3: Authenticate and\\aggregate ciphertexts};
+\node[store, below=of p3] (cipherstore) {D2: Ciphertext\\object store};
+\node[process, right=of p3] (p4) {P4: Reverify, recompute,\\decrypt aggregate};
+\node[process, right=of p4] (p5) {P5: Validate, commit\\or roll back};
+\node[store, below=of p5] (registry) {D3: Versioned\\model registry};
+\node[process, below=18mm of p4] (p6) {P6: Anchor signed\\audit checkpoint};
+\node[store, left=of p6] (audit) {D4: Coordinator and\\witness audit chains};
+\node[entity, right=of p6] (evaluator) {Authorized evaluator};
+
+\draw[flow] (localdata) -- (p1);
+\draw[flow] (hospital) -- (p1);
+\draw[flow] (p1) -- node[above]{local update} (p2);
+\draw[flow] (p2) -- node[above]{signed CKKS envelope} (p3);
+\draw[flow] (p3) -- (cipherstore);
+\draw[flow] (p3) -- node[above]{aggregate + originals} (p4);
+\draw[flow] (p4) -- node[above]{verified delta} (p5);
+\draw[flow] (p5) -- (registry);
+\draw[flow] (registry.west) to[bend right=20] node[below]{signed model} (hospital.south);
+\draw[flow] (p3) -- (p6);
+\draw[flow] (p4) -- (p6);
+\draw[flow] (p5) -- (p6);
+\draw[flow] (p6) -- (audit);
+\draw[flow] (p5) -- node[right]{metrics} (evaluator);
+\draw[flow] (audit) -- node[below]{receipts and manifests} (evaluator);
+\end{tikzpicture}%
+}
+\caption{Level-1 data flow diagram showing protected training, verification, release, and evidence stores.}
+\label{fig:dfd-level1}
+\end{figure}
+
+Process P1 creates patient-level splits, fits preprocessing on training patients only, and trains the local model. P2 applies the privacy and communication mechanisms before encryption and signature. P3 rejects invalid protocol messages and aggregates compatible ciphertexts. P4 independently reconstructs the aggregation request and is the only main-service process allowed to decrypt. P5 applies validation and versioning rules. P6 records the identities, digests, decisions, and receipts required for later accountability. Stores D2--D4 contain ciphertexts, model artifacts, and hashes or protocol metadata; they do not contain raw clinical rows.
+
+\section{Data Collection Process and Analysis}
+\label{sec:data-methods}
+
+The data methodology follows the sequence collection, validation, patient-level splitting, training-only preprocessing, local model training, protected aggregation, and statistical analysis. The study uses secondary public clinical data and machine-generated experimental measurements. Clinical source records supply the prediction task, while the system records model metrics, predictions, ciphertext sizes, timing, attack results, audit decisions, and artifact hashes. No survey, interview, or newly recruited human participant is used.
+
+\subsection{Data Collection Methods}
+\label{subsec:data-collection}
+
+\subsubsection{Clinical data source and relevance}
+
+Version 1.0.0 of the 2019 PhysioNet/Computing in Cardiology Challenge data is the confirmatory clinical source \cite{physionet2019sepsis}. Its companion publication describes the sepsis task, recorded variables, and the participating hospital systems \cite{reyna2020early}. The released training portion comprises 40,336 patient files across two source partitions. It was chosen because the original institutional boundary can be preserved while the study examines longitudinal measurements, missingness, outcome imbalance, and paired multi-seed behaviour. These properties provide a more demanding cross-silo evaluation than a small table divided artificially among clients.
+
+\begin{table}[htbp]
+\centering
+\caption{Primary cohort composition before the confirmatory split}
+\label{tab:cohort-composition}
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Source partition & Patients & Positive patients & Positive proportion \\
+\midrule
+Hospital A & 20,336 & 1,790 & 8.80\% \\
+Hospital B & 20,000 & 1,142 & 5.71\% \\
+\midrule
+Total & 40,336 & 2,932 & 7.27\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each file contains hourly rows with 40 predictors and a binary \texttt{SepsisLabel}. The predictors cover eight vital-sign variables, twenty-six laboratory variables, and six demographic or contextual variables. The raw schema is checked exactly; non-binary labels, empty files, unexpected columns, and non-finite values outside the declared missing representation cause validation failure. The downloaded object count, license file, raw manifest, processed tensors, patient identifiers, and protocol files are protected by SHA-256 manifests.
+
+The UCI Heart Disease dataset is retained as a secondary development and service-smoke benchmark \cite{janosi1989heart}; it is not used to replace the primary full-cohort findings. Adapters for MIMIC-IV and eICU were implemented, but credentialed extracts were unavailable. Consequently, the study does not claim external clinical validation.
+
+\subsubsection{Patient-level sampling and leakage control}
+
+Patient assignment is performed separately inside each hospital after stratifying on whether the patient ever receives a positive label. With split seed 20260829, 70\% of patients are allocated to training and 15\% each to validation and testing. This yields 14,236/3,050/3,050 patients for Hospital A and 14,000/3,000/3,000 for Hospital B. Assignment occurs at patient level, ensuring that hourly observations belonging to one person cannot cross from training into an evaluation partition.
+
+The test partition is locked before confirmatory execution. Hyperparameters, compressor settings, operating-threshold rules, methods, random seeds, and primary decision gates are stored in machine-readable protocols. Validation data may select the operating threshold and the CAABC development configuration; test labels may not alter them. Security experiments use validation or other disjoint outcome partitions and do not repeatedly inspect the confirmatory test set.
+
+\subsubsection{Matched-landmark preprocessing}
+
+The prediction task is a matched-landmark early-sepsis classification task. For a positive patient, the landmark is the first hour at which \texttt{SepsisLabel}=1. For a control patient, a landmark is selected deterministically from the distribution of positive-case landmark hours observed in the training set, then clipped to the available stay. This avoids comparing cases at clinically meaningful times with controls selected only at the end of their stay.
+
+Only the 24 hours ending at the landmark are summarized. For each of the 40 predictors, seven features are calculated: last observed value, mean, standard deviation, minimum, maximum, endpoint slope, and missing rate. This produces $40\times7=280$ features. Continuous observations are standardized using means and scales fitted on the pooled participating-hospital training patients only. Missing observations do not receive an invented clinical value after standardization; an entirely missing window receives zero-valued standardized summaries plus its missing-rate indicator. No predictor was entirely missing in the confirmatory training partition.
+
+The pooled training-only preprocessing is a controlled research choice made on one experimental host. In a real consortium, equivalent global means, variances, and landmark statistics would need to be pre-agreed or calculated through a protected federated-analytics protocol. The implementation does not claim that this preprocessing-fit stage is already a networked secure multiparty service. The matched-landmark task also differs from the official hourly Challenge task and therefore does not use the official Challenge utility score.
+
+\subsubsection{Experimental and system measurements}
+
+Every experiment cell records the protocol identifier, dataset and split hashes, method, model seed, training settings, DP metadata, selected operating threshold, pooled and site-specific metrics, logical payload, serialized ciphertext bytes, CKKS approximation error, and runtime components. Security runs additionally record attacker fraction, attack and defence, clean reference outcome, backdoor attack success rate, reconstruction trajectory, membership score, rollback decisions, quarantine state, and reputation. Service tests record identity and replay decisions, model versions, audit-chain validity, witness receipts, and restart recovery.
+
+The implementation uses CPython 3.13.3, PyTorch 2.13.0 CPU, Opacus 1.6.0, NumPy 2.5.2, SciPy 1.18.1, TenSEAL 0.3.17, cryptography 50.0.1, and Matplotlib 3.11.1 on Windows 11/AMD64 for the main scientific environment. Containerized service roles use a smaller pinned dependency set. Environment, experiment, and artifact manifests preserve the available software and result snapshot.
+
+\subsection{Data Analysis Techniques}
+\label{subsec:data-analysis}
+
+\subsubsection{Comparative experimental matrix}
+
+The primary utility and communication matrix contains 125 completed, resumable cells. Six optimization baselines---FedAvg, FedProx, SCAFFOLD, FedNova, FedAdam, and FedYogi---are each run with ten paired seeds. Four core private methods---DP-FedAvg, dense DP-FedAvg-CKKS, static CAABC, and adaptive CAABC---also use ten paired seeds. Five secondary compression controls---Random-$k$, client Top-$k$, error-feedback Top-$k$, fixed public blocks, and quantization---use five paired seeds because encrypted runs are computationally expensive.
+
+Random-$k$ and fixed public blocks use a common public support and may reduce encrypted bytes. Client-specific Top-$k$, error-feedback Top-$k$, and quantization are re-encoded into dense CKKS so that their private support or quantization metadata is not exposed; they receive no encrypted-wire-saving credit. This prevents a plaintext bit count from being presented as an encrypted network result.
+
+The security protocol uses five paired seeds. Its one-round matrix evaluates 20 virtual clients, seven attacks, six defences, and malicious fractions from 0.1 to 0.4. The longitudinal matrix evaluates five- and twenty-round trajectories, including replacement, sign-flip, backdoor, colluding, Sybil, adaptive-trust, sleeper, and adaptive-vote behaviours. Plaintext coordinate median, trimmed mean, Multi-Krum, geometric median, and FLTrust are marked as assumption-mismatched controls because they require individual plaintext updates or a trusted root set \cite{blanchard2017krum,yin2018byzantine,pillutla2022robust,cao2021fltrust}. Only the weighted-mean path and global validation gate are directly compatible with sum-only CKKS in the implemented service.
+
+Privacy evaluation includes label-matched loss membership inference, online LiRA, low-cost RMIA, and gradient reconstruction. The first confirmatory membership design calibrates its threshold on a disjoint half and evaluates on the other half. Advanced attacks report true-positive rate at false-positive rates 0.001, 0.01, and 0.05 in addition to attack AUC and maximum advantage, following the lesson that average attack accuracy can conceal low-FPR leakage \cite{carlini2022membership}. Gradient reconstruction uses 300 optimization steps across exact plaintext, worst-case CAABC mask, DP-sanitized, and combined DP--CAABC observations, guided by established gradient-inversion attacks \cite{zhu2019dlg,geiping2020inverting}.
+
+\begin{table}[htbp]
+\centering
+\caption{Frozen evaluation families and experimental units}
+\label{tab:evaluation-families}
+\small
+\begin{tabularx}{\textwidth}{@{}p{2.9cm}p{2.3cm}X X@{}}
+\toprule
+Family & Paired seeds & Main comparisons & Principal outcomes \\
+\midrule
+Optimization & 10 & Six federated optimizers plus local-only and centralized references & AUROC, AUPRC, threshold metrics, calibration \\
+Core privacy/encryption & 10 & DP-FedAvg, dense DP-CKKS, static and adaptive CAABC & Utility, DP budget, CKKS error, serialized wire bytes \\
+Compression controls & 5 & Random-$k$, Top-$k$, EF-Top-$k$, fixed blocks, quantization & Logical reduction versus actual encrypted-wire reduction \\
+Poisoning & 5 & Seven one-round attacks; adaptive and longitudinal attacks; six defences & AUROC/AUPRC change, backdoor ASR, rollback, quarantine, availability \\
+Privacy attacks & 5 & Loss attack, LiRA, RMIA, and 300-step reconstruction & Attack AUC/advantage, low-FPR TPR, RMSE, cosine similarity \\
+Systems and governance & Diagnostic & mTLS services, recomputation, witness failure/recovery, OpenFHE 3-of-3 & Rejection correctness, persistence, latency, numerical error, receipt quorum \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Predictive and calibration analysis}
+
+AUROC and AUPRC are the primary threshold-free outcomes. AUPRC is emphasized because only 7.27\% of patients are positive and the two hospitals have different prevalence. Accuracy is reported but is not used alone. Threshold-dependent measures include sensitivity, specificity, positive predictive value (precision), negative predictive value, F1, balanced accuracy, Matthews correlation coefficient (MCC), and predicted-positive rate.
+
+For counts $TP$, $TN$, $FP$, and $FN$,
+\begin{equation}
+    \operatorname{Precision}=\frac{TP}{TP+FP},\qquad
+    \operatorname{Sensitivity}=\frac{TP}{TP+FN},\qquad
+    \operatorname{Specificity}=\frac{TN}{TN+FP},
+    \label{eq:classification-rates}
+\end{equation}
+and
+\begin{equation}
+    F_1=\frac{2\,\operatorname{Precision}\,\operatorname{Sensitivity}}
+    {\operatorname{Precision}+\operatorname{Sensitivity}},
+    \qquad
+    \operatorname{BalancedAccuracy}=\frac{\operatorname{Sensitivity}+\operatorname{Specificity}}{2}.
+    \label{eq:f1-balanced}
+\end{equation}
+MCC is included because it uses all four confusion-matrix cells and remains informative under imbalance. The operating threshold maximizes Youden's $J=\operatorname{Sensitivity}+\operatorname{Specificity}-1$ on pooled validation data separately for each method and seed, then remains frozen for pooled, Hospital A, and Hospital B test sets.
+
+Probability quality is evaluated using Brier score,
+\begin{equation}
+    \operatorname{Brier}=\frac{1}{N}\sum_{i=1}^{N}(\hat p_i-y_i)^2,
+    \label{eq:brier}
+\end{equation}
+calibration intercept, calibration slope, and calibration plots. The intercept and slope are estimated from a logistic calibration model of outcome on the prediction logit. A well-calibrated model has intercept near zero and slope near one, although uncertainty and sample composition must be considered.
+
+\subsubsection{Communication, privacy, and security analysis}
+
+Communication analysis separates original coordinates, retained coordinates, logical payload bytes, packed CKKS upload bytes, encrypted score bytes, actual total upload bytes, and dense encrypted reference bytes. Actual wire reduction is
+\begin{equation}
+    R_{\mathrm{wire}}=1-\frac{B_{\mathrm{packed}}+B_{\mathrm{scores}}}{B_{\mathrm{dense\ CKKS}}}.
+    \label{eq:wire-reduction}
+\end{equation}
+Encryption, signing, verification, aggregation, independent recomputation, decryption, audit, and end-to-end round time are recorded separately where the execution path exposes them. Maximum absolute CKKS error compares the research aggregate with a plaintext reference only in controlled tests; this diagnostic comparison is disabled in a real distributed deployment.
+
+DP results report the final $(\epsilon,\delta)$ budget and accountant assumptions. Membership attack AUC, advantage, and low-FPR sensitivity are empirical complements, not replacements for the formal statement. Reconstruction reports feature root-mean-square error, feature cosine similarity, and final gradient-matching loss. A poor attack result is interpreted only for the registered attacker knowledge, initialization, steps, and observation path.
+
+Poisoning outcomes are calculated relative to a clean run of the same defence and seed. They include change in AUROC and AUPRC, backdoor attack-success-rate change, committed and rolled-back rounds, quarantined malicious clients, and clean-utility cost. This design makes denial-of-service visible: a defence that rejects every round may preserve the old model while failing to support collaborative learning.
+
+\subsubsection{Statistical inference and reproducibility}
+
+The model seed is the unit of statistical analysis. Patient predictions, attack candidates, and virtual clients within one trained model are not treated as independent replicates. For paired difference $d_s$ across $n$ common seeds, the two-sided Student-$t$ confidence interval is
+\begin{equation}
+    \bar d \;\pm\; t_{0.975,n-1}\frac{s_d}{\sqrt{n}},
+    \label{eq:paired-ci}
+\end{equation}
+where $s_d$ is the sample standard deviation of the paired differences. Pairing controls variation from initialization and patient partition. The normality assumption applies to seed-level differences; with five or ten seeds, interval estimates remain sensitive to outliers and are interpreted with the individual seed values.
+
+The two primary CAABC gates are pre-specified in Equation~\ref{eq:primary-gates}. Secondary utility outcomes are exploratory. Holm correction is applied within the pre-registered privacy, poisoning, longitudinal, and ablation endpoint families to control family-wise error without treating unrelated scientific questions as one family. Confidence intervals, adjusted $p$-values, effect directions, and negative results are retained together.
+
+Reproducibility is supported by frozen JSON protocols, raw and processed dataset hashes, patient-split digests, a first-test-access marker, resumable cell-level execution, schema validation, output hashes, environment manifests, and prediction-level exports. Publication-named outputs are withheld until all expected cells pass validation. CKKS ciphertexts are randomized and are not expected to reproduce byte-for-byte; numerical tolerances, serialized-size distributions, and aggregate statistics are the appropriate replication targets.
+
+The main methodological limitations are retrospective public data, two natural source hospitals, a matched-landmark rather than official hourly task, no credentialed external-cohort execution, single-host scientific training, diagnostic service timing, centralized TenSEAL decryption, and no hardware-verified TDX/SNP deployment. These constraints bound external validity and security claims but do not prevent controlled comparison within the frozen protocol.
+
+\section{Engineering and Societal Considerations}
+\label{sec:engineering-society}
+
+An algorithmic improvement cannot by itself justify use in a healthcare consortium. Choices about privacy budgets, participation rules, release gates, computation, and audit retention may affect patients and institutions beyond the measured predictive score. The methodology therefore examines welfare, access, resource use, professional candour, and data stewardship alongside the technical evaluation; these considerations also determine which deployment claims the study deliberately withholds.
+
+\subsection{Societal Impacts of Engineering Solutions}
+\label{subsec:societal-impact}
+
+The principal positive impact is the possibility of learning from several hospitals without creating a central repository of their raw patient records. Smaller institutions may benefit from patterns that cannot be estimated reliably from their local cohort alone, while retaining organizational control over source data. The architecture can also reduce repetitive bilateral data transfer and provide a signed history of who contributed, approved, or rejected a model version. These properties support collaborative research, accountable innovation, and potentially more representative evidence.
+
+The system is not inherently equitable. Institutions with weaker computing, network, or governance capacity may be unable to participate or may receive a model that performs poorly for their patients. Hospitals with genuinely different case mix may also be penalized by an over-sensitive reputation rule. For that reason, site-specific AUROC, AUPRC, calibration, sensitivity, and specificity are evaluated rather than reporting only a pooled average. Future deployments should involve clinicians, data stewards, patient representatives, security personnel, and lower-resource hospitals when setting validation tolerances, participation requirements, and acceptable privacy budgets.
+
+Potential negative effects include false confidence in the label ``privacy preserving,'' delayed model updates caused by cryptography or rollback, automation bias, and increased workload if risk predictions generate unnecessary review. A poisoned or poorly calibrated model could distribute harm across every participant. The inference interface therefore returns a review disposition rather than an autonomous diagnosis, and the thesis explicitly prohibits clinical-use claims. Human oversight, local clinical judgment, monitoring, appeal, and withdrawal must remain available in any future application.
+
+The human-centered design principle is that the system assists an accountable institution; it does not replace clinicians or transfer responsibility to an algorithm. This aligns with professional expectations to prioritize safety, disclose limitations, and avoid harm in computing systems \cite{ieee2026ethics,acm2018ethics}. It also supports Sustainable Development Goal (SDG)~3 on health and well-being and SDG~9 on resilient infrastructure and innovation \cite{un2015sdgs}.
+
+\subsection{Environment and Sustainability Considerations}
+\label{subsec:sustainability}
+
+Federated learning avoids repeated central replication of raw clinical repositories, but it does not automatically reduce environmental impact. Local training duplicates computation across institutions, CKKS expands data and consumes CPU time, and multi-seed research experiments add further energy cost. Permissioned witnesses and persistent evidence also require storage and service uptime. These costs should be acknowledged rather than assuming that privacy technology is environmentally neutral.
+
+Several design decisions reduce unnecessary resource use. The model is a compact two-layer MLP trained on CPU rather than a large accelerator-dependent network. CAABC targets two packed ciphertext chunks instead of the five chunks required by the dense 18,049-parameter update, and support scores are refreshed every five rounds rather than every round. Error feedback permits aggressive compression without simply discarding omitted information. Resumable experiment cells avoid repeating completed work, while content hashes allow verification without duplicating entire artifacts. The production service image excludes scientific datasets and heavy training dependencies, reducing its storage and attack surface.
+
+The study measures encrypted bytes and runtime but does not measure electricity consumption or carbon emissions. It therefore claims communication and computation changes, not a quantified carbon reduction. A future lifecycle assessment should record device power, regional electricity mix, network energy, storage retention, and hardware replacement. The current approach is consistent with SDG~12's emphasis on responsible resource use and with the wider UN sustainability framework, but it is not evidence of environmental certification \cite{un2015sdgs}. Secure information-management practices are informed by the confidentiality, integrity, availability, and risk-management orientation of ISO/IEC~27001:2022; the project is not certified to that standard \cite{iso27001_2022}.
+
+\subsection{Ethical and Professional Responsibility}
+\label{subsec:ethics}
+
+The professional basis of the project is to report system capabilities honestly, protect sensitive information, credit prior work, and expose limitations that could affect safety. The IEEE and ACM codes emphasize public welfare, honesty, privacy, fairness, competence, and avoidance of harm \cite{ieee2026ethics,acm2018ethics}. These principles are applied by separating research evidence from production claims, retaining negative results, avoiding fabricated SOTA comparisons across incompatible datasets, and citing algorithms and datasets at their primary sources.
+
+The dataset is secondary, publicly released, and de-identified by its provider. No participant was contacted, intervened upon, or re-identified, and the study does not attempt linkage with external records. Local copies, processed tensors, and predictions are restricted to the research workspace. Audit logs contain hashes, pseudonymous institutional identifiers, and protocol metadata rather than plaintext gradients or patient measurements. Governed inference hashes the patient pseudonym locally and minimizes the returned prediction. If a university ethics committee determines that formal review or exemption documentation is required for secondary-data research, that institutional decision remains authoritative.
+
+The Belmont principles of respect for persons, beneficence, and justice remain relevant even when researchers use secondary data \cite{belmont1979}. Respect is reflected in purpose and consent controls proposed for future inference; beneficence requires balancing privacy, utility, and security costs; and justice requires site- and subgroup-aware evaluation so that collaboration does not benefit well-resourced institutions while shifting risk to others. The present dataset does not supply every attribute needed for a complete fairness assessment, so absence of observed disparity cannot be claimed.
+
+The architecture is informed by GDPR principles such as purpose limitation, data minimization, integrity, confidentiality, and accountability \cite{europeanunion2016gdpr}. However, use of DP, encryption, or local data retention does not by itself establish legal compliance. A real deployment would require a lawful basis, institutional agreements, data-protection impact assessment, retention and deletion policy, access governance, breach response, patient-rights procedure, vendor assessment, and jurisdiction-specific review.
+
+Academic integrity is maintained through original synthesis, transparent citation, machine-readable protocols, preserved configurations, and result hashes. No result is removed because it weakens a preferred conclusion. The official dataset task, privacy adjacency, attack visibility, seed count, missing external validation, and single-authority limitation are stated explicitly. Reproducibility artifacts permit another researcher to inspect how a table or figure was generated, while the chapter text explains why the method was chosen.
+
+Finally, the model is a research instrument rather than clinical decision support. It has not undergone prospective validation, clinical workflow testing, medical-device assessment, bias certification, penetration testing by an independent party, or continuous post-deployment monitoring. Any transition from research to practice would require these activities, networked threshold or hardware-attested key governance, managed PKI and secrets, external clinical cohorts, and approval by the participating institutions. This bounded interpretation is part of the methodology because responsible engineering includes stating what the system must not yet be used to do.

@@ -1,0 +1,114 @@
+{
+  "protocol_id": "q1-sota-security-systems-v1",
+  "title": "Post-hoc same-protocol security and systems comparison of CAABC with reproduced SOTA compressors",
+  "status": "frozen before new security and systems adapter execution; test outcomes from earlier utility studies were already accessed",
+  "parent_protocols": [
+    "protocols/q1-sota-reproduction-v1.json",
+    "protocols/q1-extension-v1.json",
+    "protocols/q1-security-confirmatory-v1.json"
+  ],
+  "dataset_lock": {
+    "processed_root": "data/processed/physionet-2019-confirmatory-20260829",
+    "lock": "results/q1-confirmatory-v1/dataset.lock.json",
+    "processed_manifest_sha256": "d8517464a5792fcf7c1e858c7ff8441fea86085df05360a5a2007d064fb16d8c",
+    "security_evaluation_partition": "validation only",
+    "utility_test_accessed_before_extension": true
+  },
+  "paired_seeds": [1201, 1213, 1231, 1249, 1277],
+  "methods": [
+    "dp-fedavg-ckks",
+    "caabc",
+    "fed-ef-sgd-topk-dense-ckks",
+    "fed-ef-ams-topk-dense-ckks",
+    "soteriafl-sgd-randk-dense-ckks"
+  ],
+  "advanced_membership_inference": {
+    "new_target_methods": [
+      "fed-ef-sgd-topk-dense-ckks",
+      "fed-ef-ams-topk-dense-ckks",
+      "soteriafl-sgd-randk-dense-ckks"
+    ],
+    "existing_paired_references": ["dp-fedavg-ckks", "caabc"],
+    "rounds": 20,
+    "attacks": ["lira-online", "rmia-low-cost"],
+    "reference_models": 8,
+    "shadow_epochs": 8,
+    "maximum_candidates_per_group": 512,
+    "maximum_population": 256,
+    "endpoints": [
+      "attack_auc",
+      "tpr_at_fpr_0_001",
+      "tpr_at_fpr_0_01",
+      "tpr_at_fpr_0_05",
+      "maximum_advantage"
+    ]
+  },
+  "gradient_reconstruction": {
+    "design": "common-final-model visibility-isolation diagnostic",
+    "steps": 300,
+    "samples_per_seed": 4,
+    "coordinate_budget": "two CKKS slot chunks",
+    "observations": [
+      "plaintext-exact",
+      "dp-sanitized",
+      "caabc-block-mask",
+      "fed-ef-topk-mask",
+      "soteriafl-random-k-mask",
+      "dp-caabc-block-mask",
+      "dp-fed-ef-topk-mask",
+      "dp-soteriafl-random-k-mask"
+    ],
+    "endpoints": [
+      "feature_rmse",
+      "feature_cosine_similarity",
+      "final_gradient_mse"
+    ]
+  },
+  "poisoning": {
+    "design": "paired one-round compressor-isolation stress test",
+    "virtual_clients_per_hospital": 10,
+    "malicious_fractions": [0.2, 0.4],
+    "attacks": ["colluding-replacement", "sybil-backdoor", "adaptive-trust"],
+    "privacy_during_isolation": "disabled equally for every method",
+    "endpoints": [
+      "validation_auroc",
+      "validation_auprc",
+      "auroc_delta_from_method_clean",
+      "backdoor_attack_success_rate",
+      "backdoor_asr_delta_from_method_clean"
+    ]
+  },
+  "systems_microbenchmark": {
+    "backend": "TenSEAL 0.3.17 CKKS",
+    "dimension": 18049,
+    "client_counts": [2, 4, 8, 16],
+    "repetitions": 5,
+    "measurements": [
+      "compression_ms",
+      "encryption_ms",
+      "aggregation_and_decryption_ms",
+      "end_to_end_ms",
+      "encrypted_upload_bytes",
+      "updates_per_second"
+    ],
+    "boundary": "single-process cryptographic microbenchmark; service mTLS/audit latency remains separately reported"
+  },
+  "formal_analysis": {
+    "paired_unit": "seed",
+    "minimum_pairs": 5,
+    "confidence_interval": "paired Student-t 95 percent",
+    "noninferiority_margins": {
+      "test_auroc": 0.015,
+      "test_auprc": 0.02
+    },
+    "noninferiority_null": "CAABC minus comparator is less than or equal to the negative margin",
+    "multiplicity": "Holm within endpoint family"
+  },
+  "claim_boundaries": [
+    "This is a post-hoc extension, not prospective preregistration.",
+    "Security adapters compare the reproduced algorithms under the shared healthcare protocol and do not transfer source-paper threat-model claims.",
+    "The gradient experiment isolates exposed-coordinate geometry on one common model; it is not an end-to-end breach of CKKS.",
+    "The poisoning experiment disables DP and cryptographic transport equally to isolate update-transformation robustness.",
+    "The systems experiment is not a WAN, physical multi-host, TDX, SNP, or peak-memory result."
+  ]
+}

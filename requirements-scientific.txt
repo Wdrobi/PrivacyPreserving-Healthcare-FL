@@ -1,0 +1,8 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.13.0+cpu
+opacus==1.6.0
+numpy==2.5.2
+scipy==1.18.1
+tenseal==0.3.17
+cryptography==50.0.1
+matplotlib==3.11.1

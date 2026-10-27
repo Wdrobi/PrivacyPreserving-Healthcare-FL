@@ -1,0 +1,23 @@
+{
+  "protocol_id": "q1-sota-dropout-v1",
+  "status": "frozen before dropout adapter execution; post-hoc after prior utility test access",
+  "dataset": "data/processed/physionet-2019-confirmatory-20260829",
+  "paired_seeds": [1201, 1213, 1231, 1249, 1277],
+  "methods": [
+    "dp-fedavg-ckks",
+    "caabc",
+    "fed-ef-sgd-topk-dense-ckks",
+    "fed-ef-ams-topk-dense-ckks",
+    "soteriafl-sgd-randk-dense-ckks"
+  ],
+  "design": {
+    "virtual_clients_per_hospital": 10,
+    "participation_fractions": [1.0, 0.75, 0.5],
+    "rounds": 1,
+    "selection": "seeded random selection independently within each fraction",
+    "dp_enabled": false,
+    "encrypted_transport_executed": false,
+    "endpoints": ["validation_auroc", "validation_auprc", "auroc_delta_from_full_participation"]
+  },
+  "claim_boundary": "One-round partial-participation isolation on virtual clients; not stateful convergence under dropout, physical hospital loss, or encrypted-service availability."
+}

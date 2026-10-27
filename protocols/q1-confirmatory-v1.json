@@ -1,0 +1,107 @@
+{
+  "protocol_id": "q1-confirmatory-v1",
+  "title": "A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+  "status": "frozen-before-confirmatory-test-access",
+  "dataset": {
+    "name": "PhysioNet/Computing in Cardiology Challenge 2019",
+    "version": "1.0.0",
+    "doi": "10.13026/v64v-d857",
+    "raw_object_count": 40336,
+    "download_manifest_sha256": "e63738110c540285411fb2a017316fd6cb9a02c1cf814e1548041f3dae364565",
+    "license_sha256": "bcdfcd4f31c790e30fb645dc36414907172405897adff329ad379eed85d12017",
+    "confirmatory_split_seed": 20260829,
+    "split_unit": "patient",
+    "split": "stratified 70/15/15 within each source hospital",
+    "history_hours": 24,
+    "task": "matched-landmark early-sepsis classification",
+    "preprocessing": "fit on pooled participating-hospital training patients only"
+  },
+  "model": {
+    "architecture": "two-layer binary MLP",
+    "hidden_units": 64,
+    "local_epochs": 1,
+    "batch_size": 128,
+    "learning_rate": 0.03,
+    "rounds": 20,
+    "positive_class_weight": "computed from confirmatory training partition only"
+  },
+  "privacy": {
+    "adjacency": "add-or-remove one patient record",
+    "mechanism": "per-sample DP-SGD",
+    "noise_multiplier": 1.2,
+    "max_grad_norm": 1.0,
+    "delta": 0.00001,
+    "accountant": "RDP",
+    "secure_rng_required": true,
+    "secure_rng_backend": "aes-256-ctr/os-entropy; four-draw Gaussian; secure Poisson"
+  },
+  "cryptography_and_compression": {
+    "ckks_backend": "TenSEAL 0.3.17",
+    "block_size": 256,
+    "target_ciphertext_chunks": 2,
+    "caabc_refresh_interval": 5,
+    "quantization_bits": 8
+  },
+  "trials": {
+    "core_seeds": [1201, 1213, 1231, 1249, 1277, 1291, 1301, 1321, 1361, 1381],
+    "secondary_seeds": [1201, 1213, 1231, 1249, 1277]
+  },
+  "method_tiers": {
+    "optimization": {
+      "seeds": "core_seeds",
+      "methods": ["fedavg", "fedprox", "scaffold", "fednova", "fedadam", "fedyogi"]
+    },
+    "core_private": {
+      "seeds": "core_seeds",
+      "methods": ["dp-fedavg", "dp-fedavg-ckks", "caabc-static", "caabc"]
+    },
+    "secondary_compression": {
+      "seeds": "secondary_seeds",
+      "methods": ["random-k-ckks", "topk-dense-ckks", "ef-topk-dense-ckks", "fixed-block-ckks", "quantized-dense-ckks"]
+    }
+  },
+  "operating_point": {
+    "primary_objective": "youden-j",
+    "selection_partition": "pooled validation only",
+    "frozen_for": ["pooled test", "hospital-a test", "hospital-b test"],
+    "test_labels_used_for_selection": false
+  },
+  "outcomes": {
+    "primary": ["test_auroc", "test_auprc"],
+    "secondary": [
+      "test_sensitivity",
+      "test_specificity",
+      "test_precision",
+      "test_negative_predictive_value",
+      "test_f1",
+      "test_balanced_accuracy",
+      "test_matthews_correlation",
+      "test_brier",
+      "calibration_intercept",
+      "calibration_slope"
+    ],
+    "systems": ["wire_upload_bytes", "actual_wire_reduction", "logical_payload_reduction"]
+  },
+  "primary_gates": {
+    "reference": "dp-fedavg-ckks",
+    "caabc_auroc_noninferiority_margin": -0.015,
+    "caabc_minimum_wire_reduction": 0.40,
+    "confidence": 0.95,
+    "minimum_common_trials": 10
+  },
+  "analysis": {
+    "unit": "model trial with fixed patient split and initialization seed",
+    "comparison": "paired method-minus-reference differences on common seeds",
+    "interval": "two-sided Student-t 95 percent confidence interval",
+    "missing_cells": "no publication inference until every protocol cell is complete",
+    "secure_noise_reproducibility": "model seeds fix initialization; CSPRNG noise remains intentionally non-deterministic",
+    "multiple_testing": "primary gates interpreted jointly; secondary outcomes labelled exploratory"
+  },
+  "claim_boundaries": [
+    "This is retrospective public-data evaluation, not clinical validation.",
+    "The matched-landmark task is not the official hourly Challenge utility task.",
+    "The TenSEAL service remains single-key CKKS.",
+    "The custom secure-RNG backend is implemented but not independently audited.",
+    "Literature-only values from different datasets or threat models are not direct comparators."
+  ]
+}

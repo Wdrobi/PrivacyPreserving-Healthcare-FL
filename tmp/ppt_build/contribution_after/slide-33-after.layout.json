@@ -1,0 +1,2906 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/nax4b2dk",
+    "id": "nax4b2dk",
+    "slide": 33,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "OBJECT",
+    "layoutType": "obj",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Basis",
+    "colors": {
+      "accent1": "#A6B727",
+      "accent2": "#DF5327",
+      "accent3": "#FE9E00",
+      "accent4": "#418AB3",
+      "accent5": "#D7D447",
+      "accent6": "#818183",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#565349",
+      "lt2": "#DDDDDD",
+      "hlink": "#F59E00",
+      "folHlink": "#B2B2B2"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Arial"
+      },
+      "minorFont": {
+        "latinTypeface": "Arial"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Corbel"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "OBJECT",
+      "type": "obj",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/17",
+          "id": "17",
+          "name": "Google Shape;17;p2",
+          "bbox": [
+            120,
+            64,
+            1036.8,
+            142.4
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/18",
+          "id": "18",
+          "name": "Google Shape;18;p2",
+          "bbox": [
+            120,
+            216,
+            1036.52,
+            424
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 1,
+            "verticalAlignment": "top",
+            "wrap": "square",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/19",
+          "id": "19",
+          "name": "Google Shape;19;p2",
+          "bbox": [
+            120,
+            653.42,
+            244.52,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/20",
+          "id": "20",
+          "name": "Google Shape;20;p2",
+          "bbox": [
+            414.61,
+            653.42,
+            495.3,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout1.xml/21",
+          "id": "21",
+          "name": "Google Shape;21;p2",
+          "bbox": [
+            979.48,
+            653.42,
+            179.13,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›",
+                  "alignment": "right"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "backgroundColor": "lt1",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/10",
+          "id": "10",
+          "name": "Google Shape;10;p1",
+          "bbox": [
+            24.27,
+            25.6,
+            1230.93,
+            669.6
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 9.6,
+              "right": 9.6,
+              "bottom": 9.6,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "fillColor": "lt1",
+          "lineColor": "dk1",
+          "lineWidth": 1.33
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/11",
+          "id": "11",
+          "name": "Google Shape;11;p1",
+          "bbox": [
+            120,
+            64,
+            1036.8,
+            142.4
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/12",
+          "id": "12",
+          "name": "Google Shape;12;p1",
+          "bbox": [
+            120,
+            216,
+            1036.52,
+            424
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 1,
+            "verticalAlignment": "top",
+            "wrap": "square",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/13",
+          "id": "13",
+          "name": "Google Shape;13;p1",
+          "bbox": [
+            120,
+            653.42,
+            244.52,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/14",
+          "id": "14",
+          "name": "Google Shape;14;p1",
+          "bbox": [
+            414.61,
+            653.42,
+            495.3,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "lineWidth": 0
+        },
+        {
+          "order": 6,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/15",
+          "id": "15",
+          "name": "Google Shape;15;p1",
+          "bbox": [
+            979.48,
+            653.42,
+            179.13,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "verticalAlignment": "middle",
+            "wrap": "square",
+            "autoFit": "none",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            },
+            "useParagraphSpacing": true
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›",
+                  "alignment": "right"
+                }
+              ]
+            }
+          ],
+          "lineWidth": 0
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/but0fixc",
+      "id": "211",
+      "name": "Google Shape;211;p28",
+      "bbox": [
+        198.64,
+        24.56,
+        842.72,
+        84.88
+      ],
+      "geometry": "rect",
+      "text": "Research Contributions",
+      "textPreview": "Research Contributions",
+      "resolvedFontSize": 58.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 58.67,
+        "typeface": "Corbel",
+        "color": "dk1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        },
+        "useParagraphSpacing": true
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Research Contributions"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Research Contributions",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Research Contributions",
+              "fontSize": 53.33,
+              "typeface": "Arial",
+              "color": "#002060",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 90000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wv218nyx",
+      "id": "212",
+      "name": "Google Shape;212;p28",
+      "bbox": [
+        1183.5,
+        642.75,
+        71.75,
+        52.3
+      ],
+      "geometry": "rect",
+      "text": "33",
+      "textPreview": "33",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 16,
+        "typeface": "Corbel",
+        "color": "dk1",
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        },
+        "useParagraphSpacing": true
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "33"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "33",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "fontSize": 30,
+            "typeface": "Arial",
+            "color": "#062B6F",
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "33",
+              "fontSize": 30,
+              "typeface": "Arial",
+              "color": "#062B6F"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0,
+          "indent": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/43yls72x",
+      "id": "235",
+      "name": "Google Shape;214;p28",
+      "bbox": [
+        1041.36,
+        26.41,
+        204.07,
+        84.9
+      ],
+      "contentType": "image/png",
+      "imageCrop": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "asset": {
+        "assetId": "/ppt/media/image2.png",
+        "contentType": "image/png",
+        "byteLength": 138025
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image2.png",
+        "contentType": "image/png",
+        "byteLength": 138025
+      }
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kjm1cnyt",
+      "id": "216",
+      "name": "Google Shape;216;p28",
+      "bbox": [
+        280.49,
+        695.88,
+        701.23,
+        23.5
+      ],
+      "geometry": "rect",
+      "text": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+      "textPreview": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 16,
+        "typeface": "Corbel",
+        "color": "dk1",
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "wrap": "square",
+        "autoFit": "none",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        },
+        "useParagraphSpacing": true
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+          "lineSpacingPercent": 100000,
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CAABC-FL: A Hybrid Privacy-Preserving Framework for Secure Multi-Institutional Collaboration",
+              "typeface": "Arial",
+              "color": "#002060"
+            }
+          ],
+          "bulletCharacter": ""
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3qx0b2ds",
+      "id": "220",
+      "name": "contribution-heading-0",
+      "bbox": [
+        85,
+        145,
+        510,
+        55
+      ],
+      "geometry": "rect",
+      "text": "Integrated framework",
+      "textPreview": "Integrated framework",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Integrated framework"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Integrated framework",
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Arial",
+            "color": "#00843D",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Integrated framework",
+              "fontSize": 28,
+              "typeface": "Arial",
+              "color": "#00843D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2poz2xc7",
+      "id": "221",
+      "name": "rule-85-205",
+      "bbox": [
+        85,
+        205,
+        500,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#00843D",
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/psfidcvi",
+      "id": "222",
+      "name": "contribution-body-0",
+      "bbox": [
+        85,
+        225,
+        510,
+        135
+      ],
+      "geometry": "rect",
+      "text": "A working cross-silo pipeline combines patient-level DP, CKKS aggregation, authenticated messages, verification, governed release, and witnessed audit evidence.",
+      "textPreview": "A working cross-silo pipeline combines patient-level DP, CKKS aggregation, authenticated messages, verification, governed release, and wi...",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "A working cross-silo pipeline combines"
+          },
+          {
+            "index": 2,
+            "text": "patient-level DP, CKKS aggregation,"
+          },
+          {
+            "index": 3,
+            "text": "authenticated messages, verification, governed"
+          },
+          {
+            "index": 4,
+            "text": "release, and witnessed audit evidence."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "A working cross-silo pipeline combines patient-level DP, CKKS aggregation, authenticated messages, verification, governed release, and witnessed audit evidence.",
+          "resolvedTextStyle": {
+            "fontSize": 22.51,
+            "typeface": "Arial",
+            "color": "#1F2937",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "A working cross-silo pipeline combines patient-level DP, CKKS aggregation, authenticated messages, verification, governed release, and witnessed audit evidence.",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4r6h47ud",
+      "id": "223",
+      "name": "contribution-heading-1",
+      "bbox": [
+        660,
+        145,
+        510,
+        55
+      ],
+      "geometry": "rect",
+      "text": "CAABC-FL",
+      "textPreview": "CAABC-FL",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CAABC-FL"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CAABC-FL",
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Arial",
+            "color": "#17365D",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CAABC-FL",
+              "fontSize": 28,
+              "typeface": "Arial",
+              "color": "#17365D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fmd072dg",
+      "id": "224",
+      "name": "rule-660-205",
+      "bbox": [
+        660,
+        205,
+        500,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#00AEEF",
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ul4zyxcv",
+      "id": "225",
+      "name": "contribution-body-1",
+      "bbox": [
+        660,
+        225,
+        510,
+        135
+      ],
+      "geometry": "rect",
+      "text": "Adaptive common blocks align with ciphertext packing, so compression reduces serialized network bytes while error feedback limits discarded-update loss.",
+      "textPreview": "Adaptive common blocks align with ciphertext packing, so compression reduces serialized network bytes while error feedback limits discard...",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Adaptive common blocks align with ciphertext"
+          },
+          {
+            "index": 2,
+            "text": "packing, so compression reduces serialized"
+          },
+          {
+            "index": 3,
+            "text": "network bytes while error feedback limits"
+          },
+          {
+            "index": 4,
+            "text": "discarded-update loss."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Adaptive common blocks align with ciphertext packing, so compression reduces serialized network bytes while error feedback limits discarded-update loss.",
+          "resolvedTextStyle": {
+            "fontSize": 22.51,
+            "typeface": "Arial",
+            "color": "#1F2937",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Adaptive common blocks align with ciphertext packing, so compression reduces serialized network bytes while error feedback limits discarded-update loss.",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hovi9svm",
+      "id": "226",
+      "name": "contribution-heading-2",
+      "bbox": [
+        85,
+        380,
+        510,
+        55
+      ],
+      "geometry": "rect",
+      "text": "Reproducible evaluation",
+      "textPreview": "Reproducible evaluation",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Reproducible evaluation"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Reproducible evaluation",
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Arial",
+            "color": "#00843D",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reproducible evaluation",
+              "fontSize": 28,
+              "typeface": "Arial",
+              "color": "#00843D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gnmh0nu1",
+      "id": "227",
+      "name": "rule-85-440",
+      "bbox": [
+        85,
+        440,
+        500,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#00843D",
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7yd03idk",
+      "id": "228",
+      "name": "contribution-body-2",
+      "bbox": [
+        85,
+        460,
+        510,
+        135
+      ],
+      "geometry": "rect",
+      "text": "5 paired seeds cover utility, LiRA/RMIA, 300-step reconstruction, 7 one-round attacks, longitudinal poisoning, CKKS correctness, and service timing.",
+      "textPreview": "5 paired seeds cover utility, LiRA/RMIA, 300-step reconstruction, 7 one-round attacks, longitudinal poisoning, CKKS correctness, and serv...",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "5 paired seeds cover utility, LiRA/RMIA, 300-step"
+          },
+          {
+            "index": 2,
+            "text": "reconstruction, 7 one-round attacks, longitudinal"
+          },
+          {
+            "index": 3,
+            "text": "poisoning, CKKS correctness, and service"
+          },
+          {
+            "index": 4,
+            "text": "timing."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "5 paired seeds cover utility, LiRA/RMIA, 300-step reconstruction, 7 one-round attacks, longitudinal poisoning, CKKS correctness, and service timing.",
+          "resolvedTextStyle": {
+            "fontSize": 22.51,
+            "typeface": "Arial",
+            "color": "#1F2937",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "5",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            },
+            {
+              "index": 2,
+              "text": " paired seeds cover utility, ",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            },
+            {
+              "index": 3,
+              "text": "LiRA",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            },
+            {
+              "index": 4,
+              "text": "/RMIA, 300-step reconstruction, ",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            },
+            {
+              "index": 5,
+              "text": "7",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            },
+            {
+              "index": 6,
+              "text": " one-round attacks, longitudinal poisoning, CKKS correctness, and service timing.",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6xkzudcz",
+      "id": "229",
+      "name": "contribution-heading-3",
+      "bbox": [
+        660,
+        380,
+        510,
+        55
+      ],
+      "geometry": "rect",
+      "text": "Explicit claim boundary",
+      "textPreview": "Explicit claim boundary",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Explicit claim boundary"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Explicit claim boundary",
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Arial",
+            "color": "#17365D",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Explicit claim boundary",
+              "fontSize": 28,
+              "typeface": "Arial",
+              "color": "#17365D",
+              "bold": true
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cry5oz6l",
+      "id": "230",
+      "name": "rule-660-440",
+      "bbox": [
+        660,
+        440,
+        500,
+        3
+      ],
+      "geometry": "rect",
+      "fillColor": "#00AEEF",
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xs76hk76",
+      "id": "231",
+      "name": "contribution-body-3",
+      "bbox": [
+        660,
+        460,
+        510,
+        135
+      ],
+      "geometry": "rect",
+      "text": "Negative AUPRC, rollback cost, central key custody, and deployment limits remain visible rather than being hidden by a single headline metric.",
+      "textPreview": "Negative AUPRC, rollback cost, central key custody, and deployment limits remain visible rather than being hidden by a single headline me...",
+      "resolvedFontSize": 18.67,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Negative AUPRC, rollback cost, central key"
+          },
+          {
+            "index": 2,
+            "text": "custody, and deployment limits remain visible"
+          },
+          {
+            "index": 3,
+            "text": "rather than being hidden by a single headline"
+          },
+          {
+            "index": 4,
+            "text": "metric."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Negative AUPRC, rollback cost, central key custody, and deployment limits remain visible rather than being hidden by a single headline metric.",
+          "resolvedTextStyle": {
+            "fontSize": 22.51,
+            "typeface": "Arial",
+            "color": "#1F2937",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Negative AUPRC, rollback cost, central key custody, and deployment limits remain visible rather than being hidden by a single headline metric.",
+              "fontSize": 22.51,
+              "typeface": "Arial",
+              "color": "#1F2937"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kfi5sz6h",
+      "id": "234",
+      "name": "visible-footer-date-25",
+      "bbox": [
+        49,
+        670,
+        190,
+        22
+      ],
+      "geometry": "rect",
+      "text": "25 September 2026",
+      "textPreview": "25 September 2026",
+      "resolvedFontSize": 17.54,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.67,
+        "typeface": "Arial",
+        "color": "#000000",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 0.94,
+        "autoFitLineSpaceReduction": 10000,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "25 September 2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "25 September 2026",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "typeface": "Arial",
+            "color": "#17365D",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "25 September 2026",
+              "fontSize": 11,
+              "typeface": "Arial",
+              "color": "#17365D"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/j2p4j2lc",
+      "id": "236",
+      "name": "Picture 1",
+      "bbox": [
+        47.51,
+        30.03,
+        81.06,
+        81.06
+      ],
+      "contentType": "image/png",
+      "asset": {
+        "assetId": "/ppt/media/image3.png",
+        "contentType": "image/png",
+        "byteLength": 1486874
+      },
+      "fillImage": {
+        "assetId": "/ppt/media/image3.png",
+        "contentType": "image/png",
+        "byteLength": 1486874
+      }
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ze9ojupw",
+      "id": "237",
+      "name": "research-contributions-replacement-cover",
+      "bbox": [
+        55,
+        120,
+        1170,
+        520
+      ],
+      "geometry": "rect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0je5gv6d",
+      "id": "238",
+      "name": "contribution-01-number",
+      "bbox": [
+        85,
+        142,
+        44,
+        30
+      ],
+      "geometry": "rect",
+      "text": "01",
+      "textPreview": "01",
+      "resolvedFontSize": 14.51,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 14.51,
+        "typeface": "Arial",
+        "color": "#008A46",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "01"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "01",
+          "resolvedTextStyle": {
+            "fontSize": 14.51,
+            "typeface": "Arial",
+            "color": "#008A46",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "01",
+              "fontSize": 14.51,
+              "typeface": "Arial",
+              "color": "#008A46",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1kn6907y",
+      "id": "239",
+      "name": "contribution-01-title",
+      "bbox": [
+        133,
+        140,
+        452,
+        35
+      ],
+      "geometry": "rect",
+      "text": "Theoretical contribution",
+      "textPreview": "Theoretical contribution",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21,
+        "typeface": "Arial",
+        "color": "#008A46",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Theoretical contribution"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Theoretical contribution",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Arial",
+            "color": "#008A46",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Theoretical contribution",
+              "fontSize": 21,
+              "typeface": "Arial",
+              "color": "#008A46",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tsj654be",
+      "id": "240",
+      "name": "contribution-01-rule",
+      "bbox": [
+        85,
+        178,
+        500,
+        2.3
+      ],
+      "geometry": "rect",
+      "fillColor": "#008A46",
+      "lineWidth": 0
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/srapczat",
+      "id": "241",
+      "name": "contribution-01-body",
+      "bbox": [
+        85,
+        188,
+        500,
+        70
+      ],
+      "geometry": "rect",
+      "text": "Defines collaboration through four interacting properties: released-model privacy, update confidentiality, encrypted communication efficiency, and accountable integrity.",
+      "textPreview": "Defines collaboration through four interacting properties: released-model privacy, update confidentiality, encrypted communication effici...",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "Arial",
+        "color": "#263244",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Defines collaboration through four interacting properties:"
+          },
+          {
+            "index": 2,
+            "text": "released-model privacy, update confidentiality, encrypted"
+          },
+          {
+            "index": 3,
+            "text": "communication efficiency, and accountable integrity."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Defines collaboration through four interacting properties: released-model privacy, update confidentiality, encrypted communication efficiency, and accountable integrity.",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Defines collaboration through four interacting properties: released-model privacy, update confidentiality, encrypted communication efficiency, and accountable integrity.",
+              "fontSize": 16.51,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7q1o3ut8",
+      "id": "242",
+      "name": "contribution-02-number",
+      "bbox": [
+        85,
+        278,
+        44,
+        30
+      ],
+      "geometry": "rect",
+      "text": "02",
+      "textPreview": "02",
+      "resolvedFontSize": 14.51,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 14.51,
+        "typeface": "Arial",
+        "color": "#062B6F",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02",
+          "resolvedTextStyle": {
+            "fontSize": 14.51,
+            "typeface": "Arial",
+            "color": "#062B6F",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "02",
+              "fontSize": 14.51,
+              "typeface": "Arial",
+              "color": "#062B6F",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6ps7apsn",
+      "id": "243",
+      "name": "contribution-02-title",
+      "bbox": [
+        133,
+        276,
+        452,
+        35
+      ],
+      "geometry": "rect",
+      "text": "Algorithmic contribution",
+      "textPreview": "Algorithmic contribution",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21,
+        "typeface": "Arial",
+        "color": "#062B6F",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Algorithmic contribution"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Algorithmic contribution",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Arial",
+            "color": "#062B6F",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Algorithmic contribution",
+              "fontSize": 21,
+              "typeface": "Arial",
+              "color": "#062B6F",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5oj61kbi",
+      "id": "244",
+      "name": "contribution-02-rule",
+      "bbox": [
+        85,
+        314,
+        500,
+        2.3
+      ],
+      "geometry": "rect",
+      "fillColor": "#062B6F",
+      "lineWidth": 0
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kna58fax",
+      "id": "245",
+      "name": "contribution-02-body",
+      "bbox": [
+        85,
+        324,
+        500,
+        70
+      ],
+      "geometry": "rect",
+      "text": "CAABC-FL combines encrypted aggregate block scoring, shared CKKS-aligned support, periodic refresh, and residual error feedback.",
+      "textPreview": "CAABC-FL combines encrypted aggregate block scoring, shared CKKS-aligned support, periodic refresh, and residual error feedback.",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "Arial",
+        "color": "#263244",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CAABC-FL combines encrypted aggregate block scoring, shared"
+          },
+          {
+            "index": 2,
+            "text": "CKKS-aligned support, periodic refresh, and residual error"
+          },
+          {
+            "index": 3,
+            "text": "feedback."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CAABC-FL combines encrypted aggregate block scoring, shared CKKS-aligned support, periodic refresh, and residual error feedback.",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CAABC-FL combines encrypted aggregate block scoring, shared CKKS-aligned support, periodic refresh, and residual error feedback.",
+              "fontSize": 16.51,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 28,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/jmhozutc",
+      "id": "246",
+      "name": "contribution-03-number",
+      "bbox": [
+        85,
+        414,
+        44,
+        30
+      ],
+      "geometry": "rect",
+      "text": "03",
+      "textPreview": "03",
+      "resolvedFontSize": 14.51,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 14.51,
+        "typeface": "Arial",
+        "color": "#008A46",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "03"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "03",
+          "resolvedTextStyle": {
+            "fontSize": 14.51,
+            "typeface": "Arial",
+            "color": "#008A46",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "03",
+              "fontSize": 14.51,
+              "typeface": "Arial",
+              "color": "#008A46",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 29,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/il8n6psr",
+      "id": "247",
+      "name": "contribution-03-title",
+      "bbox": [
+        133,
+        412,
+        452,
+        35
+      ],
+      "geometry": "rect",
+      "text": "Practical contribution",
+      "textPreview": "Practical contribution",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21,
+        "typeface": "Arial",
+        "color": "#008A46",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Practical contribution"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Practical contribution",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Arial",
+            "color": "#008A46",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Practical contribution",
+              "fontSize": 21,
+              "typeface": "Arial",
+              "color": "#008A46",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 30,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x0z6xkb6",
+      "id": "248",
+      "name": "contribution-03-rule",
+      "bbox": [
+        85,
+        450,
+        500,
+        2.3
+      ],
+      "geometry": "rect",
+      "fillColor": "#008A46",
+      "lineWidth": 0
+    },
+    {
+      "order": 31,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wzq54fal",
+      "id": "249",
+      "name": "contribution-03-body",
+      "bbox": [
+        85,
+        460,
+        500,
+        82
+      ],
+      "geometry": "rect",
+      "text": "Implements a multi-service system with signed artifacts, independent aggregate checks, governed release and inference, rollback, and three external audit witnesses.",
+      "textPreview": "Implements a multi-service system with signed artifacts, independent aggregate checks, governed release and inference, rollback, and thre...",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "Arial",
+        "color": "#263244",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Implements a multi-service system with signed artifacts,"
+          },
+          {
+            "index": 2,
+            "text": "independent aggregate checks, governed release and inference,"
+          },
+          {
+            "index": 3,
+            "text": "rollback, and three external audit witnesses."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Implements a multi-service system with signed artifacts, independent aggregate checks, governed release and inference, rollback, and three external audit witnesses.",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Implements a multi-service system with signed artifacts, independent aggregate checks, governed release and inference, rollback, and three external audit witnesses.",
+              "fontSize": 16.51,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 32,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m5o3yl8j",
+      "id": "250",
+      "name": "contribution-04-number",
+      "bbox": [
+        660,
+        142,
+        44,
+        30
+      ],
+      "geometry": "rect",
+      "text": "04",
+      "textPreview": "04",
+      "resolvedFontSize": 14.51,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 14.51,
+        "typeface": "Arial",
+        "color": "#062B6F",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "04"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "04",
+          "resolvedTextStyle": {
+            "fontSize": 14.51,
+            "typeface": "Arial",
+            "color": "#062B6F",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "04",
+              "fontSize": 14.51,
+              "typeface": "Arial",
+              "color": "#062B6F",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 33,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n6x47q94",
+      "id": "251",
+      "name": "contribution-04-title",
+      "bbox": [
+        708,
+        140,
+        452,
+        35
+      ],
+      "geometry": "rect",
+      "text": "Methodological contribution",
+      "textPreview": "Methodological contribution",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21,
+        "typeface": "Arial",
+        "color": "#062B6F",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Methodological contribution"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Methodological contribution",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Arial",
+            "color": "#062B6F",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Methodological contribution",
+              "fontSize": 21,
+              "typeface": "Arial",
+              "color": "#062B6F",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 34,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8r6l0vqp",
+      "id": "252",
+      "name": "contribution-04-rule",
+      "bbox": [
+        660,
+        178,
+        500,
+        2.3
+      ],
+      "geometry": "rect",
+      "fillColor": "#062B6F",
+      "lineWidth": 0
+    },
+    {
+      "order": 35,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9sfm9gra",
+      "id": "253",
+      "name": "contribution-04-body",
+      "bbox": [
+        660,
+        188,
+        500,
+        90
+      ],
+      "geometry": "rect",
+      "text": "Uses a frozen paired protocol to measure utility, privacy attacks, one-round and longitudinal poisoning, ciphertext bytes, correctness, timing, and statistical uncertainty.",
+      "textPreview": "Uses a frozen paired protocol to measure utility, privacy attacks, one-round and longitudinal poisoning, ciphertext bytes, correctness, t...",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "Arial",
+        "color": "#263244",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Uses a frozen paired protocol to measure utility, privacy attacks,"
+          },
+          {
+            "index": 2,
+            "text": "one-round and longitudinal poisoning, ciphertext bytes,"
+          },
+          {
+            "index": 3,
+            "text": "correctness, timing, and statistical uncertainty."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Uses a frozen paired protocol to measure utility, privacy attacks, one-round and longitudinal poisoning, ciphertext bytes, correctness, timing, and statistical uncertainty.",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Uses a frozen paired protocol to measure utility, privacy attacks, one-round and longitudinal poisoning, ciphertext bytes, correctness, timing, and statistical uncertainty.",
+              "fontSize": 16.51,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 36,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/y143u18n",
+      "id": "254",
+      "name": "contribution-05-number",
+      "bbox": [
+        660,
+        316,
+        44,
+        30
+      ],
+      "geometry": "rect",
+      "text": "05",
+      "textPreview": "05",
+      "resolvedFontSize": 14.51,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 14.51,
+        "typeface": "Arial",
+        "color": "#00A6DF",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "05"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "05",
+          "resolvedTextStyle": {
+            "fontSize": 14.51,
+            "typeface": "Arial",
+            "color": "#00A6DF",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "05",
+              "fontSize": 14.51,
+              "typeface": "Arial",
+              "color": "#00A6DF",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 37,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/z2d4369s",
+      "id": "255",
+      "name": "contribution-05-title",
+      "bbox": [
+        708,
+        314,
+        452,
+        35
+      ],
+      "geometry": "rect",
+      "text": "Empirical contribution",
+      "textPreview": "Empirical contribution",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 21,
+        "typeface": "Arial",
+        "color": "#00A6DF",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Empirical contribution"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Empirical contribution",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Arial",
+            "color": "#00A6DF",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Empirical contribution",
+              "fontSize": 21,
+              "typeface": "Arial",
+              "color": "#00A6DF",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 38,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/03mlwbqd",
+      "id": "256",
+      "name": "contribution-05-rule",
+      "bbox": [
+        660,
+        352,
+        500,
+        2.3
+      ],
+      "geometry": "rect",
+      "fillColor": "#00A6DF",
+      "lineWidth": 0
+    },
+    {
+      "order": 39,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l4fm5gry",
+      "id": "257",
+      "name": "empirical-result-highlight",
+      "bbox": [
+        660,
+        371,
+        500,
+        88
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EAF7FC",
+      "lineColor": "#8CCFE7",
+      "lineWidth": 1.2
+    },
+    {
+      "order": 40,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qx43q1sb",
+      "id": "258",
+      "name": "empirical-56-percent",
+      "bbox": [
+        680,
+        383,
+        155,
+        52
+      ],
+      "geometry": "rect",
+      "text": "56.0%",
+      "textPreview": "56.0%",
+      "resolvedFontSize": 33,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 33,
+        "typeface": "Arial",
+        "color": "#062B6F",
+        "bold": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "56.0%"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "56.0%",
+          "resolvedTextStyle": {
+            "fontSize": 33,
+            "typeface": "Arial",
+            "color": "#062B6F",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "56.0%",
+              "fontSize": 33,
+              "typeface": "Arial",
+              "color": "#062B6F",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 41,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bydkz69w",
+      "id": "259",
+      "name": "empirical-reduction-label",
+      "bbox": [
+        845,
+        387,
+        285,
+        45
+      ],
+      "geometry": "rect",
+      "text": "lower encrypted upload",
+      "textPreview": "lower encrypted upload",
+      "resolvedFontSize": 18.51,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 18.51,
+        "typeface": "Arial",
+        "color": "#062B6F",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "lower encrypted upload"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "lower encrypted upload",
+          "resolvedTextStyle": {
+            "fontSize": 18.51,
+            "typeface": "Arial",
+            "color": "#062B6F",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "lower encrypted upload",
+              "fontSize": 18.51,
+              "typeface": "Arial",
+              "color": "#062B6F",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 42,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fqpsbylc",
+      "id": "260",
+      "name": "empirical-result-body",
+      "bbox": [
+        660,
+        472,
+        500,
+        68
+      ],
+      "geometry": "rect",
+      "text": "CAABC-FL met the registered AUROC non-inferiority criterion. AUPRC and operating-point trade-offs remain visible.",
+      "textPreview": "CAABC-FL met the registered AUROC non-inferiority criterion. AUPRC and operating-point trade-offs remain visible.",
+      "resolvedFontSize": 16.51,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 16.51,
+        "typeface": "Arial",
+        "color": "#263244",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CAABC-FL met the registered AUROC non-inferiority criterion."
+          },
+          {
+            "index": 2,
+            "text": "AUPRC and operating-point trade-offs remain visible."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CAABC-FL met the registered AUROC non-inferiority criterion. AUPRC and operating-point trade-offs remain visible.",
+          "resolvedTextStyle": {
+            "fontSize": 16.51,
+            "typeface": "Arial",
+            "color": "#263244",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CAABC-FL met the registered AUROC non-inferiority criterion. AUPRC and operating-point trade-offs remain visible.",
+              "fontSize": 16.51,
+              "typeface": "Arial",
+              "color": "#263244",
+              "alignment": "left"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 43,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u5gritkr",
+      "id": "261",
+      "name": "claim-boundary-note-background",
+      "bbox": [
+        85,
+        567,
+        1075,
+        48
+      ],
+      "geometry": "rect",
+      "fillColor": "#F6F8FA",
+      "lineColor": "#D9E2EC",
+      "lineWidth": 1
+    },
+    {
+      "order": 44,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hsrad83i",
+      "id": "262",
+      "name": "claim-boundary-note",
+      "bbox": [
+        105,
+        574,
+        1035,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Evidence boundary: claims apply to the evaluated dataset, attacks, seeds, trust assumptions, and deployment environment.",
+      "textPreview": "Evidence boundary: claims apply to the evaluated dataset, attacks, seeds, trust assumptions, and deployment environment.",
+      "resolvedFontSize": 14.31,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 14.31,
+        "typeface": "Arial",
+        "color": "#5D6878",
+        "italic": true,
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "textTransform": "none",
+        "autoFit": "shrinkText",
+        "autoFitScale": 1,
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Evidence boundary: claims apply to the evaluated dataset, attacks, seeds, trust assumptions, and deployment environment."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Evidence boundary: claims apply to the evaluated dataset, attacks, seeds, trust assumptions, and deployment environment.",
+          "resolvedTextStyle": {
+            "fontSize": 14.31,
+            "typeface": "Arial",
+            "color": "#5D6878",
+            "italic": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Evidence boundary: claims apply to the evaluated dataset, attacks, seeds, trust assumptions, and deployment environment.",
+              "fontSize": 14.31,
+              "typeface": "Arial",
+              "color": "#5D6878",
+              "italic": true,
+              "alignment": "center"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 100000
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

@@ -1,0 +1,18 @@
+[project]
+name = "healthfl"
+version = "0.1.0"
+description = "Research prototype for privacy-preserving multi-institutional healthcare federated learning"
+requires-python = ">=3.11"
+
+[project.scripts]
+healthfl-demo = "healthfl.demo:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
